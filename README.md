@@ -1,0 +1,7 @@
+- 👋 Hi, I’m @secure-keys
+- 👀 I’m interested in soccer, guitars, & coding.
+- 🌱 I’m currently learning javascript.
+- 💞️ I’m looking to collaborate on python.
+- 📫 You can reach me on +4407909488476
+- 😄 Pronoun: I don't give a rat's ass.
+- ⚡ Fun fact: I love Donald Trump.
