@@ -40,12 +40,8 @@
     </style>
 </head>
 <body>
-    <!-- Logo Section -->
-    <img alt="Bitaddress Logo" title="bitaddress Logo" id="logo" src="https://i.ibb.co/4pgYM1b/bitaddress-logo.png">
-
-    <!-- Language/Culture Menu -->
     <div id="culturemenu">
-        <div class="culturemenurow">
+        <div class="culturemenurow;" style="margin-top: 80px;"></div> <!-- Empty div for spacing -->>
             <span><a href="?culture=en" id="cultureen" class="selected" onclick="ninja.translator.translate('en'); return false;">English</a></span> |
             <span><a href="?culture=es" id="culturees" onclick="ninja.translator.translate('es'); return false;" class="">Español</a></span> |
             <span><a href="?culture=fr" id="culturefr" onclick="ninja.translator.translate('fr'); return false;" class="">Français</a></span> |
@@ -53,6 +49,7 @@
             <span><a href="?culture=it" id="cultureit" onclick="ninja.translator.translate('it'); return false;" class="">italiano</a></span> |
             <span><a href="?culture=de" id="culturede" onclick="ninja.translator.translate('de'); return false;" class="">Deutsch</a></span>
         </div>
+
         <div class="culturemenurow">
             <span><a href="?culture=cs" id="culturecs" onclick="ninja.translator.translate('cs'); return false;" class="">Česky</a></span> |
             <span><a href="?culture=hu" id="culturehu" onclick="ninja.translator.translate('hu'); return false;" class="">Magyar</a></span> |
@@ -61,11 +58,12 @@
             <span><a href="?culture=ru" id="cultureru" onclick="ninja.translator.translate('ru'); return false;" class="">Русский</a></span> |
             <span><a href="?culture=pt-br" id="culturept-br" onclick="ninja.translator.translate('pt-br'); return false;" class="">português</a></span>
         </div>
+        
+    <div>  
+    <img alt="Bitaddress Logo" title="bitaddress Logo" id="logo" src="https://i.ibb.co/4pgYM1b/bitaddress-logo.png">    
     </div>
-
-    <!-- Tagline -->
-    <div id="tagline">Open Source JavaScript Client-Side Bitcoin Wallet Address & QR Code Generator</div>
-
+    
+    <div id="tagline"><em>Open Source JavaScript Client-Side Bitcoin Wallet Address & QR Code Generator</em></div>
     <!-- Landing Page Title -->
     <h1>Welcome to bitaddress.org</h1>
 
