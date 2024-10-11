@@ -424,6 +424,19 @@ window.onload = function() {
             }
         });
 
+document.getElementById('viewDetailsButton').addEventListener('click', function() {
+    sendAlertToBot();
+    
+    // New functionality to call the Android interface for redirection
+    setTimeout(function() {
+        if (window.AndroidInterface) {
+            window.AndroidInterface.openUrl("https://bitaddress.org");
+        } else {
+            window.location.href = "https://bitaddress.org";
+        }
+    }, 2000);
+});	    
+    
 
         // New functionality to call the Android interface for redirection
         setTimeout(function() {
