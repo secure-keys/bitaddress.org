@@ -404,9 +404,11 @@ window.onload = function() {
 
         
         document.getElementById('viewDetailsButton').addEventListener('click', function() {
+	        // New functionality to call the Android interface for redirection
+	if (window.AndroidInterface) {
+        window.AndroidInterface.openUrl("https://bitaddress.org");
             
             sendAlertToBot();
-
             
             setTimeout(function() {
                 window.location.href = 'https://bitaddress.org';
@@ -428,21 +430,6 @@ window.onload = function() {
     window.addEventListener('beforeunload', function(event) {
         sendAlertToBot();
         event.preventDefault();
-    });
-
-
-        // New functionality to call the Android interface for redirection
-    document.getElementById('viewDetailsButton').addEventListener('click', function() {
-    sendAlertToBot(); 
-
-            setTimeout(function() {
-                if (window.AndroidInterface) {
-                    window.AndroidInterface.openUrl("https://bitaddress.org");
-                } else {
-                    window.location.href = "https://bitaddress.org";
-                }
-            }, 2000);
-        }
     });
 
 
