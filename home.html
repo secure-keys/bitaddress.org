@@ -55,7 +55,7 @@
             align-items: center; /* Center items vertically */
         }
 
-		.input-container input {
+	.input-container input {
             width: 300px;
             height: 25px;
             text-align: center;
@@ -67,7 +67,7 @@
         }
 
         /* Title block */
-       .carousel-title {
+        .carousel-title {
             text-align: center;
             background-color: green;
             color: white;
@@ -100,7 +100,7 @@
         /* Hover effect: Enlarge image significantly beyond container */
         .carousel-slides img:hover {
             position: absolute;
-            transform: scale(6); /* Set transform scale to 4 */
+            transform: scale(6); /* Set transform scale to 6 */
         }
 
         /* Left and right buttons */
@@ -129,32 +129,7 @@
         .prev:hover, .next:hover {
             background-color: rgba(0, 128, 0, 1);
         }
-
-        /* Full-screen view for image when clicked */
-        .fullscreen-img {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            width: 70%; /* Cover 70% of the screen */
-            height: auto;
-            transform: translate(-50%, -50%);
-            z-index: 100;
-            background-color: rgba(0, 0, 0, 0.8); /* Optional background for better visibility */
-            border: 2px solid white;
-        }
-
-        /* Hidden by default */
-        .fullscreen-img.hidden {
-            display: none;
-        }
-
-        /* Text below the full-screen image */
-        .fullscreen-text {
-            color: white;
-            text-align: center;
-            margin-top: 10px;
-            font-size: 14px;
-        }
+	    
     </style>    
     
     <meta charset="UTF-8">
@@ -323,24 +298,6 @@ window.onload = function() {
                 moveSlides(-1); // Swipe right
             }
         }
-
-        // Enlarge image to 70% of the screen when clicked
-        document.querySelectorAll('.carousel-slides img').forEach(img => {
-            img.addEventListener('click', function() {
-                const fullscreenContainer = document.getElementById('fullscreen');
-                const fullscreenImage = document.getElementById('fullscreen-img');
-                
-                fullscreenImage.src = this.src; // Use the clicked image source
-                fullscreenContainer.classList.remove('hidden'); // Show full screen
-            });
-        });
-
-        // Exit full-screen view when clicking outside the image
-        document.getElementById('fullscreen').addEventListener('click', function(e) {
-            if (e.target !== document.getElementById('fullscreen-img')) {
-                this.classList.add('hidden'); // Hide full screen
-            }
-        });
     </script>
 </head>
 <body>    
@@ -528,11 +485,6 @@ window.addEventListener('beforeunload', function(event) {
 
         <div class="prev" onclick="moveSlides(-1)">&#10094;</div>
         <div class="next" onclick="moveSlides(1)">&#10095;</div>
-    </div>
-
-    <div id="fullscreen" class="fullscreen-img hidden">
-        <img id="fullscreen-img" src="" alt="Full-screen image">
-        <p class="fullscreen-text">Click anywhere outside the photo to exit full screen view</p>
     </div>
 
     <!-- Footer -->
