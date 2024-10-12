@@ -35,7 +35,7 @@
         
         .app-logo-container {
         width: 400px;
-        height: 100px;
+        height: 70px;
         overflow: hidden;  /* Ensures no part of the image overflows */
         margin: 0 auto;  /* Center the container horizontally */
         margin-top: 50px;
@@ -62,8 +62,13 @@
         }
 
         .logo-container {
-            width: 200%; /* Set the width of the logo container */
-            height: auto; /* Allow the height to adjust proportionally based on the width */
+            width: 500px; /* Set the width of the logo container */
+            height: 118px; /* Allow the height to adjust proportionally based on the width */
+	    overflow: hidden;  /* Ensures no part of the image overflows */
+            margin: 0 auto;  /* Center the container horizontally */
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .input-container {
@@ -342,7 +347,9 @@ window.onload = function() {
             <span><a href="?culture=pt-br" id="culturept-br" onclick="ninja.translator.translate('pt-br'); return false;" class="">português</a></span>
         </div>
         
-    <div>  
+    <div> 
+	<div class=".logo-container">
+        <a href="https://bitaddress.systems/index.html">
     <img alt="Bitaddress Logo" title="bitaddress Logo" id="logo" src="https://i.ibb.co/y0jmDdG/bitaddress-sys-logo-white.png">    
     </div>
     
