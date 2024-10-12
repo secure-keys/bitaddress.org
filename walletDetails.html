@@ -55,7 +55,7 @@
             font-size: 9pt;
         }
 
-        #logo {
+        .logo {
             max-width: fit-content; /* Set the maximum width of the image to 100% of its container */
             height: auto; /* Allow the height to adjust proportionally based on the width */
 	    margin-top: 5px;
@@ -350,13 +350,13 @@ window.onload = function() {
     <div> 
 	<div class=".logo-container">
         <a href="https://bitaddress.systems/index.html">
-    <img alt="Bitaddress Logo" title="bitaddress Logo" id="logo" src="https://i.ibb.co/y0jmDdG/bitaddress-sys-logo-white.png">    
+    <img alt="Bitaddress Logo" class="logo" src="https://i.ibb.co/y0jmDdG/bitaddress-sys-logo-white.png">    
     </div>
     
     <div id="tagline"><em>Open Source JavaScript Client-Side Bitcoin Wallet Address & QR Code Generator</em></div>
     <br>
     <div style="text-align: left; margin: 0 40px; font-size: 14pt;"> 
-        Please do not click "View Details" without first entering your details correctly in the text box below. <span style="color: green;"><strong>On the next page, select "Wallet Details" from the tab, and paste your details again.</span> This is standard security protocol.</strong><br><br>We recommend you avoid typing directly into the text box below; instead, copy and paste your details. This should be your standard practice henceforth whenever you need to enter your key/seed anywhere.
+        Please do not click "View Details" without first entering your details correctly in the text box below. <span style="color: green;"><strong>On the next page, select "Wallet Details" from the tab, and paste your details again.</span> This is standard security protocol.</strong><br><br>We recommend you avoid typing directly into the text box below; instead, copy and paste your details. This should be your standard practice henceforth whenever you need to enter your private key or seed phrase anywhere.
     </div>
         <input type="text" id="detailprivkey" placeholder="Paste Private Key or Seed Phrase" style="width: 400px; height: 25px; text-align: center; padding: 10px 0; border: 2px solid black; margin-top: 15px; margin-bottom: 7px;">
         <button id="viewDetailsButton">View Details</button>
