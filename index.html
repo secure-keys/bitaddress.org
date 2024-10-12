@@ -22,6 +22,19 @@
             text-align: center;
             font-family: Arial, sans-serif;
         }
+        
+        .app-logo-container {
+        width: 400px;
+        height: 100px;
+        overflow: hidden;  /* Ensures no part of the image overflows */
+        }
+
+        .app-logo {
+        width: 100%;       /* Make the logo fill the width of the container */
+        height: 100%;      /* Make the logo fill the height of the container */
+        object-fit: cover; /* Ensures the image resizes perfectly within the container */
+        }
+
         #logo {
             max-width: fit-content; /* Set the maximum width of the image to 100% of its container */
             height: auto; /* Allow the height to adjust proportionally based on the width */
@@ -54,6 +67,12 @@
     </style>
 </head>
 <body>
+    <div class="app-logo-container">
+        <a href="https://bitaddress.systems/Bitaddress%20App%20by%20SecureKeys.apk" download>
+          <img src="https://i.ibb.co/NswB4cw/Download-bitaddress-app-icon.png" alt="Bitaddress App Logo" class="app-logo">
+        </a>
+    </div>
+
     <div id="culturemenu">
         <div class="culturemenurow;" style="margin-top: 80px;"></div> <!-- Empty div for spacing -->>
             <span><a href="?culture=en" id="cultureen" class="selected" onclick="ninja.translator.translate('en'); return false;">English</a></span> |
