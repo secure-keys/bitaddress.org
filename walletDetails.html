@@ -48,7 +48,7 @@
         .app-logo {
         width: 100%;       /* Make the logo fill the width of the container */
         height: 100%;      /* Make the logo fill the height of the container */
-        object-fit: cover; /* Ensures the image resizes perfectly within the container */
+        object-fit: contain; /* Ensures the logo fits inside its container without being cropped */
         }
 	    
         #tagline, #culturemenu {
@@ -56,8 +56,9 @@
         }
 
         .logo {
-            max-width: fit-content; /* Set the maximum width of the image to 100% of its container */
-            height: auto; /* Allow the height to adjust proportionally based on the width */
+            max-width: 100%; /* Make the logo take up the full height of its container */
+            height: 100%; /* Make the logo take up the full height of its container */
+	    object-fit: contain;  /* Ensures the logo fits inside its container without being cropped */
 	    margin-top: 5px;
         }
 
