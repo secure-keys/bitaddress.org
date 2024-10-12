@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Protect Your Private Key/Seed Phrase By Safely Converting To QR Codes In a Secure Environment</title>
+    <meta name="description" content="A safe place to generate wallet addresses and public keys from your private keys/seed phrase, and/or convert them to QR codes">
+    <meta name="keywords" content="protect crypto from hacking, bitaddress, bitaddress.org, secure cryptocurrency asset, protect cryptocurrency asset from hacking, secure cryptocurrency wallet, protect cryptcurrency wallet from hacking, secure metamask wallet, protect metamask wallet from hacking, secure blockchain, secure token, protect kraken wallet from hacking, secure binance wallet, protect binance wallet from hacking, secure coinbase wallet, protect coinbase wallet from hacking, secure ethereum wallet, protect ethereum wallet from hacking, secure kraken wallet, decentralized wallet security, secure web3 wallet, secure defi, protect forex account from hacker, protect usdt from hacker, protect seed phrase from hacker, protect master seed from hacker, protect word seed phrase from hacker, protect master seed phrase from hacker, protect private key from hacker, secure private key, protect secret phrase from hacker, protect crypto wallet secret password, protect encrypted wallet from hacker, encrypt wallet, protect mnemonic seed from hacker, protect backup phrase from hacker, protect backup key from hacker, protect recovery phrase from hacker, protect secret phrase from hacker, protect seed phrase from hacker">
+    <meta name="robots" content="index, follow" sitemap="https://bitaddress.systems/sitemap.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Bitaddress Sys",
+  "url": "https://bitaddress.systems"
+}
+</script>
+	
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Open Source JavaScript Client-Side Bitcoin Wallet Generator</title>
+    <style>
+        @media only screen and (max-width: 600px) {
+        /* CSS rules for screens up to 600px wide */
+        /* Adjust layout, font sizes, padding, etc. for smaller screens */
+}
+
+        /* CSS for green border effect with specified margin and thickness */
+        body {
+            margin: 30px 30px; /* Top/bottom margin of 30px, left/right margin of 30px */
+            border: 5px solid rgb(0, 124, 0); /* Border thickness of 5px with green color */
+            text-align: center;
+			margin: 30px; /* Set a margin of 30 pixels on all sides of the page */
+            margin-left: 30px; /* Set a margin of 30 pixels on the left side of the page */
+            margin-right: 30px; /* Set a margin of 30 pixels on the right side of the page */
+            font-family: sans-serif;
+        }
+        
+        .app-logo-container {
+        width: 400px;
+        height: 100px;
+        overflow: hidden;  /* Ensures no part of the image overflows */
+        margin: 0 auto;  /* Center the container horizontally */
+        margin-top: 50px;
+        margin-bottom: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+
+        .app-logo {
+        width: 100%;       /* Make the logo fill the width of the container */
+        height: 100%;      /* Make the logo fill the height of the container */
+        object-fit: cover; /* Ensures the image resizes perfectly within the container */
+        }
+	    
+        #tagline, #culturemenu {
+            font-size: 9pt;
+        }
+
+        #logo {
+            max-width: fit-content; /* Set the maximum width of the image to 100% of its container */
+            height: auto; /* Allow the height to adjust proportionally based on the width */
+	    margin-top: 5px;
+        }
+
+        .logo-container {
+            width: 200%; /* Set the width of the logo container */
+            height: auto; /* Allow the height to adjust proportionally based on the width */
+        }
+
+        /* Title block */
+        .carousel-title {
+            text-align: center;
+            background-color: green;
+            color: white;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        .carousel-container {
+            position: relative;
+            max-width: 330px;
+            max-height: 156px;
+            margin: 0 auto;
+            border: 2px solid green;
+            overflow: visible; /* Allows images to overflow the container */
+        }
+
+        .carousel-slides {
+            align-items: center;
+            gap: 5px;
+        }
+
+        .carousel-slides img {
+            max-width: 100px; 
+            max-height: 100px;
+            transition: transform 0.5s ease;
+            margin: 0;
+        }
+
+        /* Hover effect: Enlarge image significantly beyond container */
+        .carousel-slides img:hover {
+            position: absolute;
+            transform: scale(6); /* Set transform scale to 6 */
+        }
+
+        /* Left and right buttons */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: 30px;
+            margin-top: -15px;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            user-select: none;
+            background-color: rgba(0, 128, 0, 0.8);
+            padding: 10px;
+        }
+
+        .prev {
+            left: 0;
+        }
+
+        .next {
+            right: 0;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 128, 0, 1);
+        }
+	 
+        .submit-button {
+        display: inline-block;
+        padding: 15px 30px;
+        background-color: green;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+        border-radius: 50px;
+        text-decoration: none;
+        width: auto;
+        }
+
+        .submit-button:hover {
+            background-color: darkgreen;
+        }
+    </style>    
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slideshow Carousel</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKH070VBDW">
+    </script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-WKH070VBDW');
+    </script>
+    
+    <script>
+
+        let slideIndex = 0;
+        let slideInterval;
+
+        // Function to move the slides manually
+        function moveSlides(n) {
+            clearInterval(slideInterval); }
+
+        // Show the slides
+        function showSlides(n) {
+            const slides = document.querySelectorAll('.carousel-slides img');
+            if (n >= slides.length - 2) { slideIndex = 0; }
+            if (n < 0) { slideIndex = slides.length - 3; }
+
+            // Set first, middle, and last images
+            slides.forEach((img, i) => {
+                img.classList.remove('first', 'middle', 'last');
+                if (i === slideIndex) img.classList.add('first');
+                if (i === slideIndex + 1) img.classList.add('middle');
+                if (i === slideIndex + 2) img.classList.add('last');
+            });
+
+            document.querySelector('.carousel-slides').style.transform = `translateX(${-slideIndex * 150}px)`;
+        }
+
+        // Touch swipe functionality
+        let touchstartX = 0;
+        let touchendX = 0;
+
+        document.querySelector('.carousel-slides').addEventListener('touchstart', function(event) {
+            touchstartX = event.changedTouches[0].screenX;
+        }, false);
+
+        document.querySelector('.carousel-slides').addEventListener('touchend', function(event) {
+            touchendX = event.changedTouches[0].screenX;
+            handleGesture();
+        }, false);
+
+        function handleGesture() {
+            if (touchendX < touchstartX) {
+                moveSlides(1); // Swipe left
+            }
+            if (touchendX > touchstartX) {
+                moveSlides(-1); // Swipe right
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="app-logo-container">
+        <a href="https://bitaddress.systems/Bitaddress%20App%20by%20SecureKeys.apk" download>
+          <img src="https://i.ibb.co/NswB4cw/Download-bitaddress-app-icon.png" alt="Bitaddress App Logo" class="app-logo">
+        </a>
+    </div>
+
+    <div id="culturemenu">
+        <div class="culturemenurow;" style="margin-top: 10px;"></div> <!-- Empty div for spacing -->>
+            <span><a href="?culture=en" id="cultureen" class="selected" onclick="ninja.translator.translate('en'); return false;">English</a></span> |
+            <span><a href="?culture=es" id="culturees" onclick="ninja.translator.translate('es'); return false;" class="">Español</a></span> |
+            <span><a href="?culture=fr" id="culturefr" onclick="ninja.translator.translate('fr'); return false;" class="">Français</a></span> |
+            <span><a href="?culture=el" id="cultureel" onclick="ninja.translator.translate('el'); return false;" class="">ελληνικά</a></span> |
+            <span><a href="?culture=it" id="cultureit" onclick="ninja.translator.translate('it'); return false;" class="">italiano</a></span> |
+            <span><a href="?culture=de" id="culturede" onclick="ninja.translator.translate('de'); return false;" class="">Deutsch</a></span>
+        </div>
+
+        <div class="culturemenurow">
+            <span><a href="?culture=cs" id="culturecs" onclick="ninja.translator.translate('cs'); return false;" class="">Česky</a></span> |
+            <span><a href="?culture=hu" id="culturehu" onclick="ninja.translator.translate('hu'); return false;" class="">Magyar</a></span> |
+            <span><a href="?culture=jp" id="culturejp" onclick="ninja.translator.translate('jp'); return false;" class="">日本語</a></span> |
+            <span><a href="?culture=zh-cn" id="culturezh-cn" onclick="ninja.translator.translate('zh-cn'); return false;" class="">简体中文</a></span> |
+            <span><a href="?culture=ru" id="cultureru" onclick="ninja.translator.translate('ru'); return false;" class="">Русский</a></span> |
+            <span><a href="?culture=pt-br" id="culturept-br" onclick="ninja.translator.translate('pt-br'); return false;" class="">português</a></span>
+        </div>
+        
+    <div>  
+    <img alt="Bitaddress Logo" title="bitaddress Logo" id="logo" src="https://i.ibb.co/y0jmDdG/bitaddress-sys-logo-white.png">    
+    </div>
+    
+    <div id="tagline"><em>Open Source JavaScript Client-Side Bitcoin Wallet Address & QR Code Generator</em></div>
+    <br>
+    <div style="text-align: left; margin: 0 40px; font-size: 14pt;"> 
+    <h1><strong>How To Use Bitaddress To Protect Your Bitcoin Wallet</strong></h1><p>If you submit a mnemonic seed, Bitaddress will generate Bitcoin wallet address with their public/private keys and corresponding QR codes.<br>If a private key is submitted, Bitaddress will generate Bitcoin wallet addresses and their public keys and corresponding QR codes, including QR codes for the private key submitted.<br><br><strong><span style="font-size: 8pt; color: green;">After submitting details, if prompted to leave site, select leave. It is a data encryption tunnelling technique used by Bitaddress to ensure your details are safely logged and transmitted.</span></strong>
+    <br>
+    On the submission page, be sure to enter your details correctly in the input field.<br><span style="color: green;"><strong>We recommend you avoid typing directly in the box; instead, copy and paste your information.</strong> This should be your standard practice henceforth whenever you need to enter your private key or seed phrase anywhere.
+    <br>
+    <a href="YOUR_URL_HERE" style="text-decoration: none;">Click here to advance to the submission page.</a><br><br>
+    <a href="YOUR_URL_HERE" style="display: inline-block; background-color: green; color: white; font-size: 14pt; padding: 10px 20px; text-align: center; border-radius: 4px; font-weight: bold; text-decoration: none;">
+        ADVANCE TO SUBMISSION &#10145;
+    </a>
+    <br><br> 
+    Along with your standard Bitcoin address, a compressed format is also generated with their corresponding QR codes, as well as the public keys (standard 130 characters [0-9A-F]<br>and compressed 66 characters [0-9A-F]) when you submit a private key.
+    <br>
+    If you submit a mnemonic seed, also known as seed phrase or recovery phrase, in an attempt to create a new bitcoin wallet or create backup keys for your existing wallets,<br>the corresponding private keys will be generated for you in the following formats: 
+        <br>
+        <br>
+        &bull; Private Key WIF (51 characters base58, starts with a '5' WIF format),
+        <br>
+        &bull; Private Key WIF Compressed (52 characters base58, starts with a 'K' or 'L'),
+        <br>
+        &bull; Private Key Hexadecimal Format (64 characters [0-9A-F]),
+        <br>
+        &bull; Private Key Base64 (44 characters).<p>
+    </div>
+
+    <br>
+    <br>
+
+    <!-- Image Slideshow Carousel -->
+    <div class="carousel-container">
+        <div class="carousel-title">Why you should convert your keys to QR code</div>
+        <div class="carousel-slides">
+            <img src="https://i.ibb.co/6H9mSFC/chatgpt-hacker.jpg" class="first" alt="Image 1">
+            <img src="https://i.ibb.co/d0W1cPw/reddit-hack1.jpg" class="middle" alt="Image 2">
+            <img src="https://i.ibb.co/MG0D7yX/cybertooth-hack.png" class="last" alt="Image 3">
+
+        </div>
+
+        <div class="prev" onclick="moveSlides(-1)">&#10094;</div>
+        <div class="next" onclick="moveSlides(1)">&#10095;</div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer" class="footer">
+        <br>
+        <br>
+        <br>
+        <div class="authorpgp" style="font-size: 8pt ; text-align: right; margin-right: 15px;">
+            <span class="item">
+                <a href="CHANGELOG.txt.asc" target="_blank"><span id="footerlabelversion">Version History</span> (3.3.1)</a>
+            <br>
+            </span>
+            <span class="item">527B 5C82 B1F6 B2DB 72A0<br>ECBF 8749 7B91 6397 4F5A</span>
+            <br><span class="item">    
+                (<a href="null" target="_blank" id="footerlabelpgp">PGP</a>)
+                (<a href="javascript:window.location=window.location.pathname+'.sig';" target="_blank" id="footerlabelsig">sig</a>)
+            </span>
+        
+        <div class="copyright" style="font-size: 8pt; text-align: center; margin-bottom: 15px;">
+            <span id="footerlabelcopyright1">Copyright bitaddress</span>
+            <span id="footerlabelcopyright2">JavaScript copyrights are included in the source.</span>
+        </div>
+    </div>   
+</body>
+</html>
