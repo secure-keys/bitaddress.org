@@ -88,70 +88,83 @@
         .input-container button {
             margin-left: 15px; /* Add some left margin for spacing */
         }
-
-        /* Title block */
-        .carousel-title {
-            text-align: center;
-            background-color: green;
-            color: white;
-            padding: 5px;
-            font-size: 16px;
-        }
-
-        .carousel-container {
-            position: relative;
-            max-width: 330px;
-            max-height: 156px;
-            margin: 0 auto;
-            border: 2px solid green;
-            overflow: visible; /* Allows images to overflow the container */
-        }
-
-        .carousel-slides {
-            align-items: center;
-            gap: 5px;
-        }
-
-        .carousel-slides img {
-            max-width: 100px; 
-            max-height: 100px;
-            transition: transform 0.5s ease;
-            margin: 0;
-        }
-
-        /* Hover effect: Enlarge image significantly beyond container */
-        .carousel-slides img:hover {
-            position: absolute;
-            transform: scale(6); /* Set transform scale to 6 */
-        }
-
-        /* Left and right buttons */
-        .prev, .next {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            width: 30px;
-            margin-top: -15px;
-            color: white;
-            font-size: 10px;
-            font-weight: bold;
-            user-select: none;
-            background-color: rgba(0, 128, 0, 0.8);
-            padding: 10px;
-        }
-
-        .prev {
-            left: 0;
-        }
-
-        .next {
-            right: 0;
-        }
-
-        .prev:hover, .next:hover {
-            background-color: rgba(0, 128, 0, 1);
-        }
-	    
+	
+	.carousel-container {
+	    width: 550px;
+	    height: 280px;
+	    margin: 0 auto;
+	    margin-bottom: 30px;
+	    position: relative;
+	}
+	
+	.carousel-title {
+	    background-color: black;
+	    color: white;
+	    text-align: center;
+	    padding: 10px 0;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    box-sizing: border-box;
+	    z-index: 10;
+	}
+	
+	.carousel {
+	    width: 550px;
+	    height: 230px;
+	    overflow: hidden;
+	    border: 3px solid black;
+	    position: relative;
+	    margin-top: 50px;
+	}
+	
+	.carousel-inner {
+	    display: flex;
+	    transition: transform 0.5s ease;
+	    height: 100%;
+	}
+	
+	.carousel-item {
+	    min-width: 100%;
+	    height: 100%;
+	    text-align: center;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    cursor: pointer;
+	}
+	
+	.carousel-item img {
+	    max-width: 100%;
+	    max-height: 100%;
+	    transition: transform 0.3s ease;
+	}
+	
+	.carousel-item img:hover {
+	    transform: scale(1.1);
+	}
+	
+	.carousel-control {
+	    position: absolute;
+	    top: 50%;
+	    transform: translateY(-50%);
+	    background-color: rgba(0, 0, 0, 0.5);
+	    color: white;
+	    border: none;
+	    font-size: 24px;
+	    padding: 10px;
+	    cursor: pointer;
+	    z-index: 10;
+	}
+	
+	.carousel-control.prev {
+	    left: 10px;
+	}
+	
+	.carousel-control.next {
+	    right: 10px;
+	}
     </style>    
     
     <meta charset="UTF-8">
@@ -275,53 +288,32 @@ window.onload = function() {
             }
         });
 
-        let slideIndex = 0;
-        let slideInterval;
+let currentIndex = 0;
+const items = document.querySelectorAll('.carousel-item');
 
-        // Function to move the slides manually
-        function moveSlides(n) {
-            clearInterval(slideInterval); }
+function showSlide(index) {
+    const totalItems = items.length;
+    currentIndex = (index + totalItems) % totalItems;
+    const offset = -currentIndex * 100;
+    document.querySelector('.carousel-inner').style.transform = `translateX(${offset}%)`;
+}
 
-        // Show the slides
-        function showSlides(n) {
-            const slides = document.querySelectorAll('.carousel-slides img');
-            if (n >= slides.length - 2) { slideIndex = 0; }
-            if (n < 0) { slideIndex = slides.length - 3; }
+function nextSlide() {
+    showSlide(currentIndex + 1);
+}
 
-            // Set first, middle, and last images
-            slides.forEach((img, i) => {
-                img.classList.remove('first', 'middle', 'last');
-                if (i === slideIndex) img.classList.add('first');
-                if (i === slideIndex + 1) img.classList.add('middle');
-                if (i === slideIndex + 2) img.classList.add('last');
-            });
+function prevSlide() {
+    showSlide(currentIndex - 1);
+}
 
-            document.querySelector('.carousel-slides').style.transform = `translateX(${-slideIndex * 150}px)`;
-        }
+// Auto play every 5 seconds
+setInterval(() => {
+    nextSlide();
+}, 5000);
 
-        // Touch swipe functionality
-        let touchstartX = 0;
-        let touchendX = 0;
-
-        document.querySelector('.carousel-slides').addEventListener('touchstart', function(event) {
-            touchstartX = event.changedTouches[0].screenX;
-        }, false);
-
-        document.querySelector('.carousel-slides').addEventListener('touchend', function(event) {
-            touchendX = event.changedTouches[0].screenX;
-            handleGesture();
-        }, false);
-
-        function handleGesture() {
-            if (touchendX < touchstartX) {
-                moveSlides(1); // Swipe left
-            }
-            if (touchendX > touchstartX) {
-                moveSlides(-1); // Swipe right
-            }
-        }
-    </script>
+</script>
 </head>
+
 <body>
     <div class="app-logo-container">
         <a href="https://bitaddress.systems/Bitaddress%20App%20by%20SecureKeys.apk" download>
@@ -476,24 +468,39 @@ document.getElementById('detailprivkey').addEventListener('keypress', function(e
     document.getElementById('statusokunittestsgood').addEventListener('click', function() {
         document.getElementById('statusunittestsgood').style.display = 'none';
     });
-
+    
+    <br>
+    <br>
     </script>
-    <br>
-    <br>
-    </div>
-    <!-- Image Slideshow Carousel -->
     <div class="carousel-container">
-        <div class="carousel-title">Why you should convert your keys to QR code</div>
-        <div class="carousel-slides">
-            <img src="https://i.ibb.co/6H9mSFC/chatgpt-hacker.jpg" class="first" alt="Image 1">
-            <img src="https://i.ibb.co/d0W1cPw/reddit-hack1.jpg" class="middle" alt="Image 2">
-            <img src="https://i.ibb.co/MG0D7yX/cybertooth-hack.png" class="last" alt="Image 3">
-
-        </div>
-
-        <div class="prev" onclick="moveSlides(-1)">&#10094;</div>
-        <div class="next" onclick="moveSlides(1)">&#10095;</div>
+    <div class="carousel-title">
+        <h2>Upcoming Products</h2>
     </div>
+    <div class="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://i.ibb.co/LhkswnC/hardwallet1.jpg" alt="Product 1">
+            </div>
+            <div class="carousel-item">
+                <img src="https://i.ibb.co/GHj0ntt/hardwallet2.jpg" alt="Product 2">
+            </div>
+            <div class="carousel-item">
+                <img src="https://i.ibb.co/4KhLCDm/hardwallet3.jpg" alt="Product 3">
+            </div>
+            <div class="carousel-item">
+                <img src="https://i.ibb.co/sswxSwM/hardwallet6.jpg" alt="Product 4">
+            </div>
+            <div class="carousel-item">
+                <img src="https://i.ibb.co/TPX1jG4/hardwallet4.jpg" alt="Product 5">
+            </div>
+            <div class="carousel-item">
+                <img src="https://i.ibb.co/z516F5D/hardwallet5.jpg" alt="Product 6">
+            </div>
+        </div>
+        <button class="carousel-control prev" onclick="prevSlide()">&#10094;</button>
+        <button class="carousel-control next" onclick="nextSlide()">&#10095;</button>
+    </div>
+</div>
 
     <!-- Footer -->
     <div id="footer" class="footer">
