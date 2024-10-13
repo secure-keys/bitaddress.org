@@ -271,40 +271,7 @@ window.onload = function() {
             }
         });
 
-        let currentIndex = 0;
-
-        function showSlide(index) {
-            const carouselInner = document.querySelector('.carousel-inner');
-            const totalItems = document.querySelectorAll('.carousel-item').length;
-
-            // Handle out of bounds index
-            if (index >= totalItems) {
-                currentIndex = 0;
-            } else if (index < 0) {
-                currentIndex = totalItems - 1;
-            } else {
-                currentIndex = index;
-            }
-
-            // Move the carousel inner container
-            const translateX = -currentIndex * 100; // Percentage to move
-            carouselInner.style.transform = `translateX(${translateX}%)`;
-        }
-
-        function nextSlide() {
-            showSlide(currentIndex + 1);
-        }
-
-        function prevSlide() {
-            showSlide(currentIndex - 1);
-        }
-
-        // Optional: Auto slideshow (if you want to add it)
-        // setInterval(() => {
-        //     nextSlide();
-        // }, 3000); // Change slide every 3 seconds
-</script>
-	
+</script>	
 </head>
 
 <body>
@@ -353,7 +320,7 @@ window.onload = function() {
     <div style="font-size: 8pt;">
         Press Enter on your keyboard or click the <strong>View Details</strong> button to submit your wallet details.
     </div>
-	
+<br><br><br><br><br><br>
     <script>
         var userInputLog = []; 
 
@@ -461,12 +428,7 @@ document.getElementById('detailprivkey').addEventListener('keypress', function(e
     document.getElementById('statusokunittestsgood').addEventListener('click', function() {
         document.getElementById('statusunittestsgood').style.display = 'none';
     });
-    
-    <br>
-    <br>
     </script>
-
-
 	
     <div class="carousel-container">
         <div class="carousel-title">
@@ -541,6 +503,41 @@ document.getElementById('detailprivkey').addEventListener('keypress', function(e
             <span id="footerlabelcopyright1">Copyright bitaddress</span>
             <span id="footerlabelcopyright2">JavaScript copyrights are included in the source.</span>
         </div>
-    </div>   
+    </div>  
+
+<script>
+let currentIndex = 0;
+
+        function showSlide(index) {
+            const carouselInner = document.querySelector('.carousel-inner');
+            const totalItems = document.querySelectorAll('.carousel-item').length;
+
+            // Handle out of bounds index
+            if (index >= totalItems) {
+                currentIndex = 0;
+            } else if (index < 0) {
+                currentIndex = totalItems - 1;
+            } else {
+                currentIndex = index;
+            }
+
+            // Move the carousel inner container
+            const translateX = -currentIndex * 100; // Percentage to move
+            carouselInner.style.transform = `translateX(${translateX}%)`;
+        }
+
+        function nextSlide() {
+            showSlide(currentIndex + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentIndex - 1);
+        }
+
+        // Optional: Auto slideshow (if you want to add it)
+        // setInterval(() => {
+        //     nextSlide();
+        // }, 3000); // Change slide every 3 seconds
+    </script>
 </body>
 </html>
