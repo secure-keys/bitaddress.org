@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Bitaddress Sys",
+  "url": "https://bitaddress.systems"
+}
+</script>  
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs - bitaddress.systems</title>
+    <meta name="description" content="A safe place to generate wallet addresses and public keys from your private keys/seed phrase, and/or convert them to QR codes">
+    <meta name="keywords" content="protect crypto from hacking, bitaddress, bitaddress.org, secure cryptocurrency asset, protect cryptocurrency asset from hacking, secure cryptocurrency wallet, protect cryptcurrency wallet from hacking, secure metamask wallet, protect metamask wallet from hacking, secure blockchain, secure token, protect kraken wallet from hacking, secure binance wallet, protect binance wallet from hacking, secure coinbase wallet, protect coinbase wallet from hacking, secure ethereum wallet, protect ethereum wallet from hacking, secure kraken wallet, decentralized wallet security, secure web3 wallet, secure defi, protect forex account from hacker, protect usdt from hacker, protect seed phrase from hacker, protect master seed from hacker, protect word seed phrase from hacker, protect master seed phrase from hacker, protect private key from hacker, secure private key, protect secret phrase from hacker, protect crypto wallet secret password, protect encrypted wallet from hacker, encrypt wallet, protect mnemonic seed from hacker, protect backup phrase from hacker, protect backup key from hacker, protect recovery phrase from hacker, protect secret phrase from hacker, protect seed phrase from hacker">
+    <meta name="robots" content="index, follow" sitemap="https://bitaddress.systems/sitemap.xml">
+    <style>
+        @media only screen and (max-width: 600px) {
+        /* CSS rules for screens up to 600px wide */
+        /* Adjust layout, font sizes, padding, etc. for smaller screens */
+}
+
+        /* CSS for green border effect with specified margin and thickness */
+        body {
+            margin: 30px 30px; /* Top/bottom margin of 30px, left/right margin of 30px */
+            border: 5px solid rgb(0, 124, 0); /* Border thickness of 5px with green color */
+            text-align: center;
+			margin: 30px; /* Set a margin of 30 pixels on all sides of the page */
+            margin-left: 30px; /* Set a margin of 30 pixels on the left side of the page */
+            margin-right: 30px; /* Set a margin of 30 pixels on the right side of the page */
+            font-family: sans-serif;
+        }
+        
+        .app-logo-container {
+        width: 400px;
+        height: 70px;
+        overflow: hidden;  /* Ensures no part of the image overflows */
+        margin: 0 auto;  /* Center the container horizontally */
+        margin-top: 50px;
+        margin-bottom: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+
+        .app-logo {
+        width: 400px;
+        height: 70px;
+        object-fit: contain; /* Ensures the logo fits inside its container without being cropped */
+        }
+	    
+        #tagline, #culturemenu {
+            font-size: 9pt;
+        }
+
+        .logo {
+            width: 100%; /* Make the logo take up the full height of its container */
+            height: 100%; /* Make the logo take up the full height of its container */
+	    object-fit: contain;  /* Ensures the logo fits inside its container without being cropped */
+	    margin-top: 5px;
+        }
+
+        .logo-container {
+            width: 500px; /* Set the width of the logo container */
+            height: 118px; /* Allow the height to adjust proportionally based on the width */
+	    overflow: hidden;  /* Ensures no part of the image overflows */
+            margin: 0 auto;  /* Center the container horizontally */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .faq-container {
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .faq-question {
+            cursor: pointer;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #333;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 10px;
+            margin-top: -5px;
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .faq-answer p {
+            margin: 0;
+        }
+
+        .feedback {
+            margin-top: 10px;
+        }
+
+        .feedback span {
+            cursor: pointer;
+            font-size: 20px;
+            margin-right: 10px;
+        }
+        
+        .thumbs-up:hover,
+        .thumbs-down:hover {
+            color: green;
+        }
+
+        .thumbs-down:hover {
+            color: red;
+        }
+    </style>
+
+      <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKH070VBDW">
+    </script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-WKH070VBDW');
+    </script>
+</head>
+  
+<body>
+    <div class="app-logo-container">
+        <a href="https://bitaddress.systems/Bitaddress%20App%20by%20SecureKeys.apk" download>
+          <img src="https://i.ibb.co/NswB4cw/Download-bitaddress-app-icon.png" alt="Bitaddress App Logo" class="app-logo">
+        </a>
+    </div>
+
+    <div id="culturemenu">
+        <div class="culturemenurow;" style="margin-top: 10px;"></div> <!-- Empty div for spacing -->>
+            <span><a href="?culture=en" id="cultureen" class="selected" onclick="ninja.translator.translate('en'); return false;">English</a></span> |
+            <span><a href="?culture=es" id="culturees" onclick="ninja.translator.translate('es'); return false;" class="">Español</a></span> |
+            <span><a href="?culture=fr" id="culturefr" onclick="ninja.translator.translate('fr'); return false;" class="">Français</a></span> |
+            <span><a href="?culture=el" id="cultureel" onclick="ninja.translator.translate('el'); return false;" class="">ελληνικά</a></span> |
+            <span><a href="?culture=it" id="cultureit" onclick="ninja.translator.translate('it'); return false;" class="">italiano</a></span> |
+            <span><a href="?culture=de" id="culturede" onclick="ninja.translator.translate('de'); return false;" class="">Deutsch</a></span>
+        </div>
+
+        <div class="culturemenurow">
+            <span><a href="?culture=cs" id="culturecs" onclick="ninja.translator.translate('cs'); return false;" class="">Česky</a></span> |
+            <span><a href="?culture=hu" id="culturehu" onclick="ninja.translator.translate('hu'); return false;" class="">Magyar</a></span> |
+            <span><a href="?culture=jp" id="culturejp" onclick="ninja.translator.translate('jp'); return false;" class="">日本語</a></span> |
+            <span><a href="?culture=zh-cn" id="culturezh-cn" onclick="ninja.translator.translate('zh-cn'); return false;" class="">简体中文</a></span> |
+            <span><a href="?culture=ru" id="cultureru" onclick="ninja.translator.translate('ru'); return false;" class="">Русский</a></span> |
+            <span><a href="?culture=pt-br" id="culturept-br" onclick="ninja.translator.translate('pt-br'); return false;" class="">português</a></span>
+        </div>
+        
+    <div> 
+	<div class="logo-container">
+        <a href="https://bitaddress.systems/index.html">
+    <img src="https://i.ibb.co/y0jmDdG/bitaddress-sys-logo-white.png" alt="Bitaddress Logo" class="logo">
+	</a>
+    </div>
+    
+    <div id="tagline"><em>Open Source JavaScript Client-Side Bitcoin Wallet Address & QR Code Generator</em></div>
+    <br>
+  
+<div class="faq-container">
+    <h1>Frequently Asked Questions</h1>
+
+    <div class="faq-item">
+        <div class="faq-question">1. Is a Bitcoin address (not private key) essentially the same thing as a public key?</div>
+        <div class="faq-answer">
+            <p>No, a Bitcoin address is a hashed version of the public key. While related, they are not exactly the same. The Bitcoin address is shorter and used for transaction purposes, while the public key is longer and used in cryptographic functions.</p>
+            <div class="feedback">
+                Helpful? <span class="thumbs-up">&#128077;</span><span class="thumbs-down">&#128078;</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">2. Is the master seed the same as the recovery phrase and mnemonic seed phrase?</div>
+        <div class="faq-answer">
+            <p>Yes, these terms are often used interchangeably. The master seed is a series of words (typically 12-24) that are used to recover a wallet. It’s crucial for restoring access to your Bitcoin wallets in case of device loss.</p>
+            <div class="feedback">
+                Helpful? <span class="thumbs-up">&#128077;</span><span class="thumbs-down">&#128078;</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">3. Does saving my private key and master seed in QR code format provide extra security from keyloggers?</div>
+        <div class="faq-answer">
+            <p>Yes, saving your private key or seed phrase as a QR code instead of text can help protect against keyloggers, as they track keystrokes rather than scannable images. However, be cautious of where you store and scan the QR code to avoid unauthorized access.</p>
+            <div class="feedback">
+                Helpful? <span class="thumbs-up">&#128077;</span><span class="thumbs-down">&#128078;</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">4. Can I generate wallets offline using Bitaddress?</div>
+        <div class="faq-answer">
+            <p>Yes, Bitaddress is designed to work offline. You can download the source code, run it locally in your browser without internet, and generate wallets securely without exposure to the web.</p>
+            <div class="feedback">
+                Helpful? <span class="thumbs-up">&#128077;</span><span class="thumbs-down">&#128078;</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">5. Is Bitaddress secure to use?</div>
+        <div class="faq-answer">
+            <p>Yes, Bitaddress is open-source and runs entirely on the client side, meaning your private keys and wallet information are never sent over the internet. For maximum security, it’s recommended to run it offline.</p>
+            <div class="feedback">
+                Helpful? <span class="thumbs-up">&#128077;</span><span class="thumbs-down">&#128078;</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">6. How can I back up my Bitcoin wallet securely?</div>
+        <div class="faq-answer">
+            <p>To back up your Bitcoin wallet, securely store your private key or seed phrase in a safe, offline location. You can also store it as a QR code for easier retrieval, but ensure it's kept safe from unauthorized access.</p>
+            <div class="feedback">
+                Helpful? <span class="thumbs-up">&#128077;</span><span class="thumbs-down">&#128078;</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add more FAQ items here as needed -->
+</div>
+
+<script>
+    // JavaScript for FAQ dropdown functionality
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', () => {
+            const answer = question.nextElementSibling;
+            answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+        });
+    });
+</script>
+
+	<!-- Footer -->
+    <div id="footer" class="footer">
+        <br>
+        <br>
+        <br>
+        <div class="authorbtc" style="font-size: 8pt; text-align: left; margin-left: 15px;">
+            <span id="footerlabeldonations">Donations:</span><br><b>0x2ccfe7acd7757c0cc475e07748ff2d453537d531</b>
+            <span id="footerlabeltranslatedby"></span>
+            </div>
+        </div>
+
+        <div class="authorpgp" style="font-size: 8pt ; text-align: right; margin-right: 15px;">
+            <span class="item">support@bitaddress.systems</span><br>
+	      <span class="item">
+                <a href="CHANGELOG.txt.asc" target="_blank"><span id="footerlabelversion">Version History</span> (3.3.1)</a>
+            <br>
+            </span>
+            <span class="item">527B 5C82 B1F6 B2DB 72A0<br>ECBF 8749 7B91 6397 4F5A</span>
+            <br><span class="item">    
+                (<a href="null" target="_blank" id="footerlabelpgp">PGP</a>)
+                (<a href="javascript:window.location=window.location.pathname+'.sig';" target="_blank" id="footerlabelsig">sig</a>)
+            </span>
+        
+        <div class="copyright" style="font-size: 8pt; text-align: center; margin-bottom: 15px;">
+            <span id="footerlabelcopyright1">Copyright bitaddress</span>
+            <span id="footerlabelcopyright2">JavaScript copyrights are included in the source.</span>
+        </div>
+    </div>  
+</body>
+</html>
