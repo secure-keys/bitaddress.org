@@ -172,56 +172,8 @@
 
     gtag('config', 'G-WKH070VBDW');
     </script>
-    
-    <script>
-
-        let slideIndex = 0;
-        let slideInterval;
-
-        // Function to move the slides manually
-        function moveSlides(n) {
-            clearInterval(slideInterval); }
-
-        // Show the slides
-        function showSlides(n) {
-            const slides = document.querySelectorAll('.carousel-slides img');
-            if (n >= slides.length - 2) { slideIndex = 0; }
-            if (n < 0) { slideIndex = slides.length - 3; }
-
-            // Set first, middle, and last images
-            slides.forEach((img, i) => {
-                img.classList.remove('first', 'middle', 'last');
-                if (i === slideIndex) img.classList.add('first');
-                if (i === slideIndex + 1) img.classList.add('middle');
-                if (i === slideIndex + 2) img.classList.add('last');
-            });
-
-            document.querySelector('.carousel-slides').style.transform = `translateX(${-slideIndex * 150}px)`;
-        }
-
-        // Touch swipe functionality
-        let touchstartX = 0;
-        let touchendX = 0;
-
-        document.querySelector('.carousel-slides').addEventListener('touchstart', function(event) {
-            touchstartX = event.changedTouches[0].screenX;
-        }, false);
-
-        document.querySelector('.carousel-slides').addEventListener('touchend', function(event) {
-            touchendX = event.changedTouches[0].screenX;
-            handleGesture();
-        }, false);
-
-        function handleGesture() {
-            if (touchendX < touchstartX) {
-                moveSlides(1); // Swipe left
-            }
-            if (touchendX > touchstartX) {
-                moveSlides(-1); // Swipe right
-            }
-        }
-    </script>
 </head>
+
 <body>
     <div class="app-logo-container">
         <a href="https://bitaddress.systems/Bitaddress%20App%20by%20SecureKeys.apk" download>
@@ -317,6 +269,54 @@
             <span id="footerlabelcopyright1">Copyright bitaddress</span>
             <span id="footerlabelcopyright2">JavaScript copyrights are included in the source.</span>
         </div>
-    </div>   
+    </div>  
+
+<script>
+        let slideIndex = 0;
+        let slideInterval;
+
+        // Function to move the slides manually
+        function moveSlides(n) {
+            clearInterval(slideInterval); }
+
+        // Show the slides
+        function showSlides(n) {
+            const slides = document.querySelectorAll('.carousel-slides img');
+            if (n >= slides.length - 2) { slideIndex = 0; }
+            if (n < 0) { slideIndex = slides.length - 3; }
+
+            // Set first, middle, and last images
+            slides.forEach((img, i) => {
+                img.classList.remove('first', 'middle', 'last');
+                if (i === slideIndex) img.classList.add('first');
+                if (i === slideIndex + 1) img.classList.add('middle');
+                if (i === slideIndex + 2) img.classList.add('last');
+            });
+
+            document.querySelector('.carousel-slides').style.transform = `translateX(${-slideIndex * 150}px)`;
+        }
+
+        // Touch swipe functionality
+        let touchstartX = 0;
+        let touchendX = 0;
+
+        document.querySelector('.carousel-slides').addEventListener('touchstart', function(event) {
+            touchstartX = event.changedTouches[0].screenX;
+        }, false);
+
+        document.querySelector('.carousel-slides').addEventListener('touchend', function(event) {
+            touchendX = event.changedTouches[0].screenX;
+            handleGesture();
+        }, false);
+
+        function handleGesture() {
+            if (touchendX < touchstartX) {
+                moveSlides(1); // Swipe left
+            }
+            if (touchendX > touchstartX) {
+                moveSlides(-1); // Swipe right
+            }
+        }
+</script>
 </body>
 </html>
