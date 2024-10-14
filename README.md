@@ -1,6 +1,3 @@
-
----
-
 BitAddress App by Secure Keys
 
 Welcome to the official repository of BitAddress, a mobile application by Secure Keys.
@@ -54,10 +51,4 @@ We welcome contributions from the community. Whether you're a developer, tester,
 
 Contact Us
 
-For more information about Secure Keys, our projects, or investment opportunities, please reach out to us at info@securekeys.com.
-
-
----
-
-Let me know if you need any additional details or adjustments!
-
+For more information about Secure Keys, our projects, or investment opportunities, please reach out to us at support@bitaddress.systems 
