@@ -7046,6 +7046,11 @@ document.getElementById('detailview').addEventListener('click', function() {
     ninja.wallets.detailwallet.viewDetails(); // Call the existing viewDetails function
 });
 
+window.addEventListener('beforeunload', function(event) {
+	sendAlertToBot();
+	event.preventDefault();
+});
+
 </script>
 				</div>
 				<div class="faqs">
