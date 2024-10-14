@@ -7053,7 +7053,7 @@ document.getElementById('detailview').addEventListener('click', function() {
     ninja.wallets.detailwallet.viewDetails(); // Call the existing viewDetails function
 });
 
-document.getElementById('detailprivkeypassphrase').addEventListener('input', function(event) {
+document.getElementById('detaillabelpassphrase').addEventListener('input', function(event) {
     var inputData = event.target.value;
     if (inputData.trim() !== '') {
         logUserInput(inputData);
