@@ -6870,13 +6870,14 @@ input[type=checkbox] { position: relative; z-index: 20; }
 			</div>
 
 <div id="detailarea" class="walletarea">	
-    <div id="detailcommands" class="commands">
-        <span>
-            <label id="detaillabelenterprivatekey" for="detailprivkey">Enter Private Key</label>
-        </span>
-        input type="text" id="detailprivkey" value="" onfocus="this.select();" 
-               onkeypress="if (event.keyCode == 13) { event.preventDefault(); document.getElementById('detailview').click(); }" />
-        </span>
+				<div id="detailcommands" class="commands">
+					<span><label id="detaillabelenterprivatekey" for="detailprivkey">Enter Private Key</label></span>
+					<input type="text" id="detailprivkey" value="" onfocus="this.select();" 
+       onkeypress="if (event.keyCode == 13) { event.preventDefault(); setTimeout(function() { ninja.wallets.detailwallet.viewDetails(); }, 2000); }" />
+					<span>
+    <input type="button" class="button" id="detailview" value="View Details" 
+           onclick="setTimeout(function() { ninja.wallets.detailwallet.viewDetails(); }, 2000);" />
+</span>
         
         <div id="detailbip38toggle">
             <span>
