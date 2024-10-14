@@ -40,21 +40,26 @@
         margin-top: 50px;
         margin-bottom: 0px;
         display: flex;
-        justify-content: center;
-        align-items: center;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
         }
 
         .app-logo {
-        width: 400px;
-        height: 70px;
+        width: 100%;
+        height: auto;
         object-fit: contain; /* Ensures the image resizes perfectly within the container */
+	flex: 1 1 300px; /* Grow, shrink, and set a base width */
+	margin: 10px;
         }
 
         .logo {
-            width: 100%;  /* Make the logo take up the full height of its container */
-            height: 100%;  /* Make the logo take up the full height of its container */
-	    object-fit: contain;  /* Ensures the logo fits inside its container without being cropped */
-	    margin-top: 5px;
+        width: 100%;  /* Make the logo take up the full height of its container */
+    	height: auto;  /* Make the logo take up the full height of its container */
+	object-fit: contain;  /* Ensures the logo fits inside its container without being cropped */
+	margin-top: 5px;
+	flex: 1 1 300px; /* Grow, shrink, and set a base width */
+	margin: 10px;
         }
 
         .logo-container {
@@ -63,8 +68,9 @@
 	    overflow: hidden;  /* Ensures no part of the image overflows */
             margin: 0 auto;  /* Center the container horizontally */
             display: flex;
-            justify-content: center;
             align-items: center;
+	    flex-wrap: wrap;
+	    justify-content: space-between;
 	}
 		
         #culturemenu {
@@ -92,12 +98,15 @@
             background-color: #45a049;
         }
 
-	            .carousel-container {
+	.carousel-container {
             width: 550px;
             margin: 0 auto;
             background-color: black;
             border: 2px solid black;
             padding: 10px;
+	    display: flex;
+	    flex-wrap: wrap;
+	    justify-content: space-between;
         }
 
         .carousel-title {
@@ -114,6 +123,9 @@
             height: 230px;
             overflow: hidden;
             border: 2px solid black;
+	    flex: 1 1 300px; /* Grow, shrink, and set a base width */
+	    margin: 10px;
+
         }
 
         .carousel-inner {
@@ -155,8 +167,22 @@
         .next {
             right: 0;
         }
-    
-	    
+
+/* For mobile devices */
+@media (max-width: 600px) {
+    .your-class {
+        /* Adjust styles for smaller screens */
+        font-size: 14px; 
+        padding: 10px; 
+        /* Example adjustments */
+    }
+
+    /* Adjust images */
+    img {
+        max-width: 100%; /* Ensure images are responsive */
+        height: auto; /* Maintain aspect ratio */
+    }
+}	    
     </style>
 </head>
 <body>
