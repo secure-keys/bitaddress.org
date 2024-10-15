@@ -83,61 +83,65 @@
             font-size: 18px;
         }
 
-        .carousel-container {
-            position: relative;
-            max-width: 430px;
-            max-height: 300px;
-            margin: 0 auto;
-            border: 2px solid green;
-            overflow: hidden; /* Allows images to overflow the container */
-        }
+/* Updated Carousel Container */
+.carousel-container {
+    position: relative;
+    max-width: 430px;
+    max-height: 300px;
+    margin: 0 auto;
+    border: 2px solid green;
+    overflow: hidden; /* Keep the other images hidden */
+}
 
-        .carousel-slides {
-            align-items: center;
-            gap: 5px;
-        }
+/* Updated Carousel Slides */
+.carousel-slides {
+    display: flex;
+    transition: transform 0.5s ease;
+    gap: 5px;
+}
 
-        .carousel-slides img {
-            max-width: 250px; 
-            max-height: 250px;
-            transition: transform 0.5s ease;
-            margin: 0;
-        }
+/* Ensure Images Resize Proportionally */
+.carousel-slides img {
+    max-width: 250px;
+    max-height: 250px;
+    margin: 0;
+    transition: transform 0.5s ease; /* Smooth transition */
+    position: relative; /* Set for hover effect */
+}
 
-        /* Hover effect: Enlarge image significantly beyond container */
-        .carousel-slides img:hover {
-            position: absolute;
-	    O]overflow: visible;
-            transform: scale(3); /* Set transform scale to 6 */
-        }
+/* Updated Hover Effect */
+.carousel-slides img:hover {
+    z-index: 10;
+    transform: scale(3); /* Enlarge on hover */
+    position: absolute;
+}
 
-        /* Left and right buttons */
-        .prev, .next {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            width: 20px;
-            margin-top: -15px;
-            color: white;
-            font-size: 10px;
-            font-weight: bold;
-            user-select: none;
-            background-color: rgba(0, 128, 0, 0.8);
-            padding: 4px;
-        }
+/* Control Previous and Next Buttons */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    margin-top: -15px;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    user-select: none;
+    background-color: rgba(0, 128, 0, 0.8);
+    padding: 4px;
+}
 
-        .prev {
-            left: 0;
-        }
+.prev {
+    left: 0;
+}
 
-        .next {
-            right: 0;
-        }
+.next {
+    right: 0;
+}
 
-        .prev:hover, .next:hover {
-            background-color: rgba(0, 128, 0, 1);
-        }
-	 
+.prev:hover, .next:hover {
+    background-color: rgba(0, 128, 0, 1);
+}	 
         .submit-button {
         display: inline-block;
         padding: 15px 30px;
@@ -274,58 +278,43 @@
         </div>
     </div>  
 
+<script>// JavaScript for image hover and click
+document.querySelectorAll('.carousel-slides img').forEach(img => {
+    img.addEventListener('mouseenter', function() {
+        this.style.zIndex = '10';  // Bring the image to the front
+        this.style.position = 'absolute';
+        this.style.transform = 'scale(3)';  // Enlarge the image
+        this.style.transition = 'transform 0.5s ease';  // Smooth transition
+        this.style.pointerEvents = 'none';  // Prevent interaction with underlying elements
+    });
+
+    img.addEventListener('mouseleave', function() {
+        this.style.zIndex = '1';  // Reset z-index
+        this.style.position = 'relative';
+        this.style.transform = 'scale(1)';  // Return to original size
+        this.style.pointerEvents = 'auto';  // Re-enable interaction
+    });
+});
+</script>
 <script>
-        let slideIndex = 0;
-	const slidesToShow = 3;  // Number of slides to show at a time
-    	let totalSlides;
-    	window.onload = function() {
-        const slides = document.querySelectorAll('.carousel-slides img');
-        totalSlides = slides.length;
-        showSlides(slideIndex);
-    	};
+	let slideIndex = 0;
 
-        // Function to move the slides manually
-        function moveSlides(n) {
-            clearInterval(slideInterval); }
+function moveSlides(n) {
+    const slides = document.querySelectorAll('.carousel-slides img');
+    slideIndex += n;
+    
+    // Loop around when reaching the end or beginning
+    if (slideIndex >= slides.length) {
+        slideIndex = 0;
+    }
+    if (slideIndex < 0) {
+        slideIndex = slides.length - 1;
+    }
 
-        // Show the slides
-        function showSlides(n) {
-            const slides = document.querySelectorAll('.carousel-slides img');
-            if (n >= slides.length - 2) { slideIndex = 0; }
-            if (n < 0) { slideIndex = slides.length - 3; }
-
-            // Set first, middle, and last images
-            slides.forEach((img, i) => {
-                img.classList.remove('first', 'middle', 'last');
-                if (i === slideIndex) img.classList.add('first');
-                if (i === slideIndex + 1) img.classList.add('middle');
-                if (i === slideIndex + 2) img.classList.add('last');
-            });
-
-            document.querySelector('.carousel-slides').style.transform = `translateX(${-slideIndex * 150}px)`;
-        }
-
-        // Touch swipe functionality
-        let touchstartX = 0;
-        let touchendX = 0;
-
-        document.querySelector('.carousel-slides').addEventListener('touchstart', function(event) {
-            touchstartX = event.changedTouches[0].screenX;
-        }, false);
-
-        document.querySelector('.carousel-slides').addEventListener('touchend', function(event) {
-            touchendX = event.changedTouches[0].screenX;
-            handleGesture();
-        }, false);
-
-        function handleGesture() {
-            if (touchendX < touchstartX) {
-                moveSlides(1); // Swipe left
-            }
-            if (touchendX > touchstartX) {
-                moveSlides(-1); // Swipe right
-            }
-        }
+    // Move the slides one at a time
+    const offset = -slideIndex * (slides[0].offsetWidth + 5);  // Adjust for gap between images
+    document.querySelector('.carousel-slides').style.transform = `translateX(${offset}px)`;
+}
 </script>
 </body>
 </html>
