@@ -1,0 +1,38 @@
+Privacy Policy for BitAddressApp
+
+Last Updated: 10/15/24
+
+1. Introduction
+
+Welcome to BitAddressApp, an open-source client-side Bitcoin wallet generator. This Privacy Policy explains how we handle your information when you use our app. By using BitAddressApp, you agree to the terms outlined in this policy.
+
+2. Information We Do Not Collect
+
+No Personal Information: We do not collect personally identifiable information (PII), such as names, email addresses, or phone numbers.
+
+No Usage Data: We do not collect any non-personal information about your device, including IP addresses, browser types, or usage patterns.
+
+No Logs: There are no logs of user activity or interactions with the app. Your privacy is our priority.
+
+
+3. How the App Works
+
+BitAddressApp operates entirely on your device. All processes, including wallet generation and QR code creation, occur locally without transmitting any data to external servers. This ensures that your information remains confidential and secure.
+
+4. Links to Other Sites
+
+Our app includes a link to our GitHub repository, where users can access the raw file for offline Bitcoin address generation. Please review the Privacy Policy and terms of service of any external site you visit.
+
+GitHub: ttps://github.com/secure-keys/bitaddress.org/blob/e011ae4ac1083a498e408f0ab0eed514ae7c8752/walletDetails.html
+
+5. Changes to This Privacy Policy
+
+We may update our Privacy Policy from time to time. Any changes will be posted on this page. You are encouraged to review this Privacy Policy periodically for any updates.
+
+6. Contact Us
+
+If you have any questions about this Privacy Policy, please contact us:
+
+● Email: support@bitaddress.systems
+
+● GitHub: ttps://github.com/secure-keys/bitaddress.org/blob/e011ae4ac1083a498e408f0ab0eed514ae7c8752/walletDetails.html
