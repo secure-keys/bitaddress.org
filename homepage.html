@@ -88,7 +88,6 @@
     position: relative;
     max-width: 430px;
     max-height: 300px;
-
     margin: 0 auto;
     border: 2px solid green;
     overflow: hidden; /* Start with overflow hidden */
@@ -116,7 +115,7 @@
     cursor: pointer;
     position: absolute;
     top: 50%;
-    width: 10px;
+    width: 40px;
     margin-top: -15px;
     color: white;
     font-size: 30px;
@@ -124,18 +123,19 @@
     user-select: none;
     background-color: rgba(0, 128, 0, 0.8);
     padding: 10px;
+    z-index: 100;  /* Ensure they are above other elements */
 }
 
 .prev {
-    left: 0;
+    left: -45px;
 }
 
 .next {
-    right: 0;
+    right: -45px;
 }
 
 .prev:hover, .next:hover {
-    background-color: rgba(0, 128, 0, 1);
+    background-color: rgba(0, 0, 0, 1);
 }	
 	    
         .submit-button {
