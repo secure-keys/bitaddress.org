@@ -136,7 +136,8 @@
 
 .prev:hover, .next:hover {
     background-color: rgba(0, 128, 0, 1);
-}	 
+}	
+	    
         .submit-button {
         display: inline-block;
         padding: 15px 30px;
@@ -289,6 +290,7 @@ document.querySelectorAll('.carousel-slides img').forEach(img => {
             this.style.transform = 'scale(3)'; // Enlarge the image
             this.style.transition = 'transform 0.5s ease'; // Smooth transition
             this.setAttribute('data-expanded', 'true'); // Mark as expanded
+	    container.style.overflow = 'visible'; // Re-hide overflow
         }
         e.stopPropagation(); // Prevent event bubbling
     });
