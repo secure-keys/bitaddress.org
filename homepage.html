@@ -279,47 +279,6 @@
     </div>  
 
 	<script>
-document.querySelectorAll('.carousel-slides img').forEach(img => {
-    // Event listener for image click
-    img.addEventListener('click', function(e) {
-        const container = this.closest('.carousel-container'); // Get container
-        if (this.getAttribute('data-expanded') === 'true') {
-            // If already expanded, reset the image
-            resetImage(this, container);
-        } else {
-            // Expand the clicked image
-            container.style.overflow = 'visible'; // Allow overflow
-            this.style.zIndex = '10'; // Bring image to the front
-            this.style.position = 'absolute'; 
-            this.style.transform = 'scale(3)'; // Enlarge the image
-            this.style.transition = 'transform 0.5s ease'; // Smooth transition
-            this.setAttribute('data-expanded', 'true'); // Mark as expanded
-        }
-        e.stopPropagation(); // Prevent event bubbling
-    });
-});
-
-// Reset function to restore image and container to original style
-function resetImage(img, container) {
-    img.style.zIndex = '1'; // Reset z-index
-    img.style.position = 'relative';
-    img.style.transform = 'scale(1)'; // Reset to original size
-    container.style.overflow = 'hidden'; // Re-hide overflow
-    img.removeAttribute('data-expanded'); // Remove expanded state
-}
-
-// Event listener to detect clicks outside of the image and reset
-document.addEventListener('click', function(e) {
-    const expandedImages = document.querySelectorAll('.carousel-slides img[data-expanded="true"]');
-    expandedImages.forEach(img => {
-        if (!img.contains(e.target)) {
-            const container = img.closest('.carousel-container'); // Get container
-            resetImage(img, container); // Reset image if click is outside
-        }
-    });
-});
-
-// Slide Navigation Script
 let slideIndex = 0;
 
 function moveSlides(n) {
@@ -334,19 +293,65 @@ function moveSlides(n) {
         slideIndex = slides.length - 1;
     }
 
-    // Move the slides one at a time
+    // Move the slides one at a time while keeping them within container boundaries
     const offset = -slideIndex * (slides[0].offsetWidth + 5);  // Adjust for gap between images
     document.querySelector('.carousel-slides').style.transform = `translateX(${offset}px)`;
+    document.querySelector('.carousel-container').style.overflow = 'hidden'; // Ensure overflow is hidden
 }
 
-// Event listener for the next and prev buttons
-document.querySelector('.prev').addEventListener('click', function() {
-    moveSlides(-1);
+// Function to enlarge image when clicked
+function toggleEnlarge(img) {
+    const isEnlarged = img.classList.contains('enlarged');
+    const container = img.closest('.carousel-container');
+
+    if (!isEnlarged) {
+        img.classList.add('enlarged');
+        img.style.zIndex = '10';
+        img.style.position = 'absolute';
+        img.style.transform = 'scale(3)'; // Enlarge
+        container.style.overflow = 'visible'; // Allow image overflow
+        img.setAttribute('data-expanded', 'true');
+    } else {
+        resetImage(img, container);
+    }
+}
+
+// Reset image size and container when clicking outside
+function resetImage(img, container) {
+    img.classList.remove('enlarged');
+    img.style.zIndex = '1';
+    img.style.position = 'relative';
+    img.style.transform = 'scale(1)';
+    container.style.overflow = 'hidden'; // Hide overflow after reset
+    img.removeAttribute('data-expanded');
+}
+
+// Add click events to all images
+document.querySelectorAll('.carousel-slides img').forEach(img => {
+    img.addEventListener('click', function(e) {
+        e.stopPropagation(); // Prevent click event from bubbling
+        toggleEnlarge(this);
+    });
 });
 
-document.querySelector('.next').addEventListener('click', function() {
-    moveSlides(1);
+// Handle clicking outside to reset images
+document.addEventListener('click', function(e) {
+    const expandedImages = document.querySelectorAll('.carousel-slides img[data-expanded="true"]');
+    expandedImages.forEach(img => {
+        if (!img.contains(e.target)) {
+            const container = img.closest('.carousel-container');
+            resetImage(img, container);
+        }
+    });
 });
-    </script>
+
+// Handle next and previous buttons
+document.querySelectorAll('.prev, .next').forEach(button => {
+    button.addEventListener('click', () => {
+        document.querySelector('.prev').style.visibility = 'visible';
+        document.querySelector('.next').style.visibility = 'visible';
+    });
+});
+</script>
 </body>
 </html>
