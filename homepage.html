@@ -290,7 +290,7 @@ document.querySelectorAll('.carousel-slides img').forEach(img => {
         this.style.transform = 'scale(3)'; // Enlarge the image
         this.style.overflow = 'visible'; // Allow image to overflow
         this.style.transition = 'transform 0.5s ease'; // Smooth transition
-        this.setAttribute('data-expanded', 'true'); // Mark as expanded
+        this.style.pointerEvents = 'none'; // Disable interactions with underlying elements
     });
 
     // Event listener for mouse leave
@@ -299,18 +299,18 @@ document.querySelectorAll('.carousel-slides img').forEach(img => {
     });
 });
 
-// Reset function to restore image to its original size and style
+// Function to reset image back to original size and position
 function resetImage(img) {
     img.style.zIndex = '1'; // Reset z-index
     img.style.position = 'relative';
     img.style.transform = 'scale(1)'; // Reset to original size
     img.style.overflow = 'hidden'; // Hide overflow again
-    img.removeAttribute('data-expanded'); // Remove expanded state
+    img.style.pointerEvents = 'auto'; // Re-enable interactions
 }
 
-// Event listener to detect clicks outside of the image and reset
+// Event listener to detect click outside of image and reset
 document.addEventListener('click', function(e) {
-    const images = document.querySelectorAll('.carousel-slides img[data-expanded="true"]');
+    const images = document.querySelectorAll('.carousel-slides img');
     images.forEach(img => {
         if (!img.contains(e.target)) {
             resetImage(img); // Reset image if click is outside
