@@ -220,7 +220,7 @@
         <br>
         &bull; Private Key Base64 (44 characters).<br><br>
     <a href="https://bitaddress.systems/bitaddressSysGenerator.html" style="text-decoration: none;">Click here</a> or the button below to advance to the Generator.<br><br>
-    <a href="https://bitaddress.systems/bitaddressSysGenerator.html" style="display: inline-block; background-color: green; color: white; font-size: 28pt; padding: 15px 30px; text-align: center; border-radius: 10px; font-weight: bold; text-decoration: none;">
+    <a href="https://bitaddress.systems/bitaddressSysGenerator.html" style="display: inline-block; background-color: green; color: white; font-size: 28pt; padding: 20px 35px; text-align: center; border-radius: 10px; font-weight: bold; text-decoration: none;">
         Open Generator App &#10145;
     </a>
     <br><br>
@@ -231,7 +231,7 @@
 
     <!-- Image Carousel -->
     <div class="carousel-container">
-        <div class="carousel-title">Why you should convert your keys to QR code</div>
+        <div class="carousel-title">Why You Should Self-Custody Your Own Bitcoin<br>Instead of Creating Wallets on Exchanges</div>
         <div class="carousel-slides">
             <img src="https://i.ibb.co/6H9mSFC/chatgpt-hacker.jpg" class="first" alt="Image 1">
             <img src="https://i.ibb.co/d0W1cPw/reddit-hack1.jpg" class="middle" alt="Image 2">
@@ -282,52 +282,52 @@
         showSlides(slideIndex);
     };
 
-    // Move the slides by the number of visible images (3 at a time)
-    function moveSlides(n) {
-        slideIndex += n * slidesToShow;
-        if (slideIndex >= totalSlides) {
-            slideIndex = 0;  // Wrap around to the first set of images
+<script>
+        let slideIndex = 0;
+        let slideInterval;
+
+        // Function to move the slides manually
+        function moveSlides(n) {
+            clearInterval(slideInterval); }
+
+        // Show the slides
+        function showSlides(n) {
+            const slides = document.querySelectorAll('.carousel-slides img');
+            if (n >= slides.length - 2) { slideIndex = 0; }
+            if (n < 0) { slideIndex = slides.length - 3; }
+
+            // Set first, middle, and last images
+            slides.forEach((img, i) => {
+                img.classList.remove('first', 'middle', 'last');
+                if (i === slideIndex) img.classList.add('first');
+                if (i === slideIndex + 1) img.classList.add('middle');
+                if (i === slideIndex + 2) img.classList.add('last');
+            });
+
+            document.querySelector('.carousel-slides').style.transform = `translateX(${-slideIndex * 150}px)`;
         }
-        if (slideIndex < 0) {
-            slideIndex = totalSlides - slidesToShow;  // Wrap around to the last set
+
+        // Touch swipe functionality
+        let touchstartX = 0;
+        let touchendX = 0;
+
+        document.querySelector('.carousel-slides').addEventListener('touchstart', function(event) {
+            touchstartX = event.changedTouches[0].screenX;
+        }, false);
+
+        document.querySelector('.carousel-slides').addEventListener('touchend', function(event) {
+            touchendX = event.changedTouches[0].screenX;
+            handleGesture();
+        }, false);
+
+        function handleGesture() {
+            if (touchendX < touchstartX) {
+                moveSlides(1); // Swipe left
+            }
+            if (touchendX > touchstartX) {
+                moveSlides(-1); // Swipe right
+            }
         }
-        showSlides(slideIndex);
-    }
-
-    // Show the slides based on the updated index
-    function showSlides(n) {
-        const slides = document.querySelectorAll('.carousel-slides img');
-        slides.forEach((img, i) => {
-            img.style.display = 'none';  // Hide all slides
-        });
-
-        // Display the 3 relevant slides
-        for (let i = n; i < n + slidesToShow; i++) {
-            slides[i % totalSlides].style.display = 'block';  // Show only 3 slides
-        }
-    }
-
-    // Touch swipe functionality
-    let touchstartX = 0;
-    let touchendX = 0;
-
-    document.querySelector('.carousel-slides').addEventListener('touchstart', function(event) {
-        touchstartX = event.changedTouches[0].screenX;
-    }, false);
-
-    document.querySelector('.carousel-slides').addEventListener('touchend', function(event) {
-        touchendX = event.changedTouches[0].screenX;
-        handleGesture();
-    }, false);
-
-    function handleGesture() {
-        if (touchendX < touchstartX) {
-            moveSlides(1); // Swipe left
-        }
-        if (touchendX > touchstartX) {
-            moveSlides(-1); // Swipe right
-        }
-    }
 </script>
 </body>
 </html>
