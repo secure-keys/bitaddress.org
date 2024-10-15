@@ -83,65 +83,66 @@
             font-size: 18px;
         }
 	    
-/* Updated Carousel Container */
+/* Container for carousel */
 .carousel-container {
     position: relative;
-    max-width: 630px;
-    max-height: 500px;
+    max-width: 430px;
+    max-height: 300px;
     margin: 0 auto;
+    overflow: hidden; /* Default hidden overflow */
     border: 2px solid green;
 }
 
-    .carousel-slides-wrapper {
-    overflow: hidden;
-/* Updated Carousel Slides */
-}
-	    
+/* Styling for slides container */
 .carousel-slides {
     display: flex;
     transition: transform 0.5s ease;
-    gap: 5px;
 }
 
-/* Ensure Images Resize Proportionally */
+/* Styling for images */
 .carousel-slides img {
     max-width: 250px;
     max-height: 250px;
-    margin: 0;
-    transition: transform 0.5s ease; /* Smooth transition */
-    position: relative; /* For hover effect */
-    overflow: hidden; /* Initially hidden overflow */
+    transition: transform 0.5s ease, z-index 0.5s ease;
+    cursor: pointer;
 }
 
-/* Control Previous and Next Buttons */
+/* Positioning and styling for previous/next buttons */
 .prev, .next {
-    cursor: pointer;
     position: absolute;
     top: 50%;
-    width: 40px;
-    margin-top: -15px;
-    color: white;
-    font-size: 30px;
-    font-weight: bold;
-    user-select: none;
+    transform: translateY(-50%);
     background-color: rgba(0, 128, 0, 0.8);
+    color: white;
+    border: none;
     padding: 10px;
-    z-index: 100;  /* Ensure they are above other elements */
-    visibility: visible;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 5;
+    user-select: none;
 }
 
+/* Position the previous and next buttons outside the container */
 .prev {
-    left: -65px;
+    left: -50px; /* Positioned outside the container */
 }
 
 .next {
-    right: -65px;
+    right: -50px; /* Positioned outside the container */
 }
 
+/* Button hover effects */
 .prev:hover, .next:hover {
     background-color: rgba(0, 128, 0, 1);
-}	
-	    
+}
+
+/* Enlarging the image on click */
+.enlarged {
+    position: absolute;
+    z-index: 10;
+    transform: scale(3);
+    transition: transform 0.5s ease;
+}	    
         .submit-button {
         display: inline-block;
         padding: 15px 30px;
@@ -244,10 +245,9 @@
 	    <img src="https://i.imgur.com/lxxzCgn.jpeg" alt="Image 4">
 	    <img src="https://i.imgur.com/yRG2tar.jpeg" alt="Image 5">
 
-        </div>
-
-        <div class="prev" onclick="moveSlides(-1)">&#10094;</div>
-        <div class="next" onclick="moveSlides(1)">&#10095;</div>
+    <button class="prev">❮</button>
+    <button class="next">❯</button>
+</div>
     </div>
 
     <!-- Footer -->
@@ -281,62 +281,41 @@
 	<script>
 let slideIndex = 0;
 
+// Function to move slides
 function moveSlides(n) {
     const slides = document.querySelectorAll('.carousel-slides img');
-    slideIndex += n;
+    const totalSlides = slides.length;
     
-    // Loop around when reaching the end or beginning
-    if (slideIndex >= slides.length) {
-        slideIndex = 0;
-    }
-    if (slideIndex < 0) {
-        slideIndex = slides.length - 1;
-    }
-
-    // Move the slides one at a time while keeping them within container boundaries
-    const offset = -slideIndex * (slides[0].offsetWidth + 5);  // Adjust for gap between images
+    // Update slide index
+    slideIndex = (slideIndex + n + totalSlides) % totalSlides;
+    
+    // Move the slides container to show the correct image
+    const offset = -slideIndex * (slides[0].offsetWidth + 5);
     document.querySelector('.carousel-slides').style.transform = `translateX(${offset}px)`;
-    document.querySelector('.carousel-container').style.overflow = 'hidden'; // Ensure overflow is hidden
 }
 
-// Function to enlarge image when clicked
-function toggleEnlarge(img) {
-    const isEnlarged = img.classList.contains('enlarged');
-    const container = img.closest('.carousel-container');
+// Add click event listeners to next and prev buttons
+document.querySelector('.next').addEventListener('click', () => moveSlides(1));
+document.querySelector('.prev').addEventListener('click', () => moveSlides(-1));
 
-    if (!isEnlarged) {
-        img.classList.add('enlarged');
-        img.style.zIndex = '10';
-        img.style.position = 'absolute';
-        img.style.transform = 'scale(3)'; // Enlarge
-        container.style.overflow = 'visible'; // Allow image overflow
-        img.setAttribute('data-expanded', 'true');
-    } else {
-        resetImage(img, container);
-    }
-}
-
-// Reset image size and container when clicking outside
-function resetImage(img, container) {
-    img.classList.remove('enlarged');
-    img.style.zIndex = '1';
-    img.style.position = 'relative';
-    img.style.transform = 'scale(1)';
-    container.style.overflow = 'hidden'; // Hide overflow after reset
-    img.removeAttribute('data-expanded');
-}
-
-// Add click events to all images
+// Function to enlarge image on click
 document.querySelectorAll('.carousel-slides img').forEach(img => {
-    img.addEventListener('click', function(e) {
-        e.stopPropagation(); // Prevent click event from bubbling
-        toggleEnlarge(this);
+    img.addEventListener('click', function() {
+        const container = this.closest('.carousel-container');
+        if (this.classList.contains('enlarged')) {
+            // Reset image if it's already enlarged
+            resetImage(this, container);
+        } else {
+            // Enlarge image
+            this.classList.add('enlarged');
+            container.style.overflow = 'visible'; // Show overflowed part
+        }
     });
 });
 
-// Handle clicking outside to reset images
+// Reset the image when clicked outside or image is clicked again
 document.addEventListener('click', function(e) {
-    const expandedImages = document.querySelectorAll('.carousel-slides img[data-expanded="true"]');
+    const expandedImages = document.querySelectorAll('.carousel-slides img.enlarged');
     expandedImages.forEach(img => {
         if (!img.contains(e.target)) {
             const container = img.closest('.carousel-container');
@@ -345,13 +324,11 @@ document.addEventListener('click', function(e) {
     });
 });
 
-// Handle next and previous buttons
-document.querySelectorAll('.prev, .next').forEach(button => {
-    button.addEventListener('click', () => {
-        document.querySelector('.prev').style.visibility = 'visible';
-        document.querySelector('.next').style.visibility = 'visible';
-    });
-});
+// Function to reset the image size and hide overflow
+function resetImage(img, container) {
+    img.classList.remove('enlarged');
+    container.style.overflow = 'hidden'; // Re-hide overflow after reset
+}
 </script>
 </body>
 </html>
