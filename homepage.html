@@ -285,35 +285,38 @@
 document.querySelectorAll('.carousel-slides img').forEach(img => {
     // Event listener for mouse hover
     img.addEventListener('mouseenter', function() {
+        const container = this.closest('.carousel-container'); // Get container
+        container.style.overflow = 'visible'; // Allow overflow on hover
         this.style.zIndex = '10'; // Bring image to the front
         this.style.position = 'absolute'; 
         this.style.transform = 'scale(3)'; // Enlarge the image
-        this.style.overflow = 'visible'; // Allow image to overflow
         this.style.transition = 'transform 0.5s ease'; // Smooth transition
-        this.style.pointerEvents = 'none'; // Disable interactions with underlying elements
+        this.setAttribute('data-expanded', 'true'); // Mark as expanded
     });
 
     // Event listener for mouse leave
     img.addEventListener('mouseleave', function() {
-        resetImage(this); // Call function to reset image style
+        const container = this.closest('.carousel-container'); // Get container
+        resetImage(this, container); // Call function to reset image style
     });
 });
 
-// Function to reset image back to original size and position
-function resetImage(img) {
+// Reset function to restore image and container to original style
+function resetImage(img, container) {
     img.style.zIndex = '1'; // Reset z-index
     img.style.position = 'relative';
     img.style.transform = 'scale(1)'; // Reset to original size
-    img.style.overflow = 'hidden'; // Hide overflow again
-    img.style.pointerEvents = 'auto'; // Re-enable interactions
+    container.style.overflow = 'hidden'; // Re-hide overflow
+    img.removeAttribute('data-expanded'); // Remove expanded state
 }
 
-// Event listener to detect click outside of image and reset
+// Event listener to detect clicks outside of the image and reset
 document.addEventListener('click', function(e) {
-    const images = document.querySelectorAll('.carousel-slides img');
+    const images = document.querySelectorAll('.carousel-slides img[data-expanded="true"]');
     images.forEach(img => {
         if (!img.contains(e.target)) {
-            resetImage(img); // Reset image if click is outside
+            const container = img.closest('.carousel-container'); // Get container
+            resetImage(img, container); // Reset image if click is outside
         }
     });
 });
