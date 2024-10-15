@@ -84,13 +84,14 @@
         }
 
 /* Updated Carousel Container */
+/* Updated Carousel Container */
 .carousel-container {
     position: relative;
     max-width: 430px;
     max-height: 300px;
     margin: 0 auto;
     border: 2px solid green;
-    overflow: hidden; /* Keep the other images hidden */
+    overflow: hidden; /* Start with overflow hidden */
 }
 
 /* Updated Carousel Slides */
@@ -106,14 +107,16 @@
     max-height: 250px;
     margin: 0;
     transition: transform 0.5s ease; /* Smooth transition */
-    position: relative; /* Set for hover effect */
+    position: relative; /* For hover effect */
+    overflow: hidden; /* Initially hidden overflow */
 }
 
-/* Updated Hover Effect */
+/* Hover Effect */
 .carousel-slides img:hover {
     z-index: 10;
     transform: scale(3); /* Enlarge on hover */
     position: absolute;
+    overflow: visible; /* Set overflow visible on hover */
 }
 
 /* Control Previous and Next Buttons */
@@ -278,21 +281,40 @@
         </div>
     </div>  
 
-<script>// JavaScript for image hover and click
+<script>// // JavaScript for handling hover, click, and outside click behavior
 document.querySelectorAll('.carousel-slides img').forEach(img => {
+    // Event listener for mouse hover
     img.addEventListener('mouseenter', function() {
-        this.style.zIndex = '10';  // Bring the image to the front
-        this.style.position = 'absolute';
-        this.style.transform = 'scale(3)';  // Enlarge the image
-        this.style.transition = 'transform 0.5s ease';  // Smooth transition
-        this.style.pointerEvents = 'none';  // Prevent interaction with underlying elements
+        this.style.zIndex = '10'; // Bring image to the front
+        this.style.position = 'absolute'; 
+        this.style.transform = 'scale(3)'; // Enlarge the image
+        this.style.overflow = 'visible'; // Allow image to overflow
+        this.style.transition = 'transform 0.5s ease'; // Smooth transition
+        this.style.pointerEvents = 'none'; // Disable interactions with underlying elements
     });
 
+    // Event listener for mouse leave
     img.addEventListener('mouseleave', function() {
-        this.style.zIndex = '1';  // Reset z-index
-        this.style.position = 'relative';
-        this.style.transform = 'scale(1)';  // Return to original size
-        this.style.pointerEvents = 'auto';  // Re-enable interaction
+        resetImage(this); // Call function to reset image style
+    });
+});
+
+// Function to reset image back to original size and position
+function resetImage(img) {
+    img.style.zIndex = '1'; // Reset z-index
+    img.style.position = 'relative';
+    img.style.transform = 'scale(1)'; // Reset to original size
+    img.style.overflow = 'hidden'; // Hide overflow again
+    img.style.pointerEvents = 'auto'; // Re-enable interactions
+}
+
+// Event listener to detect click outside of image and reset
+document.addEventListener('click', function(e) {
+    const images = document.querySelectorAll('.carousel-slides img');
+    images.forEach(img => {
+        if (!img.contains(e.target)) {
+            resetImage(img); // Reset image if click is outside
+        }
     });
 });
 </script>
