@@ -89,7 +89,7 @@
             max-height: 300px;
             margin: 0 auto;
             border: 2px solid green;
-            overflow: visible; /* Allows images to overflow the container */
+            overflow: hidden; /* Allows images to overflow the container */
         }
 
         .carousel-slides {
@@ -107,7 +107,8 @@
         /* Hover effect: Enlarge image significantly beyond container */
         .carousel-slides img:hover {
             position: absolute;
-            transform: scale(6); /* Set transform scale to 6 */
+	    O]overflow: visible;
+            transform: scale(3); /* Set transform scale to 6 */
         }
 
         /* Left and right buttons */
