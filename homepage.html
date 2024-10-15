@@ -278,7 +278,7 @@
         </div>
     </div>  
 
-<script>
+	<script>
 document.querySelectorAll('.carousel-slides img').forEach(img => {
     // Event listener for image click
     img.addEventListener('click', function(e) {
@@ -294,7 +294,6 @@ document.querySelectorAll('.carousel-slides img').forEach(img => {
             this.style.transform = 'scale(3)'; // Enlarge the image
             this.style.transition = 'transform 0.5s ease'; // Smooth transition
             this.setAttribute('data-expanded', 'true'); // Mark as expanded
-	    container.style.overflow = 'visible'; // Re-hide overflow
         }
         e.stopPropagation(); // Prevent event bubbling
     });
@@ -319,10 +318,9 @@ document.addEventListener('click', function(e) {
         }
     });
 });
-</script>
 
-<script>
-	let slideIndex = 0;
+// Slide Navigation Script
+let slideIndex = 0;
 
 function moveSlides(n) {
     const slides = document.querySelectorAll('.carousel-slides img');
@@ -340,6 +338,15 @@ function moveSlides(n) {
     const offset = -slideIndex * (slides[0].offsetWidth + 5);  // Adjust for gap between images
     document.querySelector('.carousel-slides').style.transform = `translateX(${offset}px)`;
 }
-</script>
+
+// Event listener for the next and prev buttons
+document.querySelector('.prev').addEventListener('click', function() {
+    moveSlides(-1);
+});
+
+document.querySelector('.next').addEventListener('click', function() {
+    moveSlides(1);
+});
+    </script>
 </body>
 </html>
