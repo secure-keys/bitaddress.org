@@ -79,8 +79,9 @@
     max-height: 300px;
     margin: 20px auto;
     position: relative;
-    overflow: visible; /* Outer container should be visible to allow image enlargement */
+    overflow: visible; /* Outer container should allow images to overflow */
     text-align: center;
+    z-index: 1; /* Default stacking order */
 }
 
 .carousel-title {
@@ -108,7 +109,7 @@
     max-height: 250px;
     margin: 0 5px;
     cursor: pointer;
-    transition: transform 0.3s ease; /* Smooth scaling */
+    transition: transform 0.3s ease, z-index 0.3s ease; /* Smooth scaling with z-index */
 }
 
 .carousel-buttons {
@@ -124,15 +125,15 @@
 }
 
 .enlarged {
-    position: absolute;
-    z-index: 1000;
-    transform: scale(2); /* Enlarges the image */
-    transition: transform 0.3s ease;
+    position: absolute; /* Image will now break outside the confines of the container */
+    z-index: 999; /* High stacking order to ensure it stays on top of other elements */
+    transform: scale(2.5); /* Enlarge image to 2.5x size */
+    transition: transform 0.3s ease, z-index 0.3s ease;
 }
-
-        .submit-button:hover {
-            background-color: darkgreen;
-        }
+	    
+    .submit-button:hover {
+    background-color: darkgreen;
+}
     </style>    
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKH070VBDW">
