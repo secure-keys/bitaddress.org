@@ -6,11 +6,6 @@
     <meta name="description" content="How To Use Bitaddress To Generate Bitcoin Wallets and Protect Your Private Keys/Seed Phrase In a 100% safe and Secure Environment">
     <meta name="keywords" content="protect crypto from hacking, bitaddress, bitaddress.org, secure cryptocurrency asset, protect cryptocurrency asset from hacking, secure cryptocurrency wallet, protect cryptcurrency wallet from hacking, secure metamask wallet, protect metamask wallet from hacking, secure blockchain, secure token, protect kraken wallet from hacking, secure binance wallet, protect binance wallet from hacking, secure coinbase wallet, protect coinbase wallet from hacking, secure ethereum wallet, protect ethereum wallet from hacking, secure kraken wallet, decentralized wallet security, secure web3 wallet, secure defi, protect forex account from hacker, protect usdt from hacker, protect seed phrase from hacker, protect master seed from hacker, protect word seed phrase from hacker, protect master seed phrase from hacker, protect private key from hacker, secure private key, protect secret phrase from hacker, protect crypto wallet secret password, protect encrypted wallet from hacker, encrypt wallet, protect mnemonic seed from hacker, protect backup phrase from hacker, protect backup key from hacker, protect recovery phrase from hacker, protect secret phrase from hacker, protect seed phrase from hacker">
     <meta name="robots" content="index, follow" sitemap="https://bitaddress.systems/sitemap.xml">
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css"> <!-- Reference to your CSS file -->
-    <title>Image Carousel</title>
 	
 <script type="application/ld+json">
 {
@@ -81,28 +76,48 @@
 	    
 /* Carousel container */
 .carousel-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    max-width: 500px;
+    max-width: 430px;
+    max-height: 300px;
     margin: 20px auto;
+    padding: 10px;
+    border: 5px solid green;
     overflow: hidden;
     position: relative;
+    background-color: white;
+    text-align: center;
+}
+
+/* Title block */
+.carousel-title {
+    background-color: green;
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+    margin-bottom: 10px;
 }
 
 /* Slides wrapper */
 .carousel-slides {
     display: flex;
     transition: transform 0.5s ease;
+    position: relative;
 }
 
 /* Individual image styling */
 .carousel-slides img {
-    max-width: 500px;
-    height: auto;
+    max-width: 250px;
+    max-height: 250px;
     display: block;
     margin: 0 5px;
+    cursor: pointer;
+    transition: transform 0.5s ease;
+}
+
+/* Enlarged image */
+.enlarged {
+    position: absolute;
+    z-index: 1000;
+    transform: scale(1.5);
 }
 
 /* Button styling */
@@ -111,32 +126,29 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 128, 0, 0.7);
     color: white;
-    font-size: 20px;
+    font-size: 18px;
     padding: 10px;
     border: none;
-    z-index: 1000;
+    z-index: 500;
 }
 
 .carousel-button.prev {
-    left: 10px;
+    left: -40px;
 }
 
 .carousel-button.next {
-    right: 10px;
+    right: -40px;
 }
 
 .carousel-button:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 128, 0, 1);
 }
 
-/* Centering content */
-.carousel-wrapper {
-    text-align: center;
-    justify-content: center;
-    display: flex;
-    align-items: center;
+/* Hide overflow */
+.hidden {
+    visibility: hidden;
 }
 
         .submit-button:hover {
@@ -219,26 +231,21 @@
     <br><br>
 
     <!-- Image Carousel -->   
-	<div class="carousel-title">My Carousel of Photos</div>
-	<div class="carousel-container">
+    <div class="carousel-title">Why You Should Self-Custody Your Bitcoin<br>Instead of Creating Wallets on Exchanges</div>
+
+    <div class="carousel-container">
         <button class="carousel-button prev" onclick="moveSlides(-1)">&#10094;</button>
-        <div class="carousel-wrapper">
+        <div class="carousel-slides-wrapper">
             <div class="carousel-slides">
-            <img src="https://i.ibb.co/d0W1cPw/reddit-hack1.jpg" alt="Image 1">
-            <img src="https://i.imgur.com/GWv0ar1.png" alt="Image 2">
-            <img src="https://i.imgur.com/jska0VT.jpeg" alt="Image 3">
-            <img src="https://i.imgur.com/lxxzCgn.jpeg" alt="Image 4">
-            <img src="https://i.imgur.com/yRG2tar.jpeg" alt="Image 5">
+                <img src="https://i.ibb.co/d0W1cPw/reddit-hack1.jpg" alt="Image 1" onclick="enlargeImage(this)">
+                <img src="https://i.imgur.com/GWv0ar1.png" alt="Image 2" onclick="enlargeImage(this)">
+                <img src="https://i.imgur.com/jska0VT.jpeg" alt="Image 3" onclick="enlargeImage(this)">
+                <img src="https://i.imgur.com/lxxzCgn.jpeg" alt="Image 4" onclick="enlargeImage(this)">
+                <img src="https://i.imgur.com/yRG2tar.jpeg" alt="Image 5" onclick="enlargeImage(this)">
+            </div>
         </div>
+        <button class="carousel-button next" onclick="moveSlides(1)">&#10095;</button>
     </div>
-    
-    <div class="navigation">
-        <button class="prev-button">Previous</button>
-        <button class="next-button">Next</button>
-    </div>
-
-    <script src="script.js"></script>
-
 	<!-- Footer -->
     <div id="footer" class="footer">
         <br>
@@ -269,23 +276,41 @@
 	
     <script>
 let currentIndex = 0;
+let enlarged = false;
 
 function moveSlides(direction) {
     const slides = document.querySelector('.carousel-slides');
     const totalSlides = slides.children.length;
     const slideWidth = slides.children[0].offsetWidth;
 
+    if (enlarged) return; // Prevent slide movement when image is enlarged
+
     currentIndex += direction;
 
     if (currentIndex >= totalSlides) {
         currentIndex = 0;
-    }
-    if (currentIndex < 0) {
+    } else if (currentIndex < 0) {
         currentIndex = totalSlides - 1;
     }
 
-    slides.style.transform = `translateX(${-currentIndex * slideWidth}px)`;
+    slides.style.transform = `translateX(${-currentIndex * (slideWidth + 10)}px)`;
 }
+
+function enlargeImage(img) {
+    if (enlarged) {
+        img.classList.remove('enlarged');
+        img.parentElement.querySelectorAll('img').forEach(image => {
+            image.classList.remove('hidden');
+        });
+        enlarged = false;
+    } else {
+        img.classList.add('enlarged');
+        img.parentElement.querySelectorAll('img').forEach(image => {
+            if (image !== img) image.classList.add('hidden');
+        });
+        enlarged = true;
+    }
+}    
     </script>
 	</body>
 </html>
