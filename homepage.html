@@ -73,74 +73,29 @@
             justify-content: center;
             align-items: center;
         
-}
-.carousel-container {
-  max-width: 430px;
-  max-height: 300px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #f2f2f2;
-  border: 2px solid green;
-}
-
-.carousel-title {
-  font-size: 18px;
-  text-align: center;
-  color: green;
-  margin-bottom: 20px;
-}
-
-.carousel {
-  display: flex;
-  justify-content: center;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-}
-
-.carousel img {
-  max-width: 250px;
-  max-height: 250px;
-  margin: 0 5px;
-  object-fit: contain;
-  cursor: pointer;
-}
-
-.carousel img.expanded {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 80%;
-  max-height: 80%;
-  z-index: 1000;
-}
-
-.carousel-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-
-.carousel-buttons button {
-  font-size: 24px;
-  background-color: green;
-  color: white;
-  border: none;
-  cursor: pointer;
-  padding: 5px 10px;
-}
-	    
-        .submit-button {
-        display: inline-block;
-        padding: 15px 30px;
-        background-color: green;
-        color: white;
-        font-size: 18px;
-        font-weight: bold;
-        text-align: center;
-        border-radius: 50px;
-        text-decoration: none;
-        width: auto;
+	}
+        .carousel-container {
+            max-width: 430px;
+            max-height: 300px;
+            overflow: hidden;
+            position: relative;
+            background-color: green;
+            margin: 0 20px;
+        }
+        .carousel {
+            display: flex;
+            transition: transform 0.5s;
+        }
+        .carousel img {
+            max-width: 250px;
+            max-height: 250px;
+            object-fit: contain;
+            cursor: pointer;
+        }
+        .carousel-title {
+            font-size: 18px;
+            color: white;
+            text-align: center;
         }
 
         .submit-button:hover {
@@ -223,20 +178,16 @@
     <br><br>
 
     <!-- Image Carousel -->
-   <div class="carousel-container">
-    <h2 class="carousel-title">Why You Should Self-Custody Your Bitcoin<br>Instead of Creating Wallets on Exchanges.</h2>
-    <div class="carousel">
-      <img src="https://i.ibb.co/d0W1cPw/reddit-hack1.jpg" alt="Image 1">
-      <img src="https://i.imgur.com/GWv0ar1.png" alt="Image 2">
-      <img src="https://i.imgur.com/jska0VT.jpeg" alt="Image 3">
-      <img src="https://i.imgur.com/lxxzCgn.jpeg" alt="Image 4">
-      <img src="https://i.imgur.com/yRG2tar.jpeg" alt="Image 5">
+    <div class="carousel-container">
+        <h2 class="carousel-title">Why You Should Self-Custody Your Bitcoin<br>Instead of Creating Wallets on Exchanges</h2>
+        <div class="carousel">
+            <img src="https://i.ibb.co/d0W1cPw/reddit-hack1.jpg" alt="Image 1">
+            <img src="https://i.imgur.com/GWv0ar1.png" alt="Image 2">
+            <img src="https://i.imgur.com/jska0VT.jpeg" alt="Image 3">
+            <img src="https://i.imgur.com/lxxzCgn.jpeg" alt="Image 4">
+            <img src="https://i.imgur.com/yRG2tar.jpeg" alt="Image 5">
+        </div>
     </div>
-    <div class="carousel-buttons">
-      <button class="prev-btn">&lt;</button>
-      <button class="next-btn">&gt;</button>
-    </div>
-  </div>
 
    <!-- Footer -->
     <div id="footer" class="footer">
@@ -264,54 +215,46 @@
             <span id="footerlabelcopyright1">Copyright bitaddress.systems</span><br>
             <span id="footerlabelcopyright2">JavaScript copyrights are included in the source.</span>
         </div>
-    </div>  
+    </div>
+	
+    <script>
+        const carousel = document.querySelector('.carousel');
+        const images = document.querySelectorAll('.carousel img');
+        let index = 0;
 
-<script>
-const carousel = document.querySelector('.carousel');
-const prevBtn = document.querySelector('.prev-btn');
-const nextBtn = document.querySelector('.next-btn');
-const carouselImages = document.querySelectorAll('.carousel img');
+        images.forEach((img, idx) => {
+            img.addEventListener('click', () => {
+                if (index === idx) {
+                    img.classList.toggle('enlarged');
+                }
+            });
+        });
 
-let currentIndex = 0;
-let isImageExpanded = false;
+        function updateCarousel() {
+            carousel.style.transform = `translateX(-${index * 250}px)`;
+        }
 
-function showImage(index) {
-  carouselImages.forEach((img, i) => {
-    img.style.transform = `translateX(${(i - index) * 100}%)`;
-  });
-}
+        document.addEventListener('DOMContentLoaded', updateCarousel);
 
-function expandImage(event) {
-  if (event.target.tagName === 'IMG') {
-    const clickedImage = event.target;
-    clickedImage.classList.add('expanded');
-    isImageExpanded = true;
-  }
-}
+        function nextSlide() {
+            index = Math.min(index + 1, images.length - 1);
+            updateCarousel();
+        }
 
-function collapseImage(event) {
-  if (isImageExpanded) {
-    const expandedImage = document.querySelector('.expanded');
-    expandedImage.classList.remove('expanded');
-    isImageExpanded = false;
-  }
-}
+        function prevSlide() {
+            index = Math.max(index - 1, 0);
+            updateCarousel();
+        }
 
-prevBtn.addEventListener('click', () => {
-  currentIndex = (currentIndex - 1 + carouselImages.length) % carouselImages.length;
-  showImage(currentIndex);
-});
+        const nextButton = document.createElement('button');
+        nextButton.textContent = 'Next';
+        nextButton.addEventListener('click', nextSlide);
+        document.body.appendChild(nextButton);
 
-nextBtn.addEventListener('click', () => {
-  currentIndex = (currentIndex + 1) % carouselImages.length;
-  showImage(currentIndex);
-});
-
-carousel.addEventListener('click', expandImage);
-document.addEventListener('click', collapseImage);
-
-showImage(currentIndex);
-
-		</script>
+        const prevButton = document.createElement('button');
+        prevButton.textContent = 'Previous';
+        prevButton.addEventListener('click', prevSlide);
+        document.body.appendChild(prevButton);
+    </script>
 	</body>
 </html>
