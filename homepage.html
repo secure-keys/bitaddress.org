@@ -115,35 +115,35 @@
 
 /* Enlarged image */
 .enlarged {
+    transform: scale(6);
     position: absolute;
     z-index: 1000;
-    transform: scale(1.5);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(6);
+    transition: transform 0.5s ease;
 }
 
 /* Button styling */
 .carousel-button {
     cursor: pointer;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 128, 0, 0.7);
+    margin-top: 10px;
+    background-color: green;
     color: white;
-    font-size: 18px;
+    font-size: 16px;
     padding: 10px;
     border: none;
-    z-index: 500;
-}
-
-.carousel-button.prev {
-    left: -40px;
-}
-
-.carousel-button.next {
-    right: -40px;
+    display: inline-block;
+    text-align: center;
 }
 
 .carousel-button:hover {
-    background-color: rgba(0, 128, 0, 1);
+    background-color: darkgreen;
+}
+
+/* Hide overflow */
+.hidden {
+    visibility: hidden;
 }
 
 /* Hide overflow */
@@ -230,11 +230,10 @@
     </div>
     <br><br>
 
-    <!-- Image Carousel -->   
+    <!-- Image Carousel -->
     <div class="carousel-title">Why You Should Self-Custody Your Bitcoin<br>Instead of Creating Wallets on Exchanges</div>
 
     <div class="carousel-container">
-        <button class="carousel-button prev" onclick="moveSlides(-1)">&#10094;</button>
         <div class="carousel-slides-wrapper">
             <div class="carousel-slides">
                 <img src="https://i.ibb.co/d0W1cPw/reddit-hack1.jpg" alt="Image 1" onclick="enlargeImage(this)">
@@ -244,8 +243,13 @@
                 <img src="https://i.imgur.com/yRG2tar.jpeg" alt="Image 5" onclick="enlargeImage(this)">
             </div>
         </div>
-        <button class="carousel-button next" onclick="moveSlides(1)">&#10095;</button>
     </div>
+
+    <div class="carousel-controls">
+        <button class="carousel-button prev" onclick="moveSlides(-1)">Previous</button>
+        <button class="carousel-button next" onclick="moveSlides(1)">Next</button>
+    </div>
+	
 	<!-- Footer -->
     <div id="footer" class="footer">
         <br>
@@ -310,7 +314,7 @@ function enlargeImage(img) {
         });
         enlarged = true;
     }
-}    
+}
     </script>
 	</body>
 </html>
