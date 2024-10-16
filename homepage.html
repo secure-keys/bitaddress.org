@@ -72,8 +72,8 @@
             display: flex;
             justify-content: center;
             align-items: center; 
-	}
-	    
+		
+}
 .carousel-container {
     max-width: 430px;
     max-height: 300px;
@@ -97,10 +97,26 @@
     cursor: pointer;
 }
 
+.carousel img.enlarged {
+    transform: scale(6);
+    position: absolute;
+    z-index: 1;
+}
+
 .carousel-title {
     font-size: 18px;
     color: white;
     text-align: center;
+}
+
+.navigation {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.prev-button, .next-button {
+    padding: 5px 10px;
+    margin: 0 10px;
 }
 
         .submit-button:hover {
@@ -193,6 +209,11 @@
             <img src="https://i.imgur.com/yRG2tar.jpeg" alt="Image 5">
         </div>
     </div>
+    
+    <div class="navigation">
+        <button class="prev-button">Previous</button>
+        <button class="next-button">Next</button>
+    </div>
 
     <script src="script.js"></script>
 	
@@ -233,7 +254,13 @@ images.forEach((img, idx) => {
     img.addEventListener('click', () => {
         if (index === idx) {
             img.classList.toggle('enlarged');
+        } else {
+            img.classList.remove('enlarged');
         }
+    });
+
+    img.addEventListener('mouseleave', () => {
+        img.classList.remove('enlarged');
     });
 });
 
@@ -243,25 +270,21 @@ function updateCarousel() {
 
 document.addEventListener('DOMContentLoaded', updateCarousel);
 
-function nextSlide() {
-    index = Math.min(index + 1, images.length - 1);
-    updateCarousel();
-}
-
 function prevSlide() {
     index = Math.max(index - 1, 0);
     updateCarousel();
 }
 
-const nextButton = document.createElement('button');
-nextButton.textContent = 'Next';
-nextButton.addEventListener('click', nextSlide);
-document.body.appendChild(nextButton);
+function nextSlide() {
+    index = Math.min(index + 1, images.length - 1);
+    updateCarousel();
+}
 
-const prevButton = document.createElement('button');
-prevButton.textContent = 'Previous';
+const nextButton = document.querySelector('.next-button');
+const prevButton = document.querySelector('.prev-button');
+
+nextButton.addEventListener('click', nextSlide);
 prevButton.addEventListener('click', prevSlide);
-document.body.appendChild(prevButton);
     </script>
 	</body>
 </html>
