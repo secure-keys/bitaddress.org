@@ -73,13 +73,14 @@
             justify-content: center;
             align-items: center; 
 	}
+	    
 /* Outer carousel container */
 .outer-carousel {
     max-width: 430px;
     max-height: 300px;
     margin: 0 auto;
     position: relative;
-    overflow: visible;
+    overflow: visible; /* Allow overflow for enlarged images */
     background-color: white;
     border: 3px solid green;
     text-align: center;
@@ -100,6 +101,7 @@
     align-items: center;
     width: 100%;
     overflow: hidden; /* Hide overflow for inner container */
+    position: relative; /* Establishes positioning context */
 }
 
 /* Carousel images */
@@ -109,7 +111,6 @@
     transition: transform 0.3s ease, z-index 0.3s ease;
     object-fit: cover;
     margin-right: 10px; /* Spacing between images */
-    position: relative; /* Position relative for z-index functionality */
 }
 
 /* Enlarged image styling */
@@ -126,12 +127,10 @@
 
 /* Navigation buttons */
 .carousel-buttons {
-    position: absolute;
-    bottom: -35px; /* Adjust position if necessary */
+    position: relative; /* Change to relative for proper placement */
     display: flex;
     justify-content: space-between;
-    width: 100%;
-    left: 0;
+    margin-top: 10px;
 }
 
 .carousel-button {
@@ -144,7 +143,7 @@
 
 .carousel-button:hover {
     background-color: darkgreen;
-}	    
+}    
     .submit-button:hover {
     background-color: darkgreen;
 }
@@ -311,6 +310,7 @@ buttons.forEach((button) => {
 });
 
 // Initialize the carousel
-updateSlides();    </script>
+updateSlides();
+    </script>
 	</body>
 </html>
