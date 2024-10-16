@@ -73,23 +73,23 @@
             justify-content: center;
             align-items: center;
         }
+/* Title block */
+.carousel-title {
+    text-align: center;
+    background-color: green;
+    color: white;
+    padding: 5px;
+    font-size: 18px;
+}
 
-        /* Title block */
-        .carousel-title {
-            text-align: center;
-            background-color: green;
-            color: white;
-            padding: 5px;
-            font-size: 18px;
-        }
-
-    .carousel-container {
+/* Carousel container */
+.carousel-container {
     position: relative;
     width: 430px;
     height: 300px;
     margin: 0 auto;
     border: 2px solid green;
-    overflow: hidden;
+    overflow: hidden; /* Ensures that images don't overflow out of the container */
 }
 
 /* Carousel slides */
@@ -128,6 +128,7 @@
     align-items: center;
     user-select: none;
     transform: translateY(-50%);
+    z-index: 11; /* Ensure buttons are always visible, even when image is enlarged */
 }
 
 .prev {
@@ -140,6 +141,11 @@
 
 .prev:hover, .next:hover {
     background-color: rgba(0, 128, 0, 1);
+}
+
+/* Ensure buttons are always visible */
+.prev, .next {
+    visibility: visible !important;
 }
 	    
         .submit-button {
@@ -336,6 +342,11 @@ document.addEventListener('click', function(e) {
     if (expandedImages.length > 0 && !expandedImages[0].contains(e.target)) {
         resetImage();
     }
+});
+
+// Prevent navigation buttons from disappearing
+document.querySelectorAll('.prev, .next').forEach(button => {
+    button.style.visibility = 'visible'; // Ensure buttons are always visible
 });
 		</script>
 	</body>
