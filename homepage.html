@@ -71,32 +71,37 @@
             margin: 0 auto;  /* Center the container horizontally */
             display: flex;
             justify-content: center;
-            align-items: center;
-        
+            align-items: center; 
 	}
-        .carousel-container {
-            max-width: 430px;
-            max-height: 300px;
-            overflow: hidden;
-            position: relative;
-            background-color: green;
-            margin: 0 20px;
-        }
-        .carousel {
-            display: flex;
-            transition: transform 0.5s;
-        }
-        .carousel img {
-            max-width: 250px;
-            max-height: 250px;
-            object-fit: contain;
-            cursor: pointer;
-        }
-        .carousel-title {
-            font-size: 18px;
-            color: white;
-            text-align: center;
-        }
+	    
+.carousel-container {
+    max-width: 430px;
+    max-height: 300px;
+    overflow: hidden;
+    position: relative;
+    background-color: green;
+    margin: 0 auto;
+}
+
+.carousel {
+    display: flex;
+    justify-content: center;
+    transition: transform 0.5s;
+    gap: 10px; /* Adjust the gap as needed */
+}
+
+.carousel img {
+    max-width: 250px;
+    max-height: 250px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.carousel-title {
+    font-size: 18px;
+    color: white;
+    text-align: center;
+}
 
         .submit-button:hover {
             background-color: darkgreen;
@@ -189,6 +194,8 @@
         </div>
     </div>
 
+    <script src="script.js"></script>
+	
    <!-- Footer -->
     <div id="footer" class="footer">
         <br>
@@ -218,43 +225,43 @@
     </div>
 	
     <script>
-        const carousel = document.querySelector('.carousel');
-        const images = document.querySelectorAll('.carousel img');
-        let index = 0;
+const carousel = document.querySelector('.carousel');
+const images = document.querySelectorAll('.carousel img');
+let index = 0;
 
-        images.forEach((img, idx) => {
-            img.addEventListener('click', () => {
-                if (index === idx) {
-                    img.classList.toggle('enlarged');
-                }
-            });
-        });
-
-        function updateCarousel() {
-            carousel.style.transform = `translateX(-${index * 250}px)`;
+images.forEach((img, idx) => {
+    img.addEventListener('click', () => {
+        if (index === idx) {
+            img.classList.toggle('enlarged');
         }
+    });
+});
 
-        document.addEventListener('DOMContentLoaded', updateCarousel);
+function updateCarousel() {
+    carousel.style.transform = `translateX(-${index * (250 + 10)}px)`; // Adjust the value based on gap size
+}
 
-        function nextSlide() {
-            index = Math.min(index + 1, images.length - 1);
-            updateCarousel();
-        }
+document.addEventListener('DOMContentLoaded', updateCarousel);
 
-        function prevSlide() {
-            index = Math.max(index - 1, 0);
-            updateCarousel();
-        }
+function nextSlide() {
+    index = Math.min(index + 1, images.length - 1);
+    updateCarousel();
+}
 
-        const nextButton = document.createElement('button');
-        nextButton.textContent = 'Next';
-        nextButton.addEventListener('click', nextSlide);
-        document.body.appendChild(nextButton);
+function prevSlide() {
+    index = Math.max(index - 1, 0);
+    updateCarousel();
+}
 
-        const prevButton = document.createElement('button');
-        prevButton.textContent = 'Previous';
-        prevButton.addEventListener('click', prevSlide);
-        document.body.appendChild(prevButton);
+const nextButton = document.createElement('button');
+nextButton.textContent = 'Next';
+nextButton.addEventListener('click', nextSlide);
+document.body.appendChild(nextButton);
+
+const prevButton = document.createElement('button');
+prevButton.textContent = 'Previous';
+prevButton.addEventListener('click', prevSlide);
+document.body.appendChild(prevButton);
     </script>
 	</body>
 </html>
