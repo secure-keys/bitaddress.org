@@ -96,10 +96,10 @@
 /* Inner carousel (slides inside) */
 .inner-carousel {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start; /* Aligns images horizontally */
     align-items: center;
     width: 100%;
-    overflow: hidden;
+    overflow: hidden; /* Hide overflow for inner container */
 }
 
 /* Carousel images */
@@ -108,18 +108,18 @@
     height: 250px;
     transition: transform 0.3s ease, z-index 0.3s ease;
     object-fit: cover;
-    margin-right: 10px;
-    position: relative;
+    margin-right: 10px; /* Spacing between images */
+    position: relative; /* Position relative for z-index functionality */
 }
 
 /* Enlarged image styling */
 .enlarged {
-    z-index: 999;
+    z-index: 999; /* Ensure enlarged image is on top */
     transform: scale(6); /* Adjust scale to how large you want it */
-    position: absolute;
+    position: absolute; /* Allows it to move outside of parent container */
     left: 50%;
     top: 50%;
-    transform-origin: center center;
+    transform-origin: center center; /* Center the enlargement */
     transform: translate(-50%, -50%) scale(6); /* Center and scale */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -127,7 +127,7 @@
 /* Navigation buttons */
 .carousel-buttons {
     position: absolute;
-    bottom: -35px; /* Adjust this if necessary */
+    bottom: -35px; /* Adjust position if necessary */
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -144,8 +144,7 @@
 
 .carousel-button:hover {
     background-color: darkgreen;
-}
-	    
+}	    
     .submit-button:hover {
     background-color: darkgreen;
 }
@@ -272,35 +271,46 @@
     </div>
 	
     <script>
-let currentIndex = 0;
 const slides = document.querySelectorAll('.carousel-slides img');
-const totalSlides = slides.length;
+const buttons = document.querySelectorAll('.carousel-button');
+let currentIndex = 0;
 
-function showSlides(index) {
-    const offset = index * -250; // Adjust the movement per image (250px width)
-    document.querySelector('.carousel-slides').style.transform = `translateX(${offset}px)`;
+// Function to update the displayed images based on the current index
+function updateSlides() {
+    slides.forEach((slide, index) => {
+        if (index >= currentIndex && index < currentIndex + 3) {
+            slide.style.display = 'block'; // Show images in the current index range
+        } else {
+            slide.style.display = 'none'; // Hide others
+        }
+    });
 }
 
-document.querySelector('.next').addEventListener('click', () => {
-    currentIndex = (currentIndex + 3) % totalSlides;
-    showSlides(currentIndex);
-});
-
-document.querySelector('.prev').addEventListener('click', () => {
-    currentIndex = (currentIndex - 3 + totalSlides) % totalSlides;
-    showSlides(currentIndex);
-});
-
-slides.forEach(img => {
-    img.addEventListener('click', function() {
-        if (this.classList.contains('enlarged')) {
-            this.classList.remove('enlarged'); // Return to original size
+// Function to handle enlargement and return to normal size
+slides.forEach((slide) => {
+    slide.addEventListener('click', () => {
+        if (slide.classList.contains('enlarged')) {
+            slide.classList.remove('enlarged');
         } else {
-            slides.forEach(slide => slide.classList.remove('enlarged')); // Close others
-            this.classList.add('enlarged'); // Enlarge current image
+            slides.forEach((s) => s.classList.remove('enlarged')); // Remove enlarged from others
+            slide.classList.add('enlarged');
         }
     });
 });
-    </script>
+
+// Navigation button functionality
+buttons.forEach((button) => {
+    button.addEventListener('click', (e) => {
+        if (e.target.textContent === 'Next') {
+            currentIndex = (currentIndex + 3) % slides.length;
+        } else {
+            currentIndex = (currentIndex - 3 + slides.length) % slides.length;
+        }
+        updateSlides();
+    });
+});
+
+// Initialize the carousel
+updateSlides();    </script>
 	</body>
 </html>
