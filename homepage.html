@@ -76,7 +76,7 @@
 	    
 .carousel-container {
     width: 100%;
-    max-width: 430px;
+    max-width: 550px;
     margin: 0 auto;
     background-color: black;
     border: 2px solid black;
@@ -96,35 +96,34 @@
 .carousel {
     position: relative;
     width: 100%;
-    height: 300px; /* Adjusted to your specifications */
-    overflow: hidden; /* Ensure it hides overflow */
+    height: 300px; /* Adjust height as needed */
+    overflow: hidden; /* Hide overflow */
     border: 2px solid black;
 }
 
 .carousel-inner {
-    display: flex;
-    transition: transform 0.5s ease;
-    width: 100%;
-    height: 100%;
+    display: flex; /* Flexbox to align items horizontally */
+    transition: transform 0.5s ease; /* Smooth transition for sliding */
+    width: 100%; /* Occupy full width */
 }
 
 .carousel-item {
-    min-width: 100%; /* Ensures each item takes full width */
-    display: flex;
-    justify-content: center; /* Center the images */
-    align-items: center; /* Vertically center the images */
+    min-width: 100%; /* Ensure each item takes full width */
+    display: flex; /* Flexbox to center content */
+    justify-content: center; /* Center images horizontally */
+    align-items: center; /* Center images vertically */
 }
 
 .carousel-item img {
-    max-width: 250px; /* Adjusted to your specifications */
-    max-height: 250px; /* Adjusted to your specifications */
-    object-fit: contain; /* This ensures the image fits within the container without cropping */
-    cursor: pointer; /* Change cursor to pointer for images */
-    transition: transform 0.3s ease; /* Transition for scaling effect */
+    max-width: 250px; /* Adjust as needed */
+    max-height: 250px; /* Adjust as needed */
+    object-fit: contain; /* Scale images to fit */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: transform 0.3s ease; /* Hover effect transition */
 }
 
 .carousel-item img:hover {
-    transform: scale(1.2); /* Hover effect for larger view */
+    transform: scale(1.2); /* Enlarge on hover */
 }
 
 .carousel-control {
@@ -139,7 +138,7 @@
 
 .carousel-controls {
     display: flex;
-    justify-content: space-between; /* Aligns the buttons to the ends */
+    justify-content: space-between; /* Align buttons */
     width: 100%;
 }
 	    
@@ -288,26 +287,27 @@ function showSlide(index) {
     const carouselInner = document.querySelector('.carousel-inner');
     const totalItems = document.querySelectorAll('.carousel-item').length;
 
-    // Handle out of bounds index
+    // Ensure the index wraps around properly
     if (index >= totalItems) {
-        currentIndex = 0;
+        currentIndex = 0; // Wrap to the first slide
     } else if (index < 0) {
-        currentIndex = totalItems - 1;
+        currentIndex = totalItems - 1; // Wrap to the last slide
     } else {
-        currentIndex = index;
+        currentIndex = index; // Set to the specified index
     }
 
-    // Move the carousel inner container
-    const translateX = -currentIndex * 100; // Percentage to move
+    // Calculate the translateX value to move to the correct slide
+    const translateX = -currentIndex * 100; // -100% for each slide
     carouselInner.style.transform = `translateX(${translateX}%)`;
 }
 
+// Update the next and previous functions
 function nextSlide() {
-    showSlide(currentIndex + 3); // Change to next 3 slides
+    showSlide(currentIndex + 1); // Move to the next slide
 }
 
 function prevSlide() {
-    showSlide(currentIndex - 3); // Change to previous 3 slides
+    showSlide(currentIndex - 1); // Move to the previous slide
 }
     </script>
 	</body>
