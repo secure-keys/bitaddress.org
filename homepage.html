@@ -74,84 +74,60 @@
             align-items: center; 
 	}
 	    
-/* Carousel container */
-.carousel-container {
+.outer-carousel {
     max-width: 430px;
     max-height: 300px;
     margin: 20px auto;
-    padding: 10px;
-    border: 5px solid green;
-    overflow: hidden;
     position: relative;
-    background-color: white;
+    overflow: visible; /* Outer container should be visible to allow image enlargement */
     text-align: center;
 }
 
-/* Title block */
 .carousel-title {
     background-color: green;
     color: white;
     font-size: 18px;
     padding: 10px;
-    margin-bottom: 10px;
 }
 
-/* Slides wrapper */
+.inner-carousel {
+    overflow: hidden; /* Inner container hides overflowed content */
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
 .carousel-slides {
     display: flex;
-    transition: transform 0.5s ease;
+    transition: transform 0.5s ease-in-out;
     position: relative;
-    overflow: visible;
 }
 
-/* Individual image styling */
 .carousel-slides img {
     max-width: 250px;
     max-height: 250px;
-    display: block;
     margin: 0 5px;
     cursor: pointer;
-    transition: transform 0.5s ease;
-    overflow: visible;
+    transition: transform 0.3s ease; /* Smooth scaling */
 }
 
-/* Enlarged image */
-.enlarged {
-    transform: scale(2); /* Adjusted scale for moderate enlargement */
-    position: absolute;  /* Allows the image to break out of the carousel */
-    z-index: 10;         /* Ensure it appears above other elements */
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(2); /* Centers and enlarges */
-    transition: transform 0.5s ease; /* Smooth transition */
-    max-width: none; /* Ensure the image doesn’t get constrained by parent */
-    max-height: none; /* Prevent height constraint */
-}
-/* Button styling */
-.carousel-button {
-    cursor: pointer;
+.carousel-buttons {
     margin-top: 10px;
+}
+
+.carousel-buttons button {
     background-color: green;
     color: white;
-    font-size: 16px;
-    padding: 10px;
     border: none;
-    display: inline-block;
-    text-align: center;
+    padding: 10px 15px;
+    cursor: pointer;
 }
 
-.carousel-button:hover {
-    background-color: darkgreen;
-}
-
-/* Hide overflow */
-.hidden {
-    visibility: hidden;
-}
-
-/* Hide overflow */
-.hidden {
-    visibility: hidden;
+.enlarged {
+    position: absolute;
+    z-index: 1000;
+    transform: scale(2); /* Enlarges the image */
+    transition: transform 0.3s ease;
 }
 
         .submit-button:hover {
@@ -234,24 +210,22 @@
     <br><br>
 
     <!-- Image Carousel -->
-    <div class="carousel-title">Why You Should Self-Custody Your Bitcoin<br>Instead of Creating Wallets on Exchanges</div>
-
-    <div class="carousel-container">
-        <div class="carousel-slides-wrapper">
-            <div class="carousel-slides">
-                <img src="https://i.ibb.co/d0W1cPw/reddit-hack1.jpg" alt="Image 1" onclick="enlargeImage(this)">
-                <img src="https://i.imgur.com/GWv0ar1.png" alt="Image 2" onclick="enlargeImage(this)">
-                <img src="https://i.imgur.com/jska0VT.jpeg" alt="Image 3" onclick="enlargeImage(this)">
-                <img src="https://i.imgur.com/lxxzCgn.jpeg" alt="Image 4" onclick="enlargeImage(this)">
-                <img src="https://i.imgur.com/yRG2tar.jpeg" alt="Image 5" onclick="enlargeImage(this)">
-            </div>
+    <div class="outer-carousel">
+    <div class="carousel-title">Why You Should Self-Custody Your Bitcoin<br>Instead of Creating Wallets on Exchanges.</div>
+    <div class="inner-carousel">
+        <div class="carousel-slides">
+            <img src="https://i.ibb.co/d0W1cPw/reddit-hack1.jpg" alt="Image 1">
+            <img src="https://i.imgur.com/GWv0ar1.png" alt="Image 2">
+            <img src="https://i.imgur.com/jska0VT.jpeg" alt="Image 3">
+            <img src="https://i.imgur.com/lxxzCgn.jpeg" alt="Image 4">
+            <img src="https://i.imgur.com/yRG2tar.jpeg" alt="Image 5">
         </div>
     </div>
-
-    <div class="carousel-controls">
-        <button class="carousel-button prev" onclick="moveSlides(-1)">Previous</button>
-        <button class="carousel-button next" onclick="moveSlides(1)">Next</button>
+    <div class="carousel-buttons">
+        <button class="prev">Previous</button>
+        <button class="next">Next</button>
     </div>
+</div>
 	
 	<!-- Footer -->
     <div id="footer" class="footer">
@@ -283,41 +257,34 @@
 	
     <script>
 let currentIndex = 0;
-let enlarged = false;
+const slides = document.querySelectorAll('.carousel-slides img');
+const totalSlides = slides.length;
 
-function moveSlides(direction) {
-    const slides = document.querySelector('.carousel-slides');
-    const totalSlides = slides.children.length;
-    const slideWidth = slides.children[0].offsetWidth;
-
-    if (enlarged) return; // Prevent slide movement when image is enlarged
-
-    currentIndex += direction;
-
-    if (currentIndex >= totalSlides) {
-        currentIndex = 0;
-    } else if (currentIndex < 0) {
-        currentIndex = totalSlides - 1;
-    }
-
-    slides.style.transform = `translateX(${-currentIndex * (slideWidth + 10)}px)`;
+function showSlides(index) {
+    const offset = index * -250; // Adjust the movement per image (250px width)
+    document.querySelector('.carousel-slides').style.transform = `translateX(${offset}px)`;
 }
 
-function enlargeImage(img) {
-    if (enlarged) {
-        img.classList.remove('enlarged');
-        img.parentElement.querySelectorAll('img').forEach(image => {
-            image.classList.remove('hidden');
-        });
-        enlarged = false;
-    } else {
-        img.classList.add('enlarged');
-        img.parentElement.querySelectorAll('img').forEach(image => {
-            if (image !== img) image.classList.add('hidden');
-        });
-        enlarged = true;
-    }
-}
+document.querySelector('.next').addEventListener('click', () => {
+    currentIndex = (currentIndex + 3) % totalSlides;
+    showSlides(currentIndex);
+});
+
+document.querySelector('.prev').addEventListener('click', () => {
+    currentIndex = (currentIndex - 3 + totalSlides) % totalSlides;
+    showSlides(currentIndex);
+});
+
+slides.forEach(img => {
+    img.addEventListener('click', function() {
+        if (this.classList.contains('enlarged')) {
+            this.classList.remove('enlarged'); // Return to original size
+        } else {
+            slides.forEach(slide => slide.classList.remove('enlarged')); // Close others
+            this.classList.add('enlarged'); // Enlarge current image
+        }
+    });
+});
     </script>
 	</body>
 </html>
