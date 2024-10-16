@@ -89,28 +89,36 @@
     height: 300px;
     margin: 0 auto;
     border: 2px solid green;
-    overflow: hidden; /* Ensures that images don't overflow out of the container */
+    overflow: hidden; /* Keep overflow hidden by default */
 }
 
 /* Carousel slides */
 .carousel-slides {
     display: flex;
     transition: transform 0.5s ease-in-out;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Hide overflow of non-enlarged images */
 }
 
-/* Carousel images */
+/* Individual image */
 .carousel-slides img {
     max-width: 250px;
     max-height: 250px;
+    margin: 0 5px;
     transition: transform 0.5s ease;
-    margin: 0 5px; /* Evenly space the images */
+    position: relative; /* Maintain relative positioning */
 }
 
 /* Enlarge image on click */
 .carousel-slides img.enlarged {
     position: absolute;
-    transform: scale(2.5); /* Adjust enlargement size */
+    transform: scale(2.5); /* Enlarge the image */
     z-index: 10;
+    left: 50%; /* Center the enlarged image */
+    top: 50%;
+    transform: translate(-50%, -50%) scale(2.5); /* Proper centering and scaling */
 }
 
 /* Navigation buttons */
@@ -128,7 +136,7 @@
     align-items: center;
     user-select: none;
     transform: translateY(-50%);
-    z-index: 11; /* Ensure buttons are always visible, even when image is enlarged */
+    z-index: 11; /* Keep buttons visible */
 }
 
 .prev {
@@ -143,9 +151,14 @@
     background-color: rgba(0, 128, 0, 1);
 }
 
-/* Ensure buttons are always visible */
+/* Always keep buttons visible */
 .prev, .next {
     visibility: visible !important;
+}
+
+/* Ensure other images stay hidden while one is enlarged */
+.mask-hidden img:not(.enlarged) {
+    visibility: hidden; /* Hide other images when one is enlarged */
 }
 	    
         .submit-button {
@@ -323,6 +336,7 @@ document.querySelectorAll('.carousel-slides img').forEach(img => {
 // Function to enlarge image
 function enlargeImage(img) {
     img.classList.add('enlarged');
+    document.querySelector('.carousel-slides').classList.add('mask-hidden'); // Hide other images
     document.querySelector('.carousel-container').style.overflow = 'visible'; // Show overflow for enlarged image
     enlarged = true;
 }
@@ -332,21 +346,25 @@ function resetImage() {
     document.querySelectorAll('.carousel-slides img.enlarged').forEach(img => {
         img.classList.remove('enlarged');
     });
+    document.querySelector('.carousel-slides').classList.remove('mask-hidden'); // Show all images again
     document.querySelector('.carousel-container').style.overflow = 'hidden'; // Hide overflow again
     enlarged = false;
 }
 
-// Click outside image to reset
+// Ensure buttons are always visible, even when the image is clicked
 document.addEventListener('click', function(e) {
     const expandedImages = document.querySelectorAll('.carousel-slides img.enlarged');
+    const prevButton = document.querySelector('.prev');
+    const nextButton = document.querySelector('.next');
+
+    // Ensure buttons stay visible
+    prevButton.style.visibility = 'visible';
+    nextButton.style.visibility = 'visible';
+
+    // Reset enlarged image on outside click
     if (expandedImages.length > 0 && !expandedImages[0].contains(e.target)) {
         resetImage();
     }
-});
-
-// Prevent navigation buttons from disappearing
-document.querySelectorAll('.prev, .next').forEach(button => {
-    button.style.visibility = 'visible'; // Ensure buttons are always visible
 });
 		</script>
 	</body>
