@@ -175,35 +175,7 @@
 	    
     .submit-button:hover {
     background-color: darkgreen;
-}
-/* YouTube Embed Styling */
-.youtube-container {
-    width: 100%;           /* Make container take full width */
-    max-width: 560px;      /* Limit the width on larger screens */
-    margin: 0 auto;        /* Center the video */
-    overflow: hidden;      /* Ensure no overflow */
-    position: relative;    /* For responsive video */
-    padding-bottom: 56.25%; /* Aspect ratio 16:9 for the video */
-    height: 0;
-}
-
-.youtube-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;        /* Full width inside the container */
-    height: 100%;       /* Full height inside the container */
-    border: none;       /* Remove default iframe border */
-}
-
-/* Optional: Adjust container for small screens */
-@media (max-width: 600px) {
-    .youtube-container {
-        max-width: 100%;  /* Ensure it takes full width on mobile */
-        padding-bottom: 75%; /* Adjust aspect ratio if needed */
-    }
-}
-	    
+}    
     </style>    
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKH070VBDW">
@@ -310,14 +282,16 @@
         <button class="carousel-control next" onclick="nextSlide()">Next &#10095;</button>
     </div>
 </div>
+
     <!-- YouTube Video Section -->
-<div class="youtube-container">
-    <iframe width="560" height="315" 
-        src="https://www.youtube.com/embed/yoRtjQ7sFow?rel=0&showinfo=0" 
-        title="YouTube video player" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen>
-    </iframe>
+    <div style="flex: 1;">
+        <iframe width="560" height="315" 
+            src="https://www.youtube.com/embed/yoRtjQ7sFow?rel=0&showinfo=0" 
+            title="YouTube video player" frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+    </div>
 </div>
 
 <div class="modal" id="imageModal" style="display: none;">
