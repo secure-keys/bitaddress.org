@@ -254,6 +254,7 @@
     <br><br>
 
     <!-- Image Carousel -->
+
 <div class="carousel-container">
     <div class="carousel-title">
         <span style="font-size: 22pt; color: white;"><strong>Why You Should Self-Custody Your Bitcoin</strong><br><span style="font-size: 16pt; color: gold;"><strong>Instead of Creating Wallets on Exchanges</strong></span>
@@ -275,15 +276,6 @@
             <div class="carousel-item">
                 <img src="https://i.imgur.com/yRG2tar.jpeg" alt="Image 5">
             </div>
-            <!-- Add the YouTube video here as a carousel item -->
-            <div class="carousel-item">
-                <iframe id="youtubeVideo" width="560" height="315" 
-                    src="https://www.youtube.com/embed/yoRtjQ7sFow?enablejsapi=1&rel=0&showinfo=0"
-                    title="YouTube video player" frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
-            </div>
         </div>
     </div>
     <div class="carousel-controls">
@@ -295,7 +287,8 @@
 <div class="modal" id="imageModal" style="display: none;">
     <span class="close" onclick="closeModal()">&times;</span>
     <img class="modal-content" id="modalImage" alt="Expanded View">
-</div>	
+</div>
+	
 	<!-- Footer -->
     <div id="footer" class="footer">
         <br>
@@ -437,51 +430,5 @@ modal.addEventListener('touchmove', function(event) {
     }
 });
 </script>
-
-	<script>
-var currentSlide = 0;
-var totalSlides = document.querySelectorAll('.carousel-item').length;
-var youtubeVideo = document.getElementById('youtubeVideo');
-
-// Function to change to the next slide
-function nextSlide() {
-    document.querySelectorAll('.carousel-item')[currentSlide].classList.remove('active');
-    currentSlide = (currentSlide + 1) % totalSlides;
-    document.querySelectorAll('.carousel-item')[currentSlide].classList.add('active');
-    handleVideo();
-}
-
-// Function to change to the previous slide
-function prevSlide() {
-    document.querySelectorAll('.carousel-item')[currentSlide].classList.remove('active');
-    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-    document.querySelectorAll('.carousel-item')[currentSlide].classList.add('active');
-    handleVideo();
-}
-
-// Function to handle YouTube video playback when it becomes active
-function handleVideo() {
-    if (document.querySelectorAll('.carousel-item')[currentSlide].contains(youtubeVideo)) {
-        // Play the video if it's the active slide
-        youtubeVideo.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-    } else {
-        // Pause the video when it's no longer the active slide
-        youtubeVideo.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-    }
-}
-
-// Initialize the first slide as active
-document.querySelectorAll('.carousel-item')[currentSlide].classList.add('active');
-
-// YouTube API - Automatically pause the video when leaving the slide
-window.addEventListener("message", function(event) {
-    if (event.origin !== "https://www.youtube.com") return;
-    if (event.data === 'onStateChange') {
-        if (event.data.playerState === 0) { // Video ended
-            nextSlide(); // Move to the next slide when video ends
-        }
-    }
-});
-	</script>	
 </body>
 </html>
