@@ -73,92 +73,49 @@
             justify-content: center;
             align-items: center;
         }
-/* Title block */
-.carousel-title {
-    text-align: center;
-    background-color: green;
-    color: white;
-    padding: 5px;
-    font-size: 18px;
-}
-
-/* Carousel container */
 .carousel-container {
-    position: relative;
-    width: 430px;
-    height: 300px;
-    margin: 0 auto;
-    border: 2px solid green;
-    overflow: hidden; /* Keep overflow hidden by default */
+  max-width: 430px;
+  max-height: 300px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f2f2f2;
+  border: 2px solid green;
 }
 
-/* Carousel slides */
-.carousel-slides {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden; /* Hide overflow of non-enlarged images */
+.carousel-title {
+  font-size: 18px;
+  text-align: center;
+  color: green;
+  margin-bottom: 20px;
 }
 
-/* Individual image */
-.carousel-slides img {
-    max-width: 250px;
-    max-height: 250px;
-    margin: 0 5px;
-    transition: transform 0.5s ease;
-    position: relative; /* Maintain relative positioning */
+.carousel {
+  display: flex;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
-/* Enlarge image on click */
-.carousel-slides img.enlarged {
-    position: absolute;
-    transform: scale(2.5); /* Enlarge the image */
-    z-index: 10;
-    left: 50%; /* Center the enlarged image */
-    top: 50%;
-    transform: translate(-50%, -50%) scale(2.5); /* Proper centering and scaling */
+.carousel img {
+  max-width: 250px;
+  max-height: 250px;
+  margin: 0 10px;
+  object-fit: contain;
+  cursor: pointer;
 }
 
-/* Navigation buttons */
-.prev, .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: 30px;
-    height: 30px;
-    color: white;
-    background-color: rgba(0, 128, 0, 0.8);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    user-select: none;
-    transform: translateY(-50%);
-    z-index: 11; /* Keep buttons visible */
+.carousel-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 
-.prev {
-    left: -40px; /* Place outside the container */
-}
-
-.next {
-    right: -40px; /* Place outside the container */
-}
-
-.prev:hover, .next:hover {
-    background-color: rgba(0, 128, 0, 1);
-}
-
-/* Always keep buttons visible */
-.prev, .next {
-    visibility: visible !important;
-}
-
-/* Ensure other images stay hidden while one is enlarged */
-.mask-hidden img:not(.enlarged) {
-    visibility: hidden; /* Hide other images when one is enlarged */
+.carousel-buttons button {
+  font-size: 24px;
+  background-color: green;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
 }
 	    
         .submit-button {
@@ -254,20 +211,21 @@
     <br><br>
 
     <!-- Image Carousel -->
-    <div class="carousel-container">
-        <div class="carousel-title">Why You Should Self-Custody Your Bitcoin<br>Instead of Creating Wallets on Exchanges</div>
-        <div class="carousel-slides">
-            <img src="https://i.ibb.co/d0W1cPw/reddit-hack1.jpg" alt="Image 1">
-            <img src="https://i.imgur.com/GWv0ar1.png" alt="Image 2">
-            <img src="https://i.imgur.com/jska0VT.jpeg" alt="Image 3">
-	    <img src="https://i.imgur.com/lxxzCgn.jpeg" alt="Image 4">
-	    <img src="https://i.imgur.com/yRG2tar.jpeg" alt="Image 5">
-
+   <div class="carousel-container">
+    <h2 class="carousel-title">Why You Should Self-Custody Your Bitcoin<br>Instead of Creating Wallets on Exchanges.</h2>
+    <div class="carousel">
+      <img src="https://i.ibb.co/d0W1cPw/reddit-hack1.jpg" alt="Image 1">
+      <img src="https://i.imgur.com/GWv0ar1.png" alt="Image 2">
+      <img src="https://i.imgur.com/jska0VT.jpeg" alt="Image 3">
+      <img src="https://i.imgur.com/lxxzCgn.jpeg" alt="Image 4">
+      <img src="https://i.imgur.com/yRG2tar.jpeg" alt="Image 5">
     </div>
-    <div class="prev">&#10094;</div>
-    <div class="next">&#10095;</div>
-</div>
-		
+    <div class="carousel-buttons">
+      <button class="prev-btn">&lt;</button>
+      <button class="next-btn">&gt;</button>
+    </div>
+  </div>
+
    <!-- Footer -->
     <div id="footer" class="footer">
         <br>
@@ -296,76 +254,52 @@
         </div>
     </div>  
 
-		<script>
-let slideIndex = 0;
-let enlarged = false;
+<script>
+const carousel = document.querySelector('.carousel');
+const prevBtn = document.querySelector('.prev-btn');
+const nextBtn = document.querySelector('.next-btn');
+const carouselImages = document.querySelectorAll('.carousel img');
 
-// Function to move the slides
-function moveSlides(n) {
-    const slides = document.querySelectorAll('.carousel-slides img');
-    slideIndex += n;
-    
-    // Loop around when reaching the end or beginning
-    if (slideIndex >= slides.length) {
-        slideIndex = 0;
-    }
-    if (slideIndex < 0) {
-        slideIndex = slides.length - 1;
-    }
+let currentIndex = 0;
+let isImageExpanded = false;
 
-    // Move the slides one at a time
-    const offset = -slideIndex * (slides[0].offsetWidth + 10);  // Adjust for gap between images
-    document.querySelector('.carousel-slides').style.transform = `translateX(${offset}px)`;
+function showImage(index) {
+  carouselImages.forEach((img, i) => {
+    img.style.transform = `translateX(${(i - index) * 100}%)`;
+  });
 }
 
-// Event listener for the next and prev buttons
-document.querySelector('.prev').addEventListener('click', () => moveSlides(-1));
-document.querySelector('.next').addEventListener('click', () => moveSlides(1));
+function expandImage(event) {
+  if (event.target.tagName === 'IMG') {
+    const clickedImage = event.target;
+    clickedImage.classList.add('expanded');
+    isImageExpanded = true;
+  }
+}
 
-// Event listener for image click to enlarge and reduce
-document.querySelectorAll('.carousel-slides img').forEach(img => {
-    img.addEventListener('click', function() {
-        if (enlarged) {
-            resetImage();
-        } else {
-            enlargeImage(this);
-        }
-    });
+function collapseImage(event) {
+  if (isImageExpanded) {
+    const expandedImage = document.querySelector('.expanded');
+    expandedImage.classList.remove('expanded');
+    isImageExpanded = false;
+  }
+}
+
+prevBtn.addEventListener('click', () => {
+  currentIndex = (currentIndex - 1 + carouselImages.length) % carouselImages.length;
+  showImage(currentIndex);
 });
 
-// Function to enlarge image
-function enlargeImage(img) {
-    img.classList.add('enlarged');
-    document.querySelector('.carousel-slides').classList.add('mask-hidden'); // Hide other images
-    document.querySelector('.carousel-container').style.overflow = 'visible'; // Show overflow for enlarged image
-    enlarged = true;
-}
-
-// Function to reset the enlarged image
-function resetImage() {
-    document.querySelectorAll('.carousel-slides img.enlarged').forEach(img => {
-        img.classList.remove('enlarged');
-    });
-    document.querySelector('.carousel-slides').classList.remove('mask-hidden'); // Show all images again
-    document.querySelector('.carousel-container').style.overflow = 'hidden'; // Hide overflow again
-    enlarged = false;
-}
-
-// Ensure buttons are always visible, even when the image is clicked
-document.addEventListener('click', function(e) {
-    const expandedImages = document.querySelectorAll('.carousel-slides img.enlarged');
-    const prevButton = document.querySelector('.prev');
-    const nextButton = document.querySelector('.next');
-
-    // Ensure buttons stay visible
-    prevButton.style.visibility = 'visible';
-    nextButton.style.visibility = 'visible';
-
-    // Reset enlarged image on outside click
-    if (expandedImages.length > 0 && !expandedImages[0].contains(e.target)) {
-        resetImage();
-    }
+nextBtn.addEventListener('click', () => {
+  currentIndex = (currentIndex + 1) % carouselImages.length;
+  showImage(currentIndex);
 });
+
+carousel.addEventListener('click', expandImage);
+document.addEventListener('click', collapseImage);
+
+showImage(currentIndex);
+
 		</script>
 	</body>
 </html>
