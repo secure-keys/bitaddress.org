@@ -75,41 +75,30 @@
 	}
 	    
 .carousel-container {
-    width: 100%;
-    height: auto;
-    overflow: hidden;
-    position: relative;
-    background-color: green;
+    max-width: 600px;
+    margin-top: 20px;
     text-align: center;
+}
+
+.carousel-title {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 10px;
 }
 
 .carousel {
     display: flex;
     justify-content: center;
-    transition: transform 0.5s;
-    gap: 10px; /* Adjust the gap as needed */
+    gap: 10px;
+    overflow: hidden;
 }
 
 .carousel img {
     max-width: 100%;
     height: auto;
-    object-fit: contain;
-    cursor: pointer;
-}
-
-.carousel img.enlarged {
-    transform: scale(6);
-    position: absolute;
-    z-index: 1;
-}
-
-.carousel-title {
-    font-size: 18px;
-    color: white;
 }
 
 .navigation {
-    text-align: center;
     margin-top: 10px;
 }
 
@@ -117,7 +106,6 @@
     padding: 5px 10px;
     margin: 0 10px;
 }
-
 
         .submit-button:hover {
             background-color: darkgreen;
@@ -199,12 +187,8 @@
     <br><br>
 
     <!-- Image Carousel -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photo Carousel</title>
-    <link rel="stylesheet" href="styles.css">
     <div class="carousel-container">
-        <h2 class="carousel-title">Why You Should Self-Custody Your Bitcoin<br>Instead of Creating Wallets on Exchanges</h2>
+        <h2 class="carousel-title">Why You Should Self-Custody Your Bitcoin Instead of Creating Wallets on Exchanges</h2>
         <div class="carousel">
             <img src="https://i.ibb.co/d0W1cPw/reddit-hack1.jpg" alt="Image 1">
             <img src="https://i.imgur.com/GWv0ar1.png" alt="Image 2">
@@ -220,8 +204,8 @@
     </div>
 
     <script src="script.js"></script>
-	
-   <!-- Footer -->
+
+	<!-- Footer -->
     <div id="footer" class="footer">
         <br>
         <br>
@@ -255,37 +239,20 @@ const images = document.querySelectorAll('.carousel img');
 let index = 0;
 
 function updateCarousel() {
-    carousel.style.transform = `translateX(-${index * (100 + 10)}%)`; // Adjust the value based on gap size
+    carousel.style.transform = `translateX(-${index * 100}%)`;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    updateCarousel();
-    images[0].classList.add('enlarged');
-});
+document.addEventListener('DOMContentLoaded', updateCarousel);
 
 function prevSlide() {
-    index = Math.max(index - 1, 0);
+    index = (index - 1 + images.length) % images.length;
     updateCarousel();
-    images.forEach(img => img.classList.remove('enlarged'));
-    images[index].classList.add('enlarged');
 }
 
 function nextSlide() {
-    index = Math.min(index + 1, images.length - 1);
+    index = (index + 1) % images.length;
     updateCarousel();
-    images.forEach(img => img.classList.remove('enlarged'));
-    images[index].classList.add('enlarged');
 }
-
-images.forEach(img => {
-    img.addEventListener('click', () => {
-        img.classList.toggle('enlarged');
-    });
-
-    img.addEventListener('mouseleave', () => {
-        img.classList.remove('enlarged');
-    });
-});
 
 const nextButton = document.querySelector('.next-button');
 const prevButton = document.querySelector('.prev-button');
