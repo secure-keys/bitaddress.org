@@ -1,0 +1,39 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /login/
+Disallow: /wp-login.php
+Disallow: /wp-admin/
+Disallow: /cgi-bin/
+Disallow: /temp/
+Disallow: /private/
+Disallow: /search
+Disallow: /checkout/
+Disallow: /cart/
+Disallow: /user/
+Disallow: /scripts/
+Disallow: /*.php$
+
+# Allow important resources
+Allow: /public/
+Allow: /css/
+Allow: /js/
+Allow: /images/
+
+# Sitemap
+Sitemap: https://www.bitaddress.systems/sitemap.xml
+
+# Block irrelevant file types from being indexed
+Disallow: /*.jpg$
+Disallow: /*.png$
+Disallow: /*.gif$
+Disallow: /*.pdf$
+Disallow: /*.doc$
+Disallow: /*.docx$
+
+# Prevent duplicate content issues
+Disallow: /*?replytocom=
+Disallow: /*?utm_source=
+Disallow: /*?sessionid=
+
+# Allow all bots, but prioritize crawling key pages
+Crawl-delay: 10
