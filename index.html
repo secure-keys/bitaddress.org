@@ -31,7 +31,10 @@
             margin-right: 30px; /* Set a margin of 30 pixels on the right side of the page */
             font-family: sans-serif;
         }
-        
+
+	#zoomable-container {
+    	transition: transform 0.3s ease;
+	}
         .app-logo-container {
         width: 100%;
 	max-width: 400px;
@@ -291,6 +294,28 @@
             <span id="footerlabelcopyright1">Copyright bitaddress.systems</span><br>
             <span id="footerlabelcopyright2">JavaScript copyrights are included in the source.</span>
      </div>
+
+    <script>
+        let scale = 1;
+
+        function zoomIn() {
+            scale += 0.1;
+            document.getElementById('zoomable-container').style.transform = `scale(${scale})`;
+        }
+
+        function zoomOut() {
+            scale = Math.max(1, scale - 0.1);
+            document.getElementById('zoomable-container').style.transform = `scale(${scale})`;
+        }
+
+        window.addEventListener('keydown', (event) => {
+            if (event.ctrlKey && event.key === '+') {
+                zoomIn();
+            } else if (event.ctrlKey && event.key === '-') {
+                zoomOut();
+            }
+        });
+    </script>
 
 <script>
 let currentIndex = 0;
