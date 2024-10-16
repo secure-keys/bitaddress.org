@@ -361,13 +361,15 @@ function prevSlide() {
 </script>
 
 <script>
+// Photo viewer functionality
 const modal = document.getElementById("imageModal");
 const modalImage = document.getElementById("modalImage");
 
-document.querySelectorAll('.carousel-item img').forEach(img => {
+document.querySelectorAll('.carousel-item img').forEach((img, index) => {
     img.onclick = function() {
         modal.style.display = "flex"; // Show the modal
         modalImage.src = this.src; // Set the source of the modal image
+        currentIndex = index; // Set the current index to the clicked image
     }
 });
 
@@ -375,10 +377,63 @@ function closeModal() {
     modal.style.display = "none"; // Hide the modal
 }
 
-// Close modal when clicking outside of the image
 modal.onclick = function() {
     closeModal();
 };
+
+// Keyboard navigation
+document.addEventListener('keydown', function(event) {
+    if (modal.style.display === "flex") {
+        if (event.key === "ArrowLeft") {
+            prevImage();
+        } else if (event.key === "ArrowRight") {
+            nextImage();
+        }
+    }
+});
+
+function prevImage() {
+    if (currentIndex > 0) {
+        currentIndex--;
+    } else {
+        currentIndex = document.querySelectorAll('.carousel-item').length - 1; // Loop to last image
+    }
+    updateModalImage();
+}
+
+function nextImage() {
+    if (currentIndex < document.querySelectorAll('.carousel-item').length - 1) {
+        currentIndex++;
+    } else {
+        currentIndex = 0; // Loop to first image
+    }
+    updateModalImage();
+}
+
+function updateModalImage() {
+    modalImage.src = document.querySelectorAll('.carousel-item img')[currentIndex].src; // Update modal image source
+}
+
+// Touch navigation
+let startX;
+
+modal.addEventListener('touchstart', function(event) {
+    startX = event.touches[0].clientX;
+});
+
+modal.addEventListener('touchmove', function(event) {
+    const endX = event.touches[0].clientX;
+    const difference = startX - endX;
+
+    if (Math.abs(difference) > 30) {
+        if (difference > 0) {
+            nextImage(); // Swipe left
+        } else {
+            prevImage(); // Swipe right
+        }
+        closeModal(); // Optionally close modal after swiping
+    }
+});
 </script>
 	
 </body>
