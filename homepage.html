@@ -141,6 +141,37 @@
     justify-content: space-between; /* Align buttons */
     width: 100%;
 }
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.8); /* Black background with opacity */
+    justify-content: center; /* Center the image */
+    align-items: center; /* Center the image */
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 80%; /* Max width for modal image */
+    max-height: 80%; /* Max height for modal image */
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
 	    
     .submit-button:hover {
     background-color: darkgreen;
@@ -251,6 +282,11 @@
         <button class="carousel-control next" onclick="nextSlide()">Next &#10095;</button>
     </div>
 </div>
+
+<div class="modal" id="imageModal" style="display: none;">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImage" alt="Expanded View">
+</div>
 	
 	<!-- Footer -->
     <div id="footer" class="footer">
@@ -310,5 +346,40 @@ function prevSlide() {
     showSlide(currentIndex - 1); // Move to the previous slide
 }
     </script>
-	</body>
+	
+<script>
+let currentIndex = 0;
+// ... (carousel functions remain unchanged)
+
+function nextSlide() {
+    showSlide(currentIndex + 1);
+}
+
+function prevSlide() {
+    showSlide(currentIndex - 1);
+}
+</script>
+
+<script>
+const modal = document.getElementById("imageModal");
+const modalImage = document.getElementById("modalImage");
+
+document.querySelectorAll('.carousel-item img').forEach(img => {
+    img.onclick = function() {
+        modal.style.display = "flex"; // Show the modal
+        modalImage.src = this.src; // Set the source of the modal image
+    }
+});
+
+function closeModal() {
+    modal.style.display = "none"; // Hide the modal
+}
+
+// Close modal when clicking outside of the image
+modal.onclick = function() {
+    closeModal();
+};
+</script>
+	
+</body>
 </html>
