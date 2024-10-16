@@ -74,79 +74,77 @@
             align-items: center; 
 	}
 	    
-/* Outer carousel container */
-.outer-carousel {
+/* Carousel container */
+.carousel-container {
     max-width: 430px;
     max-height: 300px;
-    margin: 0 auto;
+    margin: 20px auto;
+    padding: 10px;
+    border: 5px solid green;
+    overflow: hidden;
     position: relative;
-    overflow: visible; /* Allow overflow for enlarged images */
     background-color: white;
-    border: 3px solid green;
     text-align: center;
-    padding-top: 20px;
 }
 
-/* Title Styling */
+/* Title block */
 .carousel-title {
+    background-color: green;
+    color: white;
     font-size: 18px;
-    color: green;
+    padding: 10px;
     margin-bottom: 10px;
 }
 
-/* Inner carousel (slides inside) */
-.inner-carousel {
+/* Slides wrapper */
+.carousel-slides {
     display: flex;
-    justify-content: flex-start; /* Aligns images horizontally */
-    align-items: center;
-    width: 100%;
-    overflow: hidden; /* Hide overflow for inner container */
-    position: relative; /* Establishes positioning context */
+    transition: transform 0.5s ease;
+    position: relative;
 }
 
-/* Carousel images */
+/* Individual image styling */
 .carousel-slides img {
-    width: 250px;
-    height: 250px;
-    transition: transform 0.3s ease, z-index 0.3s ease;
-    object-fit: cover;
-    margin-right: 10px; /* Spacing between images */
+    max-width: 250px;
+    max-height: 250px;
+    display: block;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: transform 0.5s ease;
 }
 
-/* Enlarged image styling */
+/* Enlarged image */
 .enlarged {
-    z-index: 999; /* Ensure enlarged image is on top */
-    transform: scale(6); /* Adjust scale to how large you want it */
-    position: absolute; /* Allows it to move outside of parent container */
+    transform: scale(6);
+    position: absolute;
+    z-index: 1000;
     left: 50%;
     top: 50%;
-    transform-origin: center center; /* Center the enlargement */
-    transform: translate(-50%, -50%) scale(6); /* Center and scale */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translate(-50%, -50%) scale(6);
+    transition: transform 0.5s ease;
 }
 
-/* Navigation buttons */
-.carousel-buttons {
-    position: relative; /* Change to relative for proper placement */
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-}
-
+/* Button styling */
 .carousel-button {
+    cursor: pointer;
+    margin-top: 10px;
     background-color: green;
     color: white;
+    font-size: 16px;
+    padding: 10px;
     border: none;
-    padding: 10px 20px;
-    cursor: pointer;
+    display: inline-block;
+    text-align: center;
 }
 
 .carousel-button:hover {
     background-color: darkgreen;
-}    
+}
+  
     .submit-button:hover {
     background-color: darkgreen;
 }
+	    
     </style>    
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKH070VBDW">
@@ -224,22 +222,24 @@
     <br><br>
 
     <!-- Image Carousel -->
-    <div class="outer-carousel">
-    <div class="carousel-title">Why You Should Self-Custody Your Bitcoin<br>Instead of Creating Wallets on Exchanges.</div>
-    <div class="inner-carousel">
-        <div class="carousel-slides">
-            <img src="https://i.ibb.co/d0W1cPw/reddit-hack1.jpg" alt="Image 1">
-            <img src="https://i.imgur.com/GWv0ar1.png" alt="Image 2">
-            <img src="https://i.imgur.com/jska0VT.jpeg" alt="Image 3">
-            <img src="https://i.imgur.com/lxxzCgn.jpeg" alt="Image 4">
-            <img src="https://i.imgur.com/yRG2tar.jpeg" alt="Image 5">
+    <div class="carousel-title">Why You Should Self-Custody Your Bitcoin<br>Instead of Creating Wallets on Exchanges</div>
+
+    <div class="carousel-container">
+        <div class="carousel-slides-wrapper">
+            <div class="carousel-slides">
+                <img src="https://i.ibb.co/d0W1cPw/reddit-hack1.jpg" alt="Image 1" onclick="enlargeImage(this)">
+                <img src="https://i.imgur.com/GWv0ar1.png" alt="Image 2" onclick="enlargeImage(this)">
+                <img src="https://i.imgur.com/jska0VT.jpeg" alt="Image 3" onclick="enlargeImage(this)">
+                <img src="https://i.imgur.com/lxxzCgn.jpeg" alt="Image 4" onclick="enlargeImage(this)">
+                <img src="https://i.imgur.com/yRG2tar.jpeg" alt="Image 5" onclick="enlargeImage(this)">
+            </div>
         </div>
     </div>
-    <div class="carousel-buttons">
-        <button class="prev">Previous</button>
-        <button class="next">Next</button>
+
+    <div class="carousel-controls">
+        <button class="carousel-button prev" onclick="moveSlides(-1)">Previous</button>
+        <button class="carousel-button next" onclick="moveSlides(1)">Next</button>
     </div>
-</div>
 	
 	<!-- Footer -->
     <div id="footer" class="footer">
@@ -270,47 +270,42 @@
     </div>
 	
     <script>
-const slides = document.querySelectorAll('.carousel-slides img');
-const buttons = document.querySelectorAll('.carousel-button');
 let currentIndex = 0;
+let enlarged = false;
 
-// Function to update the displayed images based on the current index
-function updateSlides() {
-    slides.forEach((slide, index) => {
-        if (index >= currentIndex && index < currentIndex + 3) {
-            slide.style.display = 'block'; // Show images in the current index range
-        } else {
-            slide.style.display = 'none'; // Hide others
-        }
-    });
+function moveSlides(direction) {
+    const slides = document.querySelector('.carousel-slides');
+    const totalSlides = slides.children.length;
+    const slideWidth = slides.children[0].offsetWidth;
+
+    if (enlarged) return; // Prevent slide movement when image is enlarged
+
+    currentIndex += direction;
+
+    if (currentIndex >= totalSlides) {
+        currentIndex = 0;
+    } else if (currentIndex < 0) {
+        currentIndex = totalSlides - 1;
+    }
+
+    slides.style.transform = `translateX(${-currentIndex * (slideWidth + 10)}px)`;
 }
 
-// Function to handle enlargement and return to normal size
-slides.forEach((slide) => {
-    slide.addEventListener('click', () => {
-        if (slide.classList.contains('enlarged')) {
-            slide.classList.remove('enlarged');
-        } else {
-            slides.forEach((s) => s.classList.remove('enlarged')); // Remove enlarged from others
-            slide.classList.add('enlarged');
-        }
-    });
-});
-
-// Navigation button functionality
-buttons.forEach((button) => {
-    button.addEventListener('click', (e) => {
-        if (e.target.textContent === 'Next') {
-            currentIndex = (currentIndex + 3) % slides.length;
-        } else {
-            currentIndex = (currentIndex - 3 + slides.length) % slides.length;
-        }
-        updateSlides();
-    });
-});
-
-// Initialize the carousel
-updateSlides();
+function enlargeImage(img) {
+    if (enlarged) {
+        img.classList.remove('enlarged');
+        img.parentElement.querySelectorAll('img').forEach(image => {
+            image.classList.remove('hidden');
+        });
+        enlarged = false;
+    } else {
+        img.classList.add('enlarged');
+        img.parentElement.querySelectorAll('img').forEach(image => {
+            if (image !== img) image.classList.add('hidden');
+        });
+        enlarged = true;
+    }
+}
     </script>
 	</body>
 </html>
