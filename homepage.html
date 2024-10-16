@@ -72,15 +72,15 @@
             display: flex;
             justify-content: center;
             align-items: center; 
-		
-}
+	}
+	    
 .carousel-container {
-    max-width: 430px;
-    max-height: 300px;
+    width: 100%;
+    height: auto;
     overflow: hidden;
     position: relative;
     background-color: green;
-    margin: 0 auto;
+    text-align: center;
 }
 
 .carousel {
@@ -91,8 +91,8 @@
 }
 
 .carousel img {
-    max-width: 250px;
-    max-height: 250px;
+    max-width: 100%;
+    height: auto;
     object-fit: contain;
     cursor: pointer;
 }
@@ -106,7 +106,6 @@
 .carousel-title {
     font-size: 18px;
     color: white;
-    text-align: center;
 }
 
 .navigation {
@@ -118,6 +117,7 @@
     padding: 5px 10px;
     margin: 0 10px;
 }
+
 
         .submit-button:hover {
             background-color: darkgreen;
@@ -199,6 +199,10 @@
     <br><br>
 
     <!-- Image Carousel -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Carousel</title>
+    <link rel="stylesheet" href="styles.css">
     <div class="carousel-container">
         <h2 class="carousel-title">Why You Should Self-Custody Your Bitcoin<br>Instead of Creating Wallets on Exchanges</h2>
         <div class="carousel">
@@ -250,13 +254,32 @@ const carousel = document.querySelector('.carousel');
 const images = document.querySelectorAll('.carousel img');
 let index = 0;
 
-images.forEach((img, idx) => {
+function updateCarousel() {
+    carousel.style.transform = `translateX(-${index * (100 + 10)}%)`; // Adjust the value based on gap size
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateCarousel();
+    images[0].classList.add('enlarged');
+});
+
+function prevSlide() {
+    index = Math.max(index - 1, 0);
+    updateCarousel();
+    images.forEach(img => img.classList.remove('enlarged'));
+    images[index].classList.add('enlarged');
+}
+
+function nextSlide() {
+    index = Math.min(index + 1, images.length - 1);
+    updateCarousel();
+    images.forEach(img => img.classList.remove('enlarged'));
+    images[index].classList.add('enlarged');
+}
+
+images.forEach(img => {
     img.addEventListener('click', () => {
-        if (index === idx) {
-            img.classList.toggle('enlarged');
-        } else {
-            img.classList.remove('enlarged');
-        }
+        img.classList.toggle('enlarged');
     });
 
     img.addEventListener('mouseleave', () => {
@@ -264,27 +287,12 @@ images.forEach((img, idx) => {
     });
 });
 
-function updateCarousel() {
-    carousel.style.transform = `translateX(-${index * (250 + 10)}px)`; // Adjust the value based on gap size
-}
-
-document.addEventListener('DOMContentLoaded', updateCarousel);
-
-function prevSlide() {
-    index = Math.max(index - 1, 0);
-    updateCarousel();
-}
-
-function nextSlide() {
-    index = Math.min(index + 1, images.length - 1);
-    updateCarousel();
-}
-
 const nextButton = document.querySelector('.next-button');
 const prevButton = document.querySelector('.prev-button');
 
 nextButton.addEventListener('click', nextSlide);
 prevButton.addEventListener('click', prevSlide);
+
     </script>
 	</body>
 </html>
