@@ -117,15 +117,16 @@
 
 /* Enlarged image */
 .enlarged {
-    transform: scale(2.5); /* Moderate scale instead of 6 */
-    position: absolute;
-    z-index: 10;
+    transform: scale(2); /* Adjusted scale for moderate enlargement */
+    position: absolute;  /* Allows the image to break out of the carousel */
+    z-index: 10;         /* Ensure it appears above other elements */
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%) scale(2.5);
-    transition: transform 0.5s ease;
+    transform: translate(-50%, -50%) scale(2); /* Centers and enlarges */
+    transition: transform 0.5s ease; /* Smooth transition */
+    max-width: none; /* Ensure the image doesn’t get constrained by parent */
+    max-height: none; /* Prevent height constraint */
 }
-
 /* Button styling */
 .carousel-button {
     cursor: pointer;
