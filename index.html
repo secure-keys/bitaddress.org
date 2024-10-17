@@ -244,7 +244,7 @@
     .livechat-widget input[type="submit"]:hover {
         background-color: #0056b3;
     }
-
+	    
 /* For mobile devices */
 @media (max-width: 600px) {
     .your-class {
@@ -351,14 +351,15 @@
 
 <div class="livechat-widget" id="livechatWidget">
     <button class="hide-btn" onclick="hideWidget()">&#10006;</button>
-    <form id="livechatForm" action="https://api.telegram.org/bot7871330297:AAF-UGQ1KF3YpL3Sjpy-zKSyDGCHaJVyQAI/sendMessage" method="POST">
-        <textarea name="message" placeholder="Type your message..." required></textarea>
+    <form action="https://api.telegram.org/bot7871330297:AAF-UGQ1KF3YpL3Sjpy-zKSyDGCHaJVyQAI/sendMessage" method="post">
+        <textarea name="text" id="messageInput" placeholder="Type your message..." required></textarea>
         <input type="hidden" name="chat_id" value="858072424">
         <input type="submit" value="Send">
     </form>
 </div>
 
 <button class="show-btn" id="showBtn" onclick="showWidget()" style="display:none;">Open Live Chat</button>
+
 	    <!-- Footer -->
     <div id="footer" class="footer">
         <br>
