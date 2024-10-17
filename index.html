@@ -179,138 +179,6 @@
         .next {
             right: 0;
         }
-
-    .livechat-widget {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 300px;
-        padding: 10px;
-        background-color: white;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        border: 5px solid green;
-        z-index: 1000;
-    }
-
-    /* Hide button */
-    .hide-btn {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        background: none;
-        border: none;
-        font-size: 16px;
-        cursor: pointer;
-        color: red;
-    }
-
-    /* Show button */
-    .show-btn {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        padding: 10px;
-        background-color: #007bff;
-        border: none;
-        color: white;
-        border-radius: 5px;
-        cursor: pointer;
-        z-index: 1000;    }
-
-    .livechat-widget {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 300px;
-        padding: 10px;
-        background-color: white;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        border: 5px solid green;
-        z-index: 1000;
-    }
-
-    /* Hide button */
-    .hide-btn {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        background: none;
-        border: none;
-        font-size: 18px;
-        cursor: pointer;
-        color: red;
-    }
-
-    /* Show button */
-    .show-btn {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        padding: 10px;
-        background-color: #007bff;
-        border: none;
-        color: white;
-        border-radius: 5px;
-        cursor: pointer;
-        z-index: 1000;
-    }
-
-    .livechat-widget textarea {
-        width: calc(100% - 20px); /* Fix text area spilling issue */
-        height: 100px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 10px;
-        resize: none;
-        font-family: Arial, sans-serif;
-    }
-
-    .livechat-widget input[type="submit"] {
-        width: 100%;
-        padding: 10px;
-        background-color: #007bff;
-        border: none;
-        color: white;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-
-    .livechat-widget input[type="submit"]:hover {
-        background-color: #0056b3;
-    }
-
-    .livechat-widget #chatDisplayArea {
-        width: calc(100% - 20px);
-        height: 200px;
-        overflow-y: auto;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #f9f9f9;
-        margin-bottom: 10px;
-    }
-
-    .livechat-widget .user {
-        text-align: right;
-        color: blue;
-        margin-bottom: 10px;
-    }
-
-    .livechat-widget .bot {
-        text-align: left;
-        color: green;
-        margin-bottom: 10px;
-    }
-
-    .livechat-widget .error {
-        text-align: center;
-        color: red;
-        margin-bottom: 10px;
-    }
 	    
 /* For mobile devices */
 @media (max-width: 600px) {
@@ -415,125 +283,6 @@
             <button class="carousel-control prev" onclick="prevSlide()">&#10094;</button>
             <button class="carousel-control next" onclick="nextSlide()">&#10095;</button>
         </div>
-
-<div class="livechat-widget" id="livechatWidget">
-    <button class="hide-btn" onclick="hideWidget()">&#10006;</button>
-    <div id="chatDisplayArea"></div>
-    <form id="livechatForm">
-        <textarea name="message" id="messageInput" placeholder="Type your message..." required></textarea>
-        <input type="submit" value="Send">
-    </form>
-</div>
-
-<button class="show-btn" id="showBtn" onclick="showWidget()" style="display:none;">Open Live Chat</button>
-
-	    <!-- Footer -->
-    <div id="footer" class="footer">
-        <br>
-        <br>
-        <br>
-     <div class="authorbtc" style="font-size: 8pt; text-align: left; margin-left: 15px;">
-	    <span class="item"><a href="https://github.com/pointbiz/bitaddress.org" target="_blank" id="footerlabelgithub">GitHub Repository</a>
-     </div>
-	    
-     <div class="authorpgp" style="font-size: 8pt ; text-align: right; margin-right: 15px;">
-	    <span class="item" style="color: white;">support@bitaddress.systems</span><br></span>
-     </div>
-	    
-     <div class="copyright" style="font-size: 8pt; text-align: center; margin-bottom: 15px;">
-            <span id="footerlabelcopyright1">Copyright bitaddress.systems</span><br>
-            <span id="footerlabelcopyright2">JavaScript copyrights are included in the source.</span>
-     </div>
-
-<script>
-    const chatDisplayArea = document.getElementById('chatDisplayArea');
-    const chatId = '858072424';
-    const token = '7871330297:AAF-UGQ1KF3YpL3Sjpy-zKSyDGCHaJVyQAI';
-    
-    // Polling for bot replies every 3 seconds
-    setInterval(fetchBotReplies, 3000);
-
-    // Hide widget function
-    function hideWidget() {
-        document.getElementById('livechatWidget').style.display = 'none';
-        document.getElementById('showBtn').style.display = 'block';
-    }
-
-    // Show widget function
-    function showWidget() {
-        document.getElementById('livechatWidget').style.display = 'block';
-        document.getElementById('showBtn').style.display = 'none';
-    }
-
-    // Function to display messages in chat area
-    function displayMessage(sender, message) {
-        const messageElem = document.createElement('div');
-        messageElem.className = sender;
-        messageElem.innerText = message;
-        chatDisplayArea.appendChild(messageElem);
-        chatDisplayArea.scrollTop = chatDisplayArea.scrollHeight; // Auto-scroll to bottom
-    }
-
-    // AJAX form submission
-    document.getElementById('livechatForm').addEventListener('submit', function(e) {
-        e.preventDefault(); // Prevent default form submission
-
-        const messageInput = document.getElementById('messageInput').value;
-
-        if (messageInput.trim() === '') {
-            displayMessage('error', 'Please enter a message.');
-            return;
-        }
-
-        // Display the user's message in the chat area
-        displayMessage('user', messageInput);
-        document.getElementById('messageInput').value = ''; // Clear input
-
-        // Prepare the payload
-        const payload = new URLSearchParams({
-            chat_id: chatId,
-            text: messageInput
-        });
-
-        // Send the message via fetch (AJAX)
-        fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: payload.toString()
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (!data.ok) {
-                displayMessage('error', `Error: ${data.description}`);
-            }
-        })
-        .catch(error => {
-            displayMessage('error', 'Failed to send message. Please try again later.');
-        });
-    });
-
-    // Function to fetch bot replies and display them
-    function fetchBotReplies() {
-        // Fetch updates from Telegram (polling)
-        fetch(`https://api.telegram.org/bot${token}/getUpdates`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.ok && data.result.length > 0) {
-                data.result.forEach(update => {
-                    // Check if there's a message from the bot to display
-                    if (update.message && update.message.chat.id.toString() === chatId) {
-                        displayMessage('bot', update.message.text);
-                    }
-                });
-            }
-        })
-        .catch(error => {
-            console.log('Failed to fetch bot replies:', error);
-        });
-    }
-</script>
 	    
     <script>
         let scale = 1;
@@ -591,5 +340,19 @@ let currentIndex = 0;
         //     nextSlide();
         // }, 3000); // Change slide every 3 seconds
     </script>
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/671165e22480f5b4f58f3066/1iadvbvq0';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->	    
 </body>
 </html>
