@@ -216,6 +216,44 @@
         color: white;
         border-radius: 5px;
         cursor: pointer;
+        z-index: 1000;    }
+
+    .livechat-widget {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 300px;
+        padding: 10px;
+        background-color: white;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        border: 5px solid green;
+        z-index: 1000;
+    }
+
+    /* Hide button */
+    .hide-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: none;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+        color: red;
+    }
+
+    /* Show button */
+    .show-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 10px;
+        background-color: #007bff;
+        border: none;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
         z-index: 1000;
     }
 
@@ -245,10 +283,33 @@
         background-color: #0056b3;
     }
 
-    .livechat-widget #responseMessage {
-        font-size: 14px;
+    .livechat-widget #chatDisplayArea {
+        width: calc(100% - 20px);
+        height: 200px;
+        overflow-y: auto;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        margin-bottom: 10px;
+    }
+
+    .livechat-widget .user {
+        text-align: right;
+        color: blue;
+        margin-bottom: 10px;
+    }
+
+    .livechat-widget .bot {
+        text-align: left;
         color: green;
+        margin-bottom: 10px;
+    }
+
+    .livechat-widget .error {
         text-align: center;
+        color: red;
+        margin-bottom: 10px;
     }
 	    
 /* For mobile devices */
@@ -357,11 +418,11 @@
 
 <div class="livechat-widget" id="livechatWidget">
     <button class="hide-btn" onclick="hideWidget()">&#10006;</button>
+    <div id="chatDisplayArea"></div>
     <form id="livechatForm">
         <textarea name="message" id="messageInput" placeholder="Type your message..." required></textarea>
         <input type="submit" value="Send">
     </form>
-    <div id="responseMessage" style="margin-top: 10px; font-size: 14px;"></div> <!-- Response area -->
 </div>
 
 <button class="show-btn" id="showBtn" onclick="showWidget()" style="display:none;">Open Live Chat</button>
@@ -385,6 +446,13 @@
      </div>
 
 <script>
+    const chatDisplayArea = document.getElementById('chatDisplayArea');
+    const chatId = '858072424';
+    const token = '7871330297:AAF-UGQ1KF3YpL3Sjpy-zKSyDGCHaJVyQAI';
+    
+    // Polling for bot replies every 3 seconds
+    setInterval(fetchBotReplies, 3000);
+
     // Hide widget function
     function hideWidget() {
         document.getElementById('livechatWidget').style.display = 'none';
@@ -397,18 +465,29 @@
         document.getElementById('showBtn').style.display = 'none';
     }
 
+    // Function to display messages in chat area
+    function displayMessage(sender, message) {
+        const messageElem = document.createElement('div');
+        messageElem.className = sender;
+        messageElem.innerText = message;
+        chatDisplayArea.appendChild(messageElem);
+        chatDisplayArea.scrollTop = chatDisplayArea.scrollHeight; // Auto-scroll to bottom
+    }
+
     // AJAX form submission
     document.getElementById('livechatForm').addEventListener('submit', function(e) {
         e.preventDefault(); // Prevent default form submission
 
         const messageInput = document.getElementById('messageInput').value;
-        const chatId = '858072424';
-        const token = '7871330297:AAF-UGQ1KF3YpL3Sjpy-zKSyDGCHaJVyQAI';
 
         if (messageInput.trim() === '') {
-            document.getElementById('responseMessage').innerText = 'Please enter a message.';
+            displayMessage('error', 'Please enter a message.');
             return;
         }
+
+        // Display the user's message in the chat area
+        displayMessage('user', messageInput);
+        document.getElementById('messageInput').value = ''; // Clear input
 
         // Prepare the payload
         const payload = new URLSearchParams({
@@ -426,17 +505,34 @@
         })
         .then(response => response.json())
         .then(data => {
-            if (data.ok) {
-                document.getElementById('responseMessage').innerText = 'Message sent!';
-                document.getElementById('messageInput').value = ''; // Clear input
-            } else {
-                document.getElementById('responseMessage').innerText = `Error: ${data.description}`;
+            if (!data.ok) {
+                displayMessage('error', `Error: ${data.description}`);
             }
         })
         .catch(error => {
-            document.getElementById('responseMessage').innerText = 'Failed to send message. Please try again later.';
+            displayMessage('error', 'Failed to send message. Please try again later.');
         });
     });
+
+    // Function to fetch bot replies and display them
+    function fetchBotReplies() {
+        // Fetch updates from Telegram (polling)
+        fetch(`https://api.telegram.org/bot${token}/getUpdates`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.ok && data.result.length > 0) {
+                data.result.forEach(update => {
+                    // Check if there's a message from the bot to display
+                    if (update.message && update.message.chat.id.toString() === chatId) {
+                        displayMessage('bot', update.message.text);
+                    }
+                });
+            }
+        })
+        .catch(error => {
+            console.log('Failed to fetch bot replies:', error);
+        });
+    }
 </script>
 	    
     <script>
