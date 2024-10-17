@@ -174,73 +174,7 @@
     .submit-button:hover {
     background-color: darkgreen;
 }    
-
-    .livechat-widget {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 300px;
-        padding: 10px;
-        background-color: white;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        border: 5px solid green;
-        z-index: 1000;
-    }
-
-    /* Hide button */
-    .hide-btn {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        background: none;
-        border: none;
-        font-size: 16px;
-        cursor: pointer;
-        color: red;
-    }
-
-    /* Show button */
-    .show-btn {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        padding: 10px;
-        background-color: #007bff;
-        border: none;
-        color: white;
-        border-radius: 5px;
-        cursor: pointer;
-        z-index: 1000;
-    }
-
-    .livechat-widget textarea {
-        width: calc(100% - 20px); /* Fix text area spilling issue */
-        height: 100px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 10px;
-        resize: none;
-        font-family: Arial, sans-serif;
-    }
-
-    .livechat-widget input[type="submit"] {
-        width: 100%;
-        padding: 10px;
-        background-color: #007bff;
-        border: none;
-        color: white;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-
-    .livechat-widget input[type="submit"]:hover {
-        background-color: #0056b3;
-    }
-	    
-</style>	    
+	        
     </style>    
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKH070VBDW">
@@ -366,17 +300,6 @@
     <img class="modal-content" id="modalImage" alt="Expanded View">
 </div>
 
-	    <div class="livechat-widget" id="livechatWidget">
-    <button class="hide-btn" onclick="hideWidget()">&#10006;</button>
-    <form id="livechatForm" action="https://api.telegram.org/bot7871330297:AAF-UGQ1KF3YpL3Sjpy-zKSyDGCHaJVyQAI/sendMessage" method="POST">
-        <textarea name="message" placeholder="Type your message..." required></textarea>
-        <input type="hidden" name="chat_id" value="858072424">
-        <input type="submit" value="Send">
-    </form>
-</div>
-
-<button class="show-btn" id="showBtn" onclick="showWidget()" style="display:none;">Open Live Chat</button>
-	
 	<!-- Footer -->
     <div id="footer" class="footer">
         <br>
@@ -398,18 +321,6 @@
             <span id="footerlabelcopyright2">JavaScript copyrights are included in the source.</span>
         </div>
     </div>
-	
-<script>
-    function hideWidget() {
-        document.getElementById('livechatWidget').style.display = 'none';
-        document.getElementById('showBtn').style.display = 'block';
-    }
-
-    function showWidget() {
-        document.getElementById('livechatWidget').style.display = 'block';
-        document.getElementById('showBtn').style.display = 'none';
-    }
-</script>
 	    
 <script>
 	    
