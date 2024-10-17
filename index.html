@@ -244,6 +244,12 @@
     .livechat-widget input[type="submit"]:hover {
         background-color: #0056b3;
     }
+
+    .livechat-widget #responseMessage {
+        font-size: 14px;
+        color: green;
+        text-align: center;
+    }
 	    
 /* For mobile devices */
 @media (max-width: 600px) {
@@ -351,11 +357,11 @@
 
 <div class="livechat-widget" id="livechatWidget">
     <button class="hide-btn" onclick="hideWidget()">&#10006;</button>
-    <form action="https://api.telegram.org/bot7871330297:AAF-UGQ1KF3YpL3Sjpy-zKSyDGCHaJVyQAI/sendMessage" method="post">
-        <textarea name="text" id="messageInput" placeholder="Type your message..." required></textarea>
-        <input type="hidden" name="chat_id" value="858072424">
+    <form id="livechatForm">
+        <textarea name="message" id="messageInput" placeholder="Type your message..." required></textarea>
         <input type="submit" value="Send">
     </form>
+    <div id="responseMessage" style="margin-top: 10px; font-size: 14px;"></div> <!-- Response area -->
 </div>
 
 <button class="show-btn" id="showBtn" onclick="showWidget()" style="display:none;">Open Live Chat</button>
@@ -379,15 +385,58 @@
      </div>
 
 <script>
+    // Hide widget function
     function hideWidget() {
         document.getElementById('livechatWidget').style.display = 'none';
         document.getElementById('showBtn').style.display = 'block';
     }
 
+    // Show widget function
     function showWidget() {
         document.getElementById('livechatWidget').style.display = 'block';
         document.getElementById('showBtn').style.display = 'none';
     }
+
+    // AJAX form submission
+    document.getElementById('livechatForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent default form submission
+
+        const messageInput = document.getElementById('messageInput').value;
+        const chatId = '858072424';
+        const token = '7871330297:AAF-UGQ1KF3YpL3Sjpy-zKSyDGCHaJVyQAI';
+
+        if (messageInput.trim() === '') {
+            document.getElementById('responseMessage').innerText = 'Please enter a message.';
+            return;
+        }
+
+        // Prepare the payload
+        const payload = new URLSearchParams({
+            chat_id: chatId,
+            text: messageInput
+        });
+
+        // Send the message via fetch (AJAX)
+        fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: payload.toString()
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.ok) {
+                document.getElementById('responseMessage').innerText = 'Message sent!';
+                document.getElementById('messageInput').value = ''; // Clear input
+            } else {
+                document.getElementById('responseMessage').innerText = `Error: ${data.description}`;
+            }
+        })
+        .catch(error => {
+            document.getElementById('responseMessage').innerText = 'Failed to send message. Please try again later.';
+        });
+    });
 </script>
 	    
     <script>
