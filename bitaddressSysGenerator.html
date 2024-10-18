@@ -6407,7 +6407,33 @@ hr { margin: 20px 0; border-top: 2px dashed #008000; }
 .pubkeyhex { word-wrap: break-word; }
 body { font-family: sans-serif; }
 body, html { height: 99%; }
-.app-logo-container {
+.tab-menu {
+    display: flex;
+    justify-content: center; /* Center the menu horizontally */
+    background-color: green; /* Menu background color */
+    padding: 10px 0;
+}
+
+.tab-menu a {
+    padding: 14px 20px; /* Padding for tab size */
+    margin: 0 10px; /* Evenly space the tabs */
+    text-align: center;
+    text-decoration: none; /* Remove underline from links */
+    color: black; /* Tab label text color */
+    font-size: 18pt; /* Font size for tabs */
+    background-color: gold; /* Tab background color */
+    border-radius: 4px;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.tab-menu a:hover {
+    background-color: #d4af37; /* Slightly darker hover color for the tabs */
+}
+
+.tab-menu a.active {
+    background-color: #b8860b; /* Active tab color */
+}
+	.app-logo-container {
         width: 100%;
 	max-width: 400px;
         height: auto;
@@ -6689,7 +6715,14 @@ gtag('config', 'G-WKH070VBDW');
 		</div>
 		<a href="https://bitaddress.systems/index.html"><img alt="bitaddress.systems" title="bitaddress.systems" id="logo" src="https://i.ibb.co/y0jmDdG/bitaddress-sys-logo-white.png" /><a>
 		<div id="tagline">Open Source JavaScript Client-Side Bitcoin Wallet Generator</div>
-		<h1 style="text-align: center; font-family: 'MV Boli', sans-serif;">Bitaddress: The Safest Place To Generate Bitcoin Wallet Addresses and Private Keys Online</h1>
+		<div class="tab-menu">
+    <a href="https://bitaddress.systems/index.html">Home</a>
+    <a href="https://bitaddress.systems/homepage.html">Guide</a>
+    <a href="https://bitaddress.systems/bitaddressSysGenerator.html">Generator App</a>
+    <a href="https://bitaddress.systems/faqs.html">FAQs</a>
+    <a href="https://bitaddress.tawk.help">Blog</a>
+</div>
+		<h2 style="text-align: center; font-family: 'MV Boli', sans-serif;">Bitaddress: The Safest Place To Generate Bitcoin Wallet Addresses and Private Keys Online</h2>
 		<div id="seedpoolarea"><textarea rows="16" cols="62" id="seedpool"></textarea></div>
 		<div id="testnet"></div>
 		<ul class="menu" id="menu">
