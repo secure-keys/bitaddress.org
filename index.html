@@ -53,6 +53,34 @@
 	#zoomable-container {
     	transition: transform 0.3s ease;
 	}
+
+.tab-menu {
+    display: flex;
+    justify-content: center; /* Center the menu horizontally */
+    background-color: green; /* Menu background color */
+    padding: 10px 0;
+}
+
+.tab-menu a {
+    padding: 14px 20px; /* Padding for tab size */
+    margin: 0 10px; /* Evenly space the tabs */
+    text-align: center;
+    text-decoration: none; /* Remove underline from links */
+    color: black; /* Tab label text color */
+    font-size: 18pt; /* Font size for tabs */
+    background-color: gold; /* Tab background color */
+    border-radius: 4px;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.tab-menu a:hover {
+    background-color: #d4af37; /* Slightly darker hover color for the tabs */
+}
+
+.tab-menu a.active {
+    background-color: #b8860b; /* Active tab color */
+}
+	    
         .app-logo-container {
         width: 100%;
 	max-width: 400px;
@@ -230,6 +258,14 @@
     </div>
     
     <div id="tagline"><em>Open Source JavaScript Client-Side Bitcoin Wallet Address Generator</em></div>
+
+    <div class="tab-menu">
+    <a href="https://bitaddress.systems/index.html">Home</a>
+    <a href="https://bitaddress.systems/homepage.html">Guide</a>
+    <a href="https://bitaddress.systems/bitaddressSysGenerator.html">Generator App</a>
+    <a href="https://bitaddress.systems/faqs.html">FAQs</a>
+    <a href="https://bitaddress.tawk.help">Blog</a>
+</div>
     <!-- Landing Page Title -->
     <br><h1>Welcome to Bitaddress Sys</h1>
     <br>
