@@ -7713,31 +7713,24 @@ ninja.publicKey = {
 		}
 		},
 	
-showPool: function () {
-	var poolHex;
-	if (SecureRandom.poolCopyOnInit != null) {
-		poolHex = Crypto.util.bytesToHex(SecureRandom.poolCopyOnInit);
-		document.getElementById("seedpool").innerHTML = poolHex;
-		document.getElementById("seedpooldisplay").innerHTML = poolHex;
-	}
-	else {
-		poolHex = Crypto.util.bytesToHex(SecureRandom.pool);
-		document.getElementById("seedpool").innerHTML = poolHex;
-		document.getElementById("seedpooldisplay").innerHTML = poolHex;
-	}
-	var percentSeeded = Math.round((ninja.seeder.seedCount / ninja.seeder.seedLimit) * 100) + "%";
-	document.getElementById("mousemovelimit").innerHTML = percentSeeded;
-	for (var wIndex in ninja.seeder.seederDependentWallets) {
-		var tabLabel = document.getElementById(ninja.seeder.seederDependentWallets[wIndex]);
-		// Retrieve the original label text (store original if not already stored)
-		if (!tabLabel.dataset.originalText) {
-			tabLabel.dataset.originalText = tabLabel.innerHTML; // store original label
+	showPool: function () {
+		var poolHex;
+		if (SecureRandom.poolCopyOnInit != null) {
+			poolHex = Crypto.util.bytesToHex(SecureRandom.poolCopyOnInit);
+			document.getElementById("seedpool").innerHTML = poolHex;
+			document.getElementById("seedpooldisplay").innerHTML = poolHex;
 		}
-		// Update the label with percentage
-		tabLabel.innerHTML = tabLabel.dataset.originalText + " " + percentSeeded;
-	}
-}	
- },
+		else {
+			poolHex = Crypto.util.bytesToHex(SecureRandom.pool);
+			document.getElementById("seedpool").innerHTML = poolHex;
+			document.getElementById("seedpooldisplay").innerHTML = poolHex;
+		}
+		var percentSeeded = Math.round((ninja.seeder.seedCount / ninja.seeder.seedLimit) * 100) + "%";
+		document.getElementById("mousemovelimit").innerHTML = percentSeeded;
+		for (var wIndex in ninja.seeder.seederDependentWallets) {
+			document.getElementById(ninja.seeder.seederDependentWallets[wIndex]).innerHTML = percentSeeded;
+		} 
+	},
 
 	showPoint: function (x, y) {
 		var div = document.createElement("div");
@@ -7757,21 +7750,30 @@ showPool: function () {
 	
 	},
 	seedingOver: function () {
-		ninja.seeder.isStillSeeding = false;
-		// run sync unit tests
-		ninja.status.unitTests();
-		// open selected tab
-		var walletType = ninja.tab.whichIsOpen();
-		if (walletType == null) {
-			ninja.tab.select("singlewallet");
-		} else {
-			ninja.tab.select(walletType)
+	ninja.seeder.isStillSeeding = false;
+	// run sync unit tests
+	ninja.status.unitTests();
+	// open selected tab
+	var walletType = ninja.tab.whichIsOpen();
+	if (walletType == null) {
+		ninja.tab.select("singlewallet");
+	} else {
+		ninja.tab.select(walletType);
+	}
+	document.getElementById("generate").style.display = "none";
+	// update labels for dependent wallets
+	var culture = (ninja.getQueryString()["culture"] == null ? "en" : ninja.getQueryString()["culture"]);
+	ninja.translator.translate(culture);
+	ninja.seeder.removePoints();
+	
+	// Reset tab labels to original after seeding
+	for (var wIndex in ninja.seeder.seederDependentWallets) {
+		var tabLabel = document.getElementById(ninja.seeder.seederDependentWallets[wIndex]);
+		if (tabLabel.dataset.originalText) {
+			tabLabel.innerHTML = tabLabel.dataset.originalText; // restore original label
 		}
-		document.getElementById("generate").style.display = "none";
-		// update labels for dependent wallets
-		var culture = (ninja.getQueryString()["culture"] == null ? "en" : ninja.getQueryString()["culture"]);
-		ninja.translator.translate(culture);
-		ninja.seeder.removePoints();
+		}
+	}
 	}};
 
 	</script>
