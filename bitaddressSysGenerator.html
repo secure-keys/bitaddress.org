@@ -7714,35 +7714,30 @@ ninja.publicKey = {
 		},
 	
 showPool: function () {
-    var poolHex;
-    if (SecureRandom.poolCopyOnInit != null) {
-        poolHex = Crypto.util.bytesToHex(SecureRandom.poolCopyOnInit);
-        document.getElementById("seedpool").innerHTML = poolHex;
-        document.getElementById("seedpooldisplay").innerHTML = poolHex;
-    } else {
-        poolHex = Crypto.util.bytesToHex(SecureRandom.pool);
-        document.getElementById("seedpool").innerHTML = poolHex;
-        document.getElementById("seedpooldisplay").innerHTML = poolHex;
-    }
-    
-    var percentSeeded = Math.round((ninja.seeder.seedCount / ninja.seeder.seedLimit) * 100) + "%";
-
-    // Update the percentage for the seeder dependent wallets without affecting their original tab labels
-    for (var wIndex in ninja.seeder.seederDependentWallets) {
-        var walletTab = document.getElementById(ninja.seeder.seederDependentWallets[wIndex]);
-
-        // Store the original tab label if it hasn't been stored already
-        if (!walletTab.hasAttribute("data-original-label")) {
-            walletTab.setAttribute("data-original-label", walletTab.textContent);
-        }
-
-        // Update the tab label with the original label + percentage
-        walletTab.textContent = walletTab.getAttribute("data-original-label") + " " + percentSeeded;
-    }
-
-    // Update the seeder progress display
-    document.getElementById("mousemovelimit").innerHTML = percentSeeded;
-}	},
+	var poolHex;
+	if (SecureRandom.poolCopyOnInit != null) {
+		poolHex = Crypto.util.bytesToHex(SecureRandom.poolCopyOnInit);
+		document.getElementById("seedpool").innerHTML = poolHex;
+		document.getElementById("seedpooldisplay").innerHTML = poolHex;
+	}
+	else {
+		poolHex = Crypto.util.bytesToHex(SecureRandom.pool);
+		document.getElementById("seedpool").innerHTML = poolHex;
+		document.getElementById("seedpooldisplay").innerHTML = poolHex;
+	}
+	var percentSeeded = Math.round((ninja.seeder.seedCount / ninja.seeder.seedLimit) * 100) + "%";
+	document.getElementById("mousemovelimit").innerHTML = percentSeeded;
+	for (var wIndex in ninja.seeder.seederDependentWallets) {
+		var tabLabel = document.getElementById(ninja.seeder.seederDependentWallets[wIndex]);
+		// Retrieve the original label text (store original if not already stored)
+		if (!tabLabel.dataset.originalText) {
+			tabLabel.dataset.originalText = tabLabel.innerHTML; // store original label
+		}
+		// Update the label with percentage
+		tabLabel.innerHTML = tabLabel.dataset.originalText + " " + percentSeeded;
+	}
+}	
+ },
 
 	showPoint: function (x, y) {
 		var div = document.createElement("div");
