@@ -7713,41 +7713,36 @@ ninja.publicKey = {
 		}
 		},
 	
-	showPool: function () {
-	    var poolHex;
-	    if (SecureRandom.poolCopyOnInit != null) {
-	        poolHex = Crypto.util.bytesToHex(SecureRandom.poolCopyOnInit);
-	        document.getElementById("seedpool").innerHTML = poolHex;
-	        document.getElementById("seedpooldisplay").innerHTML = poolHex;
-	    }
-	    else {
-	        poolHex = Crypto.util.bytesToHex(SecureRandom.pool);
-	        document.getElementById("seedpool").innerHTML = poolHex;
-	        document.getElementById("seedpooldisplay").innerHTML = poolHex;
-	    }
-	
-	    // Calculate the percentage seeded
-	    var percentSeeded = Math.round((ninja.seeder.seedCount / ninja.seeder.seedLimit) * 100) + "%";
-	    
-	    // Display the percentage next to the tab label
-	    document.getElementById("mousemovelimit").innerHTML = percentSeeded;
-	    
-	    // Loop through seeder-dependent wallets and update the tab labels to show percentage alongside original text
-	    for (var wIndex in ninja.seeder.seederDependentWallets) {
-	        var walletElement = document.getElementById(ninja.seeder.seederDependentWallets[wIndex]);
-	
-	        // Preserve the original tab label text and append the percentage
-	        var originalLabel = walletElement.getAttribute("data-original-label") || walletElement.innerHTML.split(" ")[0];
-	        
-	        // Store the original label in a custom data attribute (if not stored already)
-	        if (!walletElement.getAttribute("data-original-label")) {
-	            walletElement.setAttribute("data-original-label", originalLabel);
-	        }
-	
-	        // Set the tab label to "Original Label <space> Percentage"
-	        walletElement.innerHTML = originalLabel + " " + percentSeeded;
-	    }
-	},
+showPool: function () {
+    var poolHex;
+    if (SecureRandom.poolCopyOnInit != null) {
+        poolHex = Crypto.util.bytesToHex(SecureRandom.poolCopyOnInit);
+        document.getElementById("seedpool").innerHTML = poolHex;
+        document.getElementById("seedpooldisplay").innerHTML = poolHex;
+    } else {
+        poolHex = Crypto.util.bytesToHex(SecureRandom.pool);
+        document.getElementById("seedpool").innerHTML = poolHex;
+        document.getElementById("seedpooldisplay").innerHTML = poolHex;
+    }
+    
+    var percentSeeded = Math.round((ninja.seeder.seedCount / ninja.seeder.seedLimit) * 100) + "%";
+
+    // Update the percentage for the seeder dependent wallets without affecting their original tab labels
+    for (var wIndex in ninja.seeder.seederDependentWallets) {
+        var walletTab = document.getElementById(ninja.seeder.seederDependentWallets[wIndex]);
+
+        // Store the original tab label if it hasn't been stored already
+        if (!walletTab.hasAttribute("data-original-label")) {
+            walletTab.setAttribute("data-original-label", walletTab.textContent);
+        }
+
+        // Update the tab label with the original label + percentage
+        walletTab.textContent = walletTab.getAttribute("data-original-label") + " " + percentSeeded;
+    }
+
+    // Update the seeder progress display
+    document.getElementById("mousemovelimit").innerHTML = percentSeeded;
+}	},
 
 	showPoint: function (x, y) {
 		var div = document.createElement("div");
