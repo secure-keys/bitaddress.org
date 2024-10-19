@@ -7653,44 +7653,42 @@ ninja.publicKey = {
 	}
 };
 	</script>
-	<script type="text/javascript">
-	ninja.seeder = {
+<script type="text/javascript">
+ninja.seeder = {
 	init: (function () {
 		document.getElementById("generatekeyinput").value = "";
-		
-		// Adding touch event listeners for touchscreen devices
-		document.addEventListener('touchmove', ninja.seeder.seedTouch, false);
-		document.addEventListener('touchstart', ninja.seeder.seedTouch, false);
-		document.addEventListener('touchend', ninja.seeder.seedTouch, false);
-		
-		// Adding mouse event listeners for non-touchscreen devices
+
+		// Adding event listeners for mouse and key input
 		document.addEventListener('mousemove', ninja.seeder.seed, false);
 		document.addEventListener('keypress', ninja.seeder.seedKeyPress, false);
+
+		// Check if the device has a gyroscope and accelerometer and add motion listeners
+		if (window.DeviceMotionEvent) {
+			window.addEventListener("devicemotion", ninja.seeder.seedGyro, false);
+		} else {
+			console.log("DeviceMotionEvent not supported");
+		}
 	})(),
 
-	// number of movements to wait for
 	seedLimit: (function () {
 		var num = Crypto.util.randomBytes(12)[11];
 		return 200 + Math.floor(num);
 	})(),
 
-	seedCount: 0, // counter
+	seedCount: 0,
 	lastInputTime: new Date().getTime(),
 	seedPoints: [],
 	isStillSeeding: true,
 	seederDependentWallets: ["singlewallet", "paperwallet", "bulkwallet", "vanitywallet", "splitwallet"],
 
-	// Seed function to handle mouse movements
+	// Mouse movement seeding function
 	seed: function (evt) {
 		if (!evt) var evt = window.event;
 		var timeStamp = new Date().getTime();
-		// Seeding is over, generate and display the address
 		if (ninja.seeder.seedCount == ninja.seeder.seedLimit) {
 			ninja.seeder.seedCount++;
 			ninja.seeder.seedingOver();
-		}
-		// Seed mouse position X and Y when movements are greater than 40ms apart
-		else if ((ninja.seeder.seedCount < ninja.seeder.seedLimit) && evt && (timeStamp - ninja.seeder.lastInputTime) > 40) {
+		} else if ((ninja.seeder.seedCount < ninja.seeder.seedLimit) && evt && (timeStamp - ninja.seeder.lastInputTime) > 40) {
 			SecureRandom.seedTime();
 			SecureRandom.seedInt16((evt.clientX * evt.clientY));
 			ninja.seeder.showPoint(evt.clientX, evt.clientY);
@@ -7700,18 +7698,14 @@ ninja.publicKey = {
 		}
 	},
 
-	// Seed function to handle key presses
+	// Key press seeding function
 	seedKeyPress: function (evt) {
 		if (!evt) var evt = window.event;
-		// Seeding is over, generate and display the address
 		if (ninja.seeder.seedCount == ninja.seeder.seedLimit) {
 			ninja.seeder.seedCount++;
 			ninja.seeder.seedingOver();
-		}
-		// Seed key press character
-		else if ((ninja.seeder.seedCount < ninja.seeder.seedLimit) && evt.which) {
+		} else if ((ninja.seeder.seedCount < ninja.seeder.seedLimit) && evt.which) {
 			var timeStamp = new Date().getTime();
-			// Seed multiple times
 			SecureRandom.seedTime();
 			SecureRandom.seedInt8(evt.which);
 			var keyPressTimeDiff = timeStamp - ninja.seeder.lastInputTime;
@@ -7722,21 +7716,23 @@ ninja.publicKey = {
 		}
 	},
 
-	// Seed function to handle touch actions (added to handle touch input on touchscreen devices)
-	seedTouch: function (evt) {
-		if (!evt) var evt = window.event;
+	// Gyroscope/accelerometer seeding function (new)
+	seedGyro: function (evt) {
 		var timeStamp = new Date().getTime();
-		// Seeding is over, generate and display the address
 		if (ninja.seeder.seedCount == ninja.seeder.seedLimit) {
 			ninja.seeder.seedCount++;
 			ninja.seeder.seedingOver();
-		}
-		// Seed touch position X and Y when touch movements are greater than 40ms apart
-		else if ((ninja.seeder.seedCount < ninja.seeder.seedLimit) && evt && (timeStamp - ninja.seeder.lastInputTime) > 40) {
-			var touch = evt.touches[0] || evt.changedTouches[0];  // Get touch coordinates
+		} else if ((ninja.seeder.seedCount < ninja.seeder.seedLimit) && evt && (timeStamp - ninja.seeder.lastInputTime) > 40) {
+			// Use acceleration and rotation rate to generate entropy
+			var acceleration = evt.accelerationIncludingGravity;
+			var rotation = evt.rotationRate;
+			
+			// Seed based on acceleration (X, Y, Z) and rotation (alpha, beta, gamma)
 			SecureRandom.seedTime();
-			SecureRandom.seedInt16((touch.clientX * touch.clientY));  // Seed touch coordinates
-			ninja.seeder.showPoint(touch.clientX, touch.clientY);  // Display the seeding point
+			SecureRandom.seedInt16(acceleration.x * acceleration.y * acceleration.z);
+			SecureRandom.seedInt16(rotation.alpha * rotation.beta * rotation.gamma);
+
+			// Increment the seed counter
 			ninja.seeder.seedCount++;
 			ninja.seeder.lastInputTime = new Date().getTime();
 			ninja.seeder.showPool();
@@ -7749,8 +7745,7 @@ ninja.publicKey = {
 			poolHex = Crypto.util.bytesToHex(SecureRandom.poolCopyOnInit);
 			document.getElementById("seedpool").innerHTML = poolHex;
 			document.getElementById("seedpooldisplay").innerHTML = poolHex;
-		}
-		else {
+		} else {
 			poolHex = Crypto.util.bytesToHex(SecureRandom.pool);
 			document.getElementById("seedpool").innerHTML = poolHex;
 			document.getElementById("seedpooldisplay").innerHTML = poolHex;
@@ -7762,43 +7757,23 @@ ninja.publicKey = {
 		}
 	},
 
-	showPoint: function (x, y) {
-		var div = document.createElement("div");
-		div.setAttribute("class", "seedpoint");
-		div.style.top = y + "px";
-		div.style.left = x + "px";
-		document.body.appendChild(div);
-		ninja.seeder.seedPoints.push(div);
-	},
-
-	removePoints: function () {
-		for (var i = 0; i < ninja.seeder.seedPoints.length; i++) {
-			document.body.removeChild(ninja.seeder.seedPoints[i]);
-		}
-		ninja.seeder.seedPoints = [];
-	},
-
 	seedingOver: function () {
 		ninja.seeder.isStillSeeding = false;
-		// run sync unit tests
 		ninja.status.unitTests();
-		// open selected tab
 		var walletType = ninja.tab.whichIsOpen();
 		if (walletType == null) {
 			ninja.tab.select("singlewallet");
 		} else {
-			ninja.tab.select(walletType)
+			ninja.tab.select(walletType);
 		}
 		document.getElementById("generate").style.display = "none";
-		// update labels for dependent wallets
 		var culture = (ninja.getQueryString()["culture"] == null ? "en" : ninja.getQueryString()["culture"]);
 		ninja.translator.translate(culture);
 		ninja.seeder.removePoints();
 	}
-};
-
-	</script>
-	<script type="text/javascript">
+	};
+	</script>	
+<script type="text/javascript">
  ﻿(function (ninja) {
 	var qrC = ninja.qrCode = {
 		// determine which type number is big enough for the input text length
