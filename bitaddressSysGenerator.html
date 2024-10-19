@@ -7654,7 +7654,7 @@ ninja.publicKey = {
 };
 	
 	<script type="text/javascript">
-﻿	ninja.seeder = {
+﻿ninja.seeder = {
 	init: (function () {
 		document.getElementById("generatekeyinput").value = "";
 	})(),
@@ -7711,8 +7711,8 @@ ninja.publicKey = {
 			ninja.seeder.lastInputTime = new Date().getTime();
 			ninja.seeder.showPool();
 		}
-	  },
-	
+	},
+
 	showPool: function () {
 		var poolHex;
 		if (SecureRandom.poolCopyOnInit != null) {
@@ -7765,7 +7765,7 @@ ninja.publicKey = {
 		ninja.translator.translate(culture);
 		ninja.seeder.removePoints();
 	}
-  };
+};
 
 	</script>
 	<script type="text/javascript">
