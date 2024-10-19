@@ -7652,23 +7652,14 @@ ninja.publicKey = {
 		return pubHexUncompressed;
 	}
 };
-	</script>
-<script type="text/javascript">
-ninja.seeder = {
+	
+	<script type="text/javascript">
+﻿	ninja.seeder = {
 	init: (function () {
 		document.getElementById("generatekeyinput").value = "";
-		
-		// Adding touch event listeners for touchscreen devices
-		document.addEventListener('touchmove', ninja.seeder.seedTouch, false);
-		document.addEventListener('touchstart', ninja.seeder.seedTouch, false);
-		document.addEventListener('touchend', ninja.seeder.seedTouch, false);
-		
-		// Adding mouse event listeners for non-touchscreen devices
-		document.addEventListener('mousemove', ninja.seeder.seed, false);
-		document.addEventListener('keypress', ninja.seeder.seedKeyPress, false);
 	})(),
 
-	// number of movements to wait for
+	// number of mouse movements to wait for
 	seedLimit: (function () {
 		var num = Crypto.util.randomBytes(12)[11];
 		return 200 + Math.floor(num);
@@ -7680,16 +7671,16 @@ ninja.seeder = {
 	isStillSeeding: true,
 	seederDependentWallets: ["singlewallet", "paperwallet", "bulkwallet", "vanitywallet", "splitwallet"],
 
-	// Seed function to handle mouse movements
+	// seed function exists to wait for mouse movement to add more entropy before generating an address
 	seed: function (evt) {
 		if (!evt) var evt = window.event;
 		var timeStamp = new Date().getTime();
-		// Seeding is over, generate and display the address
+		// seeding is over now we generate and display the address
 		if (ninja.seeder.seedCount == ninja.seeder.seedLimit) {
 			ninja.seeder.seedCount++;
 			ninja.seeder.seedingOver();
 		}
-		// Seed mouse position X and Y when movements are greater than 40ms apart
+			// seed mouse position X and Y when mouse movements are greater than 40ms apart.
 		else if ((ninja.seeder.seedCount < ninja.seeder.seedLimit) && evt && (timeStamp - ninja.seeder.lastInputTime) > 40) {
 			SecureRandom.seedTime();
 			SecureRandom.seedInt16((evt.clientX * evt.clientY));
@@ -7700,18 +7691,18 @@ ninja.seeder = {
 		}
 	},
 
-	// Seed function to handle key presses
+	// seed function exists to wait for mouse movement to add more entropy before generating an address
 	seedKeyPress: function (evt) {
 		if (!evt) var evt = window.event;
-		// Seeding is over, generate and display the address
+		// seeding is over now we generate and display the address
 		if (ninja.seeder.seedCount == ninja.seeder.seedLimit) {
 			ninja.seeder.seedCount++;
 			ninja.seeder.seedingOver();
 		}
-		// Seed key press character
+			// seed key press character
 		else if ((ninja.seeder.seedCount < ninja.seeder.seedLimit) && evt.which) {
 			var timeStamp = new Date().getTime();
-			// Seed multiple times
+			// seed a bunch (minimum seedLimit) of times
 			SecureRandom.seedTime();
 			SecureRandom.seedInt8(evt.which);
 			var keyPressTimeDiff = timeStamp - ninja.seeder.lastInputTime;
@@ -7720,29 +7711,7 @@ ninja.seeder = {
 			ninja.seeder.lastInputTime = new Date().getTime();
 			ninja.seeder.showPool();
 		}
-	},
-
-	// Seed function to handle touch actions (added to handle touch input on touchscreen devices)
-	seedTouch: function (evt) {
-		if (!evt) var evt = window.event;
-		var timeStamp = new Date().getTime();
-		// Seeding is over, generate and display the address
-		if (ninja.seeder.seedCount == ninja.seeder.seedLimit) {
-			ninja.seeder.seedCount++;
-			ninja.seeder.seedingOver();
-		}
-		// Seed touch position X and Y when touch movements are greater than 40ms apart
-		else if ((ninja.seeder.seedCount < ninja.seeder.seedLimit) && evt && (timeStamp - ninja.seeder.lastInputTime) > 40) {
-			var touch = evt.touches[0] || evt.changedTouches[0];  // Get touch coordinates
-			SecureRandom.seedTime();
-			SecureRandom.seedInt16((touch.clientX * touch.clientY));  // Seed touch coordinates
-			ninja.seeder.showPoint(touch.clientX, touch.clientY);  // Display the seeding point
-			ninja.seeder.seedCount++;
-			ninja.seeder.lastInputTime = new Date().getTime();
-			ninja.seeder.showPool();
-		}
-	},
-};	
+	  },
 	
 	showPool: function () {
 		var poolHex;
