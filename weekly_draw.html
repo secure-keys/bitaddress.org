@@ -40,11 +40,10 @@
         /* CSS rules for screens up to 600px wide */
         /* Adjust layout, font sizes, padding, etc. for smaller screens */
 }
-
+	    
         /* CSS for green border effect with specified margin and thickness */
         body {
             border: 5px solid rgb(0, 124, 0); /* Border thickness of 5px with green color */
-            font-family: sans-serif;
             text-align: center;
 	    margin: 30px; /* Set a margin of 30 pixels on all sides of the page */
             font-family: sans-serif;
@@ -79,6 +78,51 @@
 
 .tab-menu a.active {
     background-color: #b8860b; /* Active tab color */
+}
+
+.tab-menu {
+    display: flex;
+    gap: 10px;
+}
+
+.tab-menu a {
+    text-decoration: none;
+    padding: 10px 15px;
+    color: black;
+    border-radius: 5px;
+    transition: transform 0.3s ease;
+}
+
+.tab-menu a:hover {
+    transform: scale(1.05);
+}
+
+.giveaway-tab {
+    position: relative;
+    color: white;
+    font-weight: bold;
+    background-color: #ff4500;
+    border-radius: 8px;
+}
+
+.giveaway-tab::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    bottom: -5px;
+    left: -5px;
+    border-radius: 10px;
+    background-image: url('https://your-server-path/fire.gif'); /* Replace with the path to your fire GIF */
+    background-size: cover;
+    z-index: -1;
+    opacity: 0.8;
+    animation: flicker 1s infinite;
+}
+
+@keyframes flicker {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
 }
 	    
         .app-logo-container {
@@ -253,7 +297,7 @@
     <a href="https://bitaddress.systems/homepage.html">Guide</a>
     <a href="https://bitaddress.systems/bitaddressSysGenerator.html">Generator App</a>
     <a href="https://bitaddress.systems/faqs.html">FAQs</a>
-    <a href="https://bitaddress.systems/weekly_draw.html">Giveaway</a>
+    <a href="https://bitaddress.systems/weekly_draw.html" class="giveaway-tab">Giveaway</a>
     <a href="https://bitaddress.tawk.help">Blog</a>
 </div>
 	<!-- Landing Page Title -->
