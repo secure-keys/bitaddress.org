@@ -211,10 +211,26 @@
     <h1>Frequently Asked Questions Regarding<br>The Usage of The Bitaddress Wallet Generator</h1>
 
     <div class="faq-item">
-        <div class="faq-question">Is a Bitcoin address (not private key) essentially the same thing as a public key?</div>
+        <div class="faq-question">Is a wallet address essentially the same thing as a public key?</div>
         <div class="faq-answer" style="text-align: left;">
-            <p>No, a Bitcoin address is a hashed version of the public key. While related, they are not exactly the same. The Bitcoin address is shorter and used for transaction purposes, while the public key is longer and used in cryptographic functions.</p>
+            <p>No, a Bitcoin wallet address is a hashed version of the public key. While related, they are not exactly the same. The wallet address is shorter and used for transaction purposes, while the public key is longer and used in cryptographic functions.</p>
             <div class="feedback">
+                Helpful? <span class="thumbs-up">&#128077;</span><span class="thumbs-down">&#128078;</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">Can a Bitcoin public key also be used to receive funds?</div>
+        <div class="faq-answer" style="text-align: left;">
+            <p>Yes, a Bitcoin public key can technically be used to receive funds, but it is uncommon and impractical in standard Bitcoin transactions.</p><br>
+	    <p>In Bitcoin, what is typically shared for receiving funds is the Bitcoin wallet address—a hashed version of the public key. This address (derived from the public key) is shorter and easier to handle, with additional security features. Using the address rather than the public key provides greater privacy and ensures compatibility across most Bitcoin wallets and services.</p><br>
+            <p>Here’s a breakdown of why it’s done this way:<br>
+		<b>1. Security:</b> Bitcoin addresses are derived through hashing functions that make it challenging to reverse-engineer the original public key, adding an extra layer of security.<br>
+		<b>2. Compatibility:</b> Addresses are standard for receiving funds, so they are universally recognized by wallets and exchanges. Not all services support direct transfers to a raw public key.<br>
+		<b>3. Convenience:</b> The Bitcoin address format (starting with "1," "3," or "bc1") is designed to be user-friendly and shorter than the full public key, making it less error-prone for users.</p><br>
+            <p>So, while funds can theoretically be sent to a public key, it's best practice to share the Bitcoin wallet address to receive funds securely and reliably.</p> 
+	<div class="feedback">
                 Helpful? <span class="thumbs-up">&#128077;</span><span class="thumbs-down">&#128078;</span>
             </div>
         </div>
