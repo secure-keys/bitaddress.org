@@ -231,6 +231,21 @@
     </div>
 
     <div class="faq-item">
+        <div class="faq-question">Which type of Bitcoin wallet should I create?</div>
+        <div class="faq-answer" style="text-align: left;">
+            <p><b>1. Single Wallet:</b> A single wallet is the most straightforward kind, intended for individual use with a single private key and a public Bitcoin address. When generated, a single wallet produces one address to receive and store Bitcoin. Typically, this wallet is created via wallet software that provides both a public key (address) and a private key, which should be stored securely by the user. It’s best for personal use where only one user needs access.</p><br>
+	    <p><b>2. Paper Wallet:</b> A paper wallet is an offline wallet stored physically on a piece of paper. When generating a paper wallet, the user can use offline tools or a secure site to produce a private and public key pair. The private key is printed or written down, often as both a hexadecimal code and a QR code. Paper wallets are secure against digital threats but require careful storage and management. If someone accesses the paper, they gain control of the Bitcoin stored there. This wallet type is ideal for long-term storage or "cold storage.</p><br>
+	    <p><b>3. Bulk Wallet:</b> A bulk wallet is designed to create multiple addresses and keys at once, useful for businesses or individuals needing a large batch of addresses for transactions. These wallets can be generated using wallet generation scripts or software that supports bulk wallet functionality. For businesses that need to process multiple transactions daily, bulk wallets streamline the process, enabling better organization and security over high transaction volumes.</p><br>
+	    <p><b>4. Brain Wallet:</b> A brain wallet is unique in that it relies on a user-chosen passphrase to generate the private key rather than random generation. When creating a brain wallet, the user enters a secure, memorable phrase. Wallet software uses this phrase to mathematically generate the wallet’s private key. The risk here is that if the phrase isn’t complex enough, the wallet may be vulnerable to hacking attempts. However, for users who can create strong, unique passphrases, brain wallets are portable, as they require only memory to access.</p><br>
+	    <p><b>5. Vanity Wallet:</b> Vanity wallets allow users to personalize the Bitcoin address, usually by incorporating a specific set of characters. When creating a vanity wallet, specialized software generates addresses until it finds one matching the desired pattern. For example, a vanity address could start with "1Bitcoin" for a personal or business touch. Generating these addresses can be computationally demanding, especially for more specific patterns. Vanity wallets are popular with businesses or individuals wanting a recognizable address, though some argue they may reveal too much information.</p><br>
+	    <p><b>6. Split Wallet:</b> Split wallets are designed for added security, particularly for storing large amounts. During the creation of a split wallet, a private key is split into multiple parts (using a method called Shamir's Secret Sharing), each part stored separately. To reconstruct the wallet and access the funds, the user needs a minimum number of parts, making it highly secure. This wallet type is suitable for custodial setups or shared custody situations where multiple users control access.</p>
+		<div class="feedback">
+                Helpful? <span class="thumbs-up">&#128077;</span><span class="thumbs-down">&#128078;</span>
+            </div>
+        </div>
+    </div>
+	
+    <div class="faq-item">
         <div class="faq-question">What is BIP38 Encryption, and should I check the BIP38 encrypt box when creating a Bitcoin wallet?</div>
         <div class="faq-answer" style="text-align: left;">
             <p>BIP38 encryption is a standard used to add an extra layer of security to your Bitcoin private key by encrypting it with a password/passphrase. This means that if someone tries to access your encrypted private key without knowing the password/passphrase, they won't be able to read or use it. The main advantage of BIP38 encryption is that it makes your private key safer, especially if you’re storing it offline or on a paper wallet.</p>
@@ -250,23 +265,47 @@
                 Helpful? <span class="thumbs-up">&#128077;</span><span class="thumbs-down">&#128078;</span>
             </div>
         </div>
-    </div>
-	
+    </div>	
+
     <div class="faq-item">
-        <div class="faq-question">Which type of Bitcoin wallet should I create?</div>
+        <div class="faq-question">How can I use Bitaddress to generate/create more wallet addresses and/or public keys for my already existing Bitcoin wallet?</div>
         <div class="faq-answer" style="text-align: left;">
-            <p><b>1. Single Wallet:</b> A single wallet is the most straightforward kind, intended for individual use with a single private key and a public Bitcoin address. When generated, a single wallet produces one address to receive and store Bitcoin. Typically, this wallet is created via wallet software that provides both a public key (address) and a private key, which should be stored securely by the user. It’s best for personal use where only one user needs access.</p>
-	    <p><b>2. Paper Wallet:</b> A paper wallet is an offline wallet stored physically on a piece of paper. When generating a paper wallet, the user can use offline tools or a secure site to produce a private and public key pair. The private key is printed or written down, often as both a hexadecimal code and a QR code. Paper wallets are secure against digital threats but require careful storage and management. If someone accesses the paper, they gain control of the Bitcoin stored there. This wallet type is ideal for long-term storage or "cold storage.</p>
-	    <p><b>3. Bulk Wallet:</b> A bulk wallet is designed to create multiple addresses and keys at once, useful for businesses or individuals needing a large batch of addresses for transactions. These wallets can be generated using wallet generation scripts or software that supports bulk wallet functionality. For businesses that need to process multiple transactions daily, bulk wallets streamline the process, enabling better organization and security over high transaction volumes.</p>
-	    <p><b>4. Brain Wallet:</b> A brain wallet is unique in that it relies on a user-chosen passphrase to generate the private key rather than random generation. When creating a brain wallet, the user enters a secure, memorable phrase. Wallet software uses this phrase to mathematically generate the wallet’s private key. The risk here is that if the phrase isn’t complex enough, the wallet may be vulnerable to hacking attempts. However, for users who can create strong, unique passphrases, brain wallets are portable, as they require only memory to access.</p>
-	    <p><b>5. Vanity Wallet:</b> Vanity wallets allow users to personalize the Bitcoin address, usually by incorporating a specific set of characters. When creating a vanity wallet, specialized software generates addresses until it finds one matching the desired pattern. For example, a vanity address could start with "1Bitcoin" for a personal or business touch. Generating these addresses can be computationally demanding, especially for more specific patterns. Vanity wallets are popular with businesses or individuals wanting a recognizable address, though some argue they may reveal too much information.</p>
-	    <p><b>6. Split Wallet:</b> Split wallets are designed for added security, particularly for storing large amounts. During the creation of a split wallet, a private key is split into multiple parts (using a method called Shamir's Secret Sharing), each part stored separately. To reconstruct the wallet and access the funds, the user needs a minimum number of parts, making it highly secure. This wallet type is suitable for custodial setups or shared custody situations where multiple users control access.</p>
-		<div class="feedback">
+            <p>Absolutely! Select Wallet Details from the tab menu and enter the private key or mnemonic seed of your existing Bitcoin wallet with a single space between the phrases, and hit Enter or click the "View Details" button. If you wish to encrypt the private key/mnemonic seed, then check the BIP38 encrypt, type in your password and click "Encrypt BIP38" while making sure that your private key/mnemonic seed is correctly entered in the label above. Again, make sure your encrypt password is just a single word</p>
+            <div class="feedback" style="text-align: left;">
                 Helpful? <span class="thumbs-up">&#128077;</span><span class="thumbs-down">&#128078;</span>
             </div>
         </div>
     </div>
 
+    <div class="faq-item">
+        <div class="faq-question">How is a brain wallet it different from a normal wallet? </div>
+        <div class="faq-answer" style="text-align: left;">
+            <p>A brain wallet is a type of cryptocurrency wallet where the private key (used to access the wallet) is generated from a passphrase that the user memorizes, rather than being stored on a device or written down. In essence, the "wallet" exists entirely in the user's brain, as the private key is derived from the passphrase. This method allows users to access their wallet from anywhere, as long as they remember the passphrase.</p><br>
+<p><strong>Key Characteristics of a Brain Wallet:</strong><br><br>
+1. <strong>Passphrase-based:</strong> Instead of a randomly generated private key, the user chooses a passphrase (usually a combination of words or a sentence).<br>
+2. <strong>No physical or digital storage:</strong> The private key is never written down or stored in any physical or digital form, existing solely in the user’s memory.<br>
+3. <strong>Generated deterministically:</strong> The private key is derived from the passphrase using cryptographic hashing algorithms, making the same passphrase always result in the same private key.</p><br>
+<strong>Differences Between a Brain Wallet and a Normal Wallet:</strong><br><br>
+<p><strong>1. Private Key Generation:</strong><br>
+&bull; Brain Wallet: The user creates a passphrase, and the private key is derived from it.<br>
+&bull; Normal Wallet: The private key is usually randomly generated by the wallet software or device, and users are provided with a backup seed phrase to store.</p><br>
+<p><strong>2. Security:</strong><br>
+&bull; Brain Wallet: The security depends entirely on the strength of the chosen passphrase. If the passphrase is weak or easily guessable, the wallet can be easily cracked using brute-force attacks. This makes brain wallets vulnerable if not handled carefully.<br>
+&bull; Normal Wallet: Typically, wallets use highly randomized private keys, which are extremely difficult to guess. Most modern wallets also use secure storage methods like hardware wallets or encrypted files.</p><br>
+<p><strong>3. Convenience:</strong><br>
+&bull; Brain Wallet: The user can access the wallet from any device as long as they remember the passphrase, making it convenient for portability.<br>
+&bull; Normal Wallet: Access is usually tied to a physical wallet, like a hardware wallet or a software wallet on a specific device, unless the user carries the private key or seed phrase elsewhere.</p><br>
+<p><strong>4. Risk of Loss:</strong><br>
+&bull; Brain Wallet: If the user forgets the passphrase, they lose access to the wallet permanently, as there is no backup.<br>
+&bull; Normal Wallet: Users can recover the wallet using the backup seed phrase or private key, even if they lose access to the original wallet software or device.<br><br>
+<p><strong>Conclusion:</strong><br>
+While a brain wallet allows for portability and convenience, its security relies entirely on the strength of the chosen passphrase. In contrast, a normal wallet provides more robust security and recovery options, making it safer for most users, especially those unfamiliar with cryptographic security practices.</p>
+            <div class="feedback">
+                Helpful? <span class="thumbs-up">&#128077;</span><span class="thumbs-down">&#128078;</span>
+            </div>
+        </div>
+    </div>
+	
     <div class="faq-item">
         <div class="faq-question">Can I generate wallets offline using Bitaddress?</div>
         <div class="faq-answer" style="text-align: left;">
@@ -296,45 +335,7 @@
             </div>
         </div>
     </div>
-
-    <div class="faq-item">
-        <div class="faq-question">How can I use Bitaddress to generate/create more wallet addresses and/or public keys for my already existing Bitcoin wallet?</div>
-        <div class="faq-answer" style="text-align: left;">
-            <p>Absolutely! Select Wallet Details from the tab menu and enter the private key or mnemonic seed of your existing Bitcoin wallet with a single space between the phrases, and hit Enter or click the "View Details" button. If you wish to encrypt the private key/mnemonic seed, then check the BIP38 encrypt, type in your password and click "Encrypt BIP38" while making sure that your private key/mnemonic seed is correctly entered in the label above.</p>
-            <div class="feedback" style="text-align: left;">
-                Helpful? <span class="thumbs-up">&#128077;</span><span class="thumbs-down">&#128078;</span>
-            </div>
-        </div>
-    </div>
 	
-    <div class="faq-item">
-        <div class="faq-question">What is a brain wallet, and how is it different from a normal wallet? </div>
-        <div class="faq-answer" style="text-align: left;">
-            <p>A brain wallet is a type of cryptocurrency wallet where the private key (used to access the wallet) is generated from a passphrase that the user memorizes, rather than being stored on a device or written down. In essence, the "wallet" exists entirely in the user's brain, as the private key is derived from the passphrase. This method allows users to access their wallet from anywhere, as long as they remember the passphrase.</p><br>
-<p><strong>Key Characteristics of a Brain Wallet:</strong><br><br>
-1. <strong>Passphrase-based:</strong> Instead of a randomly generated private key, the user chooses a passphrase (usually a combination of words or a sentence).<br>
-2. <strong>No physical or digital storage:</strong> The private key is never written down or stored in any physical or digital form, existing solely in the user’s memory.<br>
-3. <strong>Generated deterministically:</strong> The private key is derived from the passphrase using cryptographic hashing algorithms, making the same passphrase always result in the same private key.</p><br>
-<strong>Differences Between a Brain Wallet and a Normal Wallet:</strong><br><br>
-<p><strong>1. Private Key Generation:</strong><br>
-&bull; Brain Wallet: The user creates a passphrase, and the private key is derived from it.<br>
-&bull; Normal Wallet: The private key is usually randomly generated by the wallet software or device, and users are provided with a backup seed phrase to store.</p><br>
-<p><strong>2. Security:</strong><br>
-&bull; Brain Wallet: The security depends entirely on the strength of the chosen passphrase. If the passphrase is weak or easily guessable, the wallet can be easily cracked using brute-force attacks. This makes brain wallets vulnerable if not handled carefully.<br>
-&bull; Normal Wallet: Typically, wallets use highly randomized private keys, which are extremely difficult to guess. Most modern wallets also use secure storage methods like hardware wallets or encrypted files.</p><br>
-<p><strong>3. Convenience:</strong><br>
-&bull; Brain Wallet: The user can access the wallet from any device as long as they remember the passphrase, making it convenient for portability.<br>
-&bull; Normal Wallet: Access is usually tied to a physical wallet, like a hardware wallet or a software wallet on a specific device, unless the user carries the private key or seed phrase elsewhere.</p><br>
-<p><strong>4. Risk of Loss:</strong><br>
-&bull; Brain Wallet: If the user forgets the passphrase, they lose access to the wallet permanently, as there is no backup.<br>
-&bull; Normal Wallet: Users can recover the wallet using the backup seed phrase or private key, even if they lose access to the original wallet software or device.<br><br>
-<p><strong>Conclusion:</strong><br>
-While a brain wallet allows for portability and convenience, its security relies entirely on the strength of the chosen passphrase. In contrast, a normal wallet provides more robust security and recovery options, making it safer for most users, especially those unfamiliar with cryptographic security practices.</p>
-            <div class="feedback">
-                Helpful? <span class="thumbs-up">&#128077;</span><span class="thumbs-down">&#128078;</span>
-            </div>
-        </div>
-    </div>
     <!-- Add more FAQ items here as needed -->
 </div>
 
