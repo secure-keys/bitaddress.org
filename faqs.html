@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bitaddress Sys Frequently Asked Questions</title>
     <meta http-equiv='content-language' content='en-us'>
-    <meta name="description" content="Bitaddress.systems offers the safest, most secure way to generate Bitcoin wallet addresses and private keys or master seeds, whether online or offline. As a pioneering platform in Bitcoin wallet solutions, Bitaddress.systems is committed to empowering users with secure, self-custody wallets and privacy-focused, open-source technology designed to meet the highest standards of crypto security.">
+    <meta name="description" content="Bitaddress.systems offers the safest, most secure way to generate and encrypt Bitcoin wallet addresses and private keys or master seeds, whether online or offline. As a pioneering platform in Bitcoin wallet solutions, Bitaddress.systems is committed to empowering users with secure, self-custody wallets and privacy-focused, open-source technology designed to meet the highest standards of crypto security.">
     <meta name="keywords" content="protect crypto from hacking, bitaddress, bitaddress.org, bitcoin paper wallets, generate bitcoin wallet addresses, secure cryptocurrency asset, protect cryptocurrency asset from hacking, secure cryptocurrency wallet, protect cryptcurrency wallet from hacking, secure metamask wallet, protect metamask wallet from hacking, secure blockchain, secure token, protect kraken wallet from hacking, secure binance wallet, protect binance wallet from hacking, secure coinbase wallet, protect coinbase wallet from hacking, secure ethereum wallet, protect ethereum wallet from hacking, secure kraken wallet, decentralized wallet security, secure web3 wallet, secure defi, protect forex account from hacker, protect usdt from hacker, protect seed phrase from hacker, protect master seed from hacker, protect word seed phrase from hacker, protect master seed phrase from hacker, protect private key from hacker, secure private key, protect secret phrase from hacker, protect crypto wallet secret password, protect encrypted wallet from hacker, encrypt wallet, protect mnemonic seed from hacker, protect backup phrase from hacker, protect backup key from hacker, protect recovery phrase from hacker, protect secret phrase from hacker, protect seed phrase from hacker">
     <meta name="robots" content="index, follow" sitemap="https://bitaddress.systems/sitemap.xml">
 	<link rel="icon" href="https://i.imgur.com/N7APLOi.png" type="image/png">
@@ -208,7 +208,7 @@
 </div>
   <br>
 <div class="faq-container">
-    <h1>Frequently Asked Questions Regarding<br>The Usage of Bitaddress</h1>
+    <h1>Frequently Asked Questions Regarding<br>The Usage of The Bitaddress Wallet Generator</h1>
 
     <div class="faq-item">
         <div class="faq-question">Is a Bitcoin address (not private key) essentially the same thing as a public key?</div>
@@ -221,7 +221,7 @@
     </div>
 
     <div class="faq-item">
-        <div class="faq-question">Is the master seed the same as the recovery phrase and mnemonic seed phrase?</div>
+        <div class="faq-question">Is the master seed the same as the recovery phrase and mnemonic seed?</div>
         <div class="faq-answer" style="text-align: left;">
             <p>Yes, these terms are often used interchangeably. The master seed is a series of words (typically 12-24) that are used to recover a wallet. It’s crucial for restoring access to your Bitcoin wallets in case of device loss.</p>
             <div class="feedback">
@@ -231,10 +231,37 @@
     </div>
 
     <div class="faq-item">
-        <div class="faq-question">Does saving my private key and master seed in QR code format provide extra security from keyloggers?</div>
+        <div class="faq-question">What is BIP38 Encryption, and should I check the BIP38 encrypt box when creating a Bitcoin wallet?</div>
         <div class="faq-answer" style="text-align: left;">
-            <p>Yes, saving your private key or seed phrase as a QR code instead of text can help protect against keyloggers, as they track keystrokes rather than scannable images. However, be cautious of where you store and scan the QR code to avoid unauthorized access.</p>
+            <p>BIP38 encryption is a standard used to add an extra layer of security to your Bitcoin private key by encrypting it with a password/passphrase. This means that if someone tries to access your encrypted private key without knowing the password/passphrase, they won't be able to read or use it. The main advantage of BIP38 encryption is that it makes your private key safer, especially if you’re storing it offline or on a paper wallet.</p>
+	    <p>If you check the BIP38 encrypt box when generating your Bitcoin wallet on Bitaddress.systems, you will be asked to set a password/passphrase. This password/passphrase will then be required every time you want to unlock or use the wallet. BIP38 is highly recommended if you want to add extra protection to your wallet, especially if you are generating wallets for long-term storage or high-value amounts. However, make sure to remember or securely store the password, as losing it could make it impossible to recover your funds.</p>
             <div class="feedback">
+                Helpful? <span class="thumbs-up">&#128077;</span><span class="thumbs-down">&#128078;</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">If I check the BIP38 encryption box durig the creation of a wallet, am I meant to set a password or a traditional 12-word mnemonic phrase? If the latter is the case, how many words must it consist of?</div>
+        <div class="faq-answer" style="text-align: left;">
+            <p>When you tick the BIP38 encryption box, you will need to set a password rather than a traditional 12-word or 24-word passphrase. This password is typically a custom phrase or sequence you choose—similar to a password you might create for any online account. Unlike the 12-word or 24-word mnemonic phrases used with other Bitcoin wallets, there’s no specific word count requirement for a BIP38 password.</p>
+	    <p>BIP38 encryption works by using this password to secure the private key directly. This added password-based encryption allows you to protect your Bitcoin wallet with a unique password that only you know, rather than relying on a fixed-length mnemonic phrase. Be sure to store this password securely, as losing it will prevent access to your funds within that BIP38-encrypted wallet.</p>
+            <div class="feedback">
+                Helpful? <span class="thumbs-up">&#128077;</span><span class="thumbs-down">&#128078;</span>
+            </div>
+        </div>
+    </div>
+	
+    <div class="faq-item">
+        <div class="faq-question">Which type of Bitcoin wallet should I create?</div>
+        <div class="faq-answer" style="text-align: left;">
+            <p><b>1. Single Wallet:</b> A single wallet is the most straightforward kind, intended for individual use with a single private key and a public Bitcoin address. When generated, a single wallet produces one address to receive and store Bitcoin. Typically, this wallet is created via wallet software that provides both a public key (address) and a private key, which should be stored securely by the user. It’s best for personal use where only one user needs access.</p>
+	    <p><b>2. Paper Wallet:</b> A paper wallet is an offline wallet stored physically on a piece of paper. When generating a paper wallet, the user can use offline tools or a secure site to produce a private and public key pair. The private key is printed or written down, often as both a hexadecimal code and a QR code. Paper wallets are secure against digital threats but require careful storage and management. If someone accesses the paper, they gain control of the Bitcoin stored there. This wallet type is ideal for long-term storage or "cold storage.</p>
+	    <p><b>3. Bulk Wallet:</b> A bulk wallet is designed to create multiple addresses and keys at once, useful for businesses or individuals needing a large batch of addresses for transactions. These wallets can be generated using wallet generation scripts or software that supports bulk wallet functionality. For businesses that need to process multiple transactions daily, bulk wallets streamline the process, enabling better organization and security over high transaction volumes.</p>
+	    <p><b>4. Brain Wallet:</b> A brain wallet is unique in that it relies on a user-chosen passphrase to generate the private key rather than random generation. When creating a brain wallet, the user enters a secure, memorable phrase. Wallet software uses this phrase to mathematically generate the wallet’s private key. The risk here is that if the phrase isn’t complex enough, the wallet may be vulnerable to hacking attempts. However, for users who can create strong, unique passphrases, brain wallets are portable, as they require only memory to access.</p>
+	    <p><b>5. Vanity Wallet:</b> Vanity wallets allow users to personalize the Bitcoin address, usually by incorporating a specific set of characters. When creating a vanity wallet, specialized software generates addresses until it finds one matching the desired pattern. For example, a vanity address could start with "1Bitcoin" for a personal or business touch. Generating these addresses can be computationally demanding, especially for more specific patterns. Vanity wallets are popular with businesses or individuals wanting a recognizable address, though some argue they may reveal too much information.</p>
+	    <p><b>6. Split Wallet:</b> Split wallets are designed for added security, particularly for storing large amounts. During the creation of a split wallet, a private key is split into multiple parts (using a method called Shamir's Secret Sharing), each part stored separately. To reconstruct the wallet and access the funds, the user needs a minimum number of parts, making it highly secure. This wallet type is suitable for custodial setups or shared custody situations where multiple users control access.</p>
+		<div class="feedback">
                 Helpful? <span class="thumbs-up">&#128077;</span><span class="thumbs-down">&#128078;</span>
             </div>
         </div>
@@ -270,7 +297,17 @@
         </div>
     </div>
 
-	<div class="faq-item">
+    <div class="faq-item">
+        <div class="faq-question">How can I use Bitaddress to generate/create more wallet addresses and/or public keys for my already existing Bitcoin wallet?</div>
+        <div class="faq-answer" style="text-align: left;">
+            <p>Absolutely! Select Wallet Details from the tab menu and enter the private key or mnemonic seed of your existing Bitcoin wallet with a single space between the phrases, and hit Enter or click the "View Details" button. If you wish to encrypt the private key/mnemonic seed, then check the BIP38 encrypt, type in your password and click "Encrypt BIP38" while making sure that your private key/mnemonic seed is correctly entered in the label above.</p>
+            <div class="feedback" style="text-align: left;">
+                Helpful? <span class="thumbs-up">&#128077;</span><span class="thumbs-down">&#128078;</span>
+            </div>
+        </div>
+    </div>
+	
+    <div class="faq-item">
         <div class="faq-question">What is a brain wallet, and how is it different from a normal wallet? </div>
         <div class="faq-answer" style="text-align: left;">
             <p>A brain wallet is a type of cryptocurrency wallet where the private key (used to access the wallet) is generated from a passphrase that the user memorizes, rather than being stored on a device or written down. In essence, the "wallet" exists entirely in the user's brain, as the private key is derived from the passphrase. This method allows users to access their wallet from anywhere, as long as they remember the passphrase.</p><br>
