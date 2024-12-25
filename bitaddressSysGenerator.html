@@ -1641,14 +1641,13 @@ if (typeof Crypto == "undefined" || !Crypto.util) {
 })();
 	</script>
 	<script type="text/javascript">
-//https://raw.github.com/bitcoinjs/bitcoinjs-lib/faa10f0f6a1fff0b9a99fffb9bc30cee33b17212/src/ecdsa.js
+
 /*!
 * Basic Javascript Elliptic Curve implementation
 * Ported loosely from BouncyCastle's Java EC code
 * Only Fp curves implemented for now
 * 
-* Copyright Tom Wu, bitaddress.systems  BSD License.
-* http://www-cs-students.stanford.edu/~tjw/jsbn/LICENSE
+* Copyright, bitaddress.systems  BSD License.
 */
 (function () {
 
@@ -2846,21 +2845,7 @@ exports.init();
 })(typeof module !== 'undefined' && module['exports'] ? module['exports'] : (window['secrets'] = {}), typeof GLOBAL !== 'undefined' ? GLOBAL : window );
 	</script>
 	<script type="text/javascript">
-// Upstream 'BigInteger' here:
-// Original Author: http://www-cs-students.stanford.edu/~tjw/jsbn/
-// Follows 'jsbn' on Github: https://github.com/jasondavies/jsbn
-// Review and Testing: https://github.com/cryptocoinjs/bigi/
-/*!
-* Basic JavaScript BN library - subset useful for RSA encryption. v1.4
-* 
-* Copyright (c) 2005  Tom Wu
-* All Rights Reserved.
-* BSD License
-* http://www-cs-students.stanford.edu/~tjw/jsbn/LICENSE
-*
-* Copyright Stephan Thomas
-* Copyright pointbiz
-*/
+
 
 (function () {
 
@@ -3907,8 +3892,6 @@ exports.init();
 
 
 
-	// Copyright Stephan Thomas (start) --- //
-	// https://raw.github.com/bitcoinjs/bitcoinjs-lib/07f9d55ccb6abd962efb6befdd37671f85ea4ff9/src/util.js
 	// BigInteger monkey patching
 	BigInteger.valueOf = nbv;
 
@@ -5173,7 +5156,7 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-//https://raw.github.com/bitcoinjs/bitcoinjs-lib/1a7fc9d063f864058809d06ef4542af40be3558f/src/bitcoin.js
+
 (function (exports) {
 	var Bitcoin = exports;
 })(
@@ -5181,7 +5164,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 );
 	</script>
 	<script type="text/javascript">
-//https://raw.github.com/bitcoinjs/bitcoinjs-lib/c952aaeb3ee472e3776655b8ea07299ebed702c7/src/base58.js
+
 (function (Bitcoin) {
 	Bitcoin.Base58 = {
 		alphabet: "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz",
@@ -5255,7 +5238,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 );
 	</script>
 	<script type="text/javascript">
-//https://raw.github.com/bitcoinjs/bitcoinjs-lib/09e8c6e184d6501a0c2c59d73ca64db5c0d3eb95/src/address.js
+
 Bitcoin.Address = function (bytes) {
 	if ("string" == typeof bytes) {
 		bytes = Bitcoin.Address.decodeString(bytes);
@@ -5311,7 +5294,7 @@ Bitcoin.Address.decodeString = function (string) {
 };
 	</script>
 	<script type="text/javascript">
-//https://raw.github.com/bitcoinjs/bitcoinjs-lib/e90780d3d3b8fc0d027d2bcb38b80479902f223e/src/ecdsa.js
+
 Bitcoin.ECDSA = (function () {
 	var ecparams = EllipticCurve.getSECCurveByName("secp256k1");
 	var rng = new SecureRandom();
@@ -5669,7 +5652,7 @@ Bitcoin.Bip38Key = (function () {
 	return Bip38;
 })();
 
-//https://raw.github.com/pointbiz/bitcoinjs-lib/9b2f94a028a7bc9bed94e0722563e9ff1d8e8db8/src/eckey.js
+
 Bitcoin.ECKey = (function () {
 	var ECDSA = Bitcoin.ECDSA;
 	var KeyPool = Bitcoin.KeyPool;
@@ -5971,7 +5954,7 @@ Bitcoin.ECKey = (function () {
 })();
 	</script>
 	<script type="text/javascript">
-//https://raw.github.com/bitcoinjs/bitcoinjs-lib/09e8c6e184d6501a0c2c59d73ca64db5c0d3eb95/src/util.js
+
 // Bitcoin utility functions
 Bitcoin.Util = {
 	/**
@@ -6109,7 +6092,7 @@ Bitcoin.Util = {
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 */
-// https://github.com/cheongwy/node-scrypt-js
+
 (function () {
 
 	var MAX_VALUE = 2147483647;
@@ -7187,7 +7170,7 @@ document.getElementById('detailbip38encryptbutton').addEventListener('click', fu
 				<div class="tooltip" id="statusprotocolbad">
 					<span class="statuswarn" id="statuslabelprotocolbad">&#9888; Think twice!</span>
 					<span id="statuslabelprotocolbad1">You appear to be running this generator online from a live website. For valuable wallets it is recommended to</span>
-					<a id="statuslabelprotocolbad2" href=https://github.com/secure-keys/bitaddress.org/blob/42cf9c4718c6d9fd68c3c3518882ecb17ecd9374/bitaddressSysGenerator.html>download</a>
+					<a id="statuslabelprotocolbad2" href=''>download</a>
 					<span id="statuslabelprotocolbad3">the zip file from GitHub and run this generator offline as a local html file.</span>
 					<br /><br /><input type="button" value="OK" class="button" id="statusokprotocolbad" onclick="document.getElementById('statusprotocolbad').style.display = 'none';" />
 				</div>
@@ -7211,8 +7194,8 @@ document.getElementById('detailbip38encryptbutton').addEventListener('click', fu
 					</span>
 					<span class="item"><span id="footerlabeldonations">Donations:</span> <b>0x2ccfe7acd7757c0cc475e07748ff2d453537d531<b></span>
 					<span class="item" id="footerlabeltranslatedby"></span>
-					<span class="item"><a href="https://github.com/pointbiz/bitaddress.org" target="_blank" id="footerlabelgithub">GitHub Repository</a> 
-						(<a href="https://github.com/pointbiz/bitaddress.org/archive/v3.3.0.zip" target="_blank" id="footerlabelgithubzip">zip</a>)</span>
+					<span class="item"><a href="" target="_blank" id="footerlabelgithub">GitHub Repository</a> 
+						(<a href="" target="_blank" id="footerlabelgithubzip">zip</a>)</span>
 				</div>
 			</div><br>
 			<div class="authorpgp">
