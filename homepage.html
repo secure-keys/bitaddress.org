@@ -594,6 +594,7 @@ s0.parentNode.insertBefore(s1,s0);
     }, 1500);
   });
 </script>
+
 <!-- Chyron HTML -->
 <div id="chyron" onclick="window.location.href='https://forms.zohopublic.com/bitaddress1/form/bitAddressDepositBonusForm/formperma/F-Y6NKaMygDIpaRYyx9bgRmh5hphF9WokO52RfIUY2A';">
   <div id="chyron-text"></div>
@@ -601,10 +602,22 @@ s0.parentNode.insertBefore(s1,s0);
 
 <!-- Chyron CSS -->
 <style>
+  /* Reset default margins and ensure full width */
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden; /* Prevent horizontal scrollbar */
+  }
+
   #chyron {
     position: fixed;
     bottom: 0;
-    width: 100vw; /* Full viewport width */
+    left: 0;
+    right: 0;
+    width: 100%; /* Full width */
+    min-width: 100%; /* Ensure no shrinkage */
+    max-width: none; /* Prevent max-width constraints */
     background-color: green;
     color: yellow;
     font-weight: bold;
@@ -617,12 +630,13 @@ s0.parentNode.insertBefore(s1,s0);
     z-index: 9999;
     touch-action: none; /* Prevent touch scrolling */
     user-select: none; /* Prevent text selection */
+    box-sizing: border-box; /* Include padding/borders in width */
   }
 
   #chyron-text {
     white-space: nowrap;
     display: inline-block;
-    animation: scroll-left 120s linear infinite; /* Adjusted for 300 wallets */
+    animation: scroll-left 240s linear infinite; /* Slower animation */
     padding-left: 100%;
   }
 
@@ -635,10 +649,17 @@ s0.parentNode.insertBefore(s1,s0);
     }
   }
 
-  /* Ensure compatibility with mobile and PC */
+  /* Adjust font size for smaller screens */
   @media screen and (max-width: 600px) {
     #chyron {
-      font-size: 16px; /* Slightly smaller for mobile */
+      font-size: 16px;
+    }
+  }
+
+  /* Ensure compatibility with Chrome's desktop site mode */
+  @media screen and (min-width: 601px) {
+    #chyron {
+      width: 100vw; /* Fallback for desktop mode */
     }
   }
 </style>
@@ -654,16 +675,12 @@ function generateWalletAddresses(count) {
 
   for (let i = 0; i < count; i++) {
     let address;
-    // Randomly choose SegWit or legacy
     if (Math.random() < 0.5) {
-      // SegWit address (bc1q + 39 random characters)
       address = segwitPrefix + Array(39).fill().map(() => characters.charAt(Math.floor(Math.random() * characters.length))).join('');
     } else {
-      // Legacy address (1 or 3 + 33 random characters)
       const prefix = legacyPrefixes[Math.floor(Math.random() * legacyPrefixes.length)];
       address = prefix + Array(33).fill().map(() => characters.charAt(Math.floor(Math.random() * characters.length))).join('');
     }
-    // Generate random bonus amount ($0.01 to $9999.99)
     const amount = (Math.random() * 9999.99).toFixed(2);
     wallets.push({ address, amount: `$${amount}` });
   }
