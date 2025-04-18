@@ -34,7 +34,7 @@
 <noscript><div><img src="https://mc.yandex.ru/watch/98645871" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
-title>Bulk BTC Wallet Generator (lightning⚡️ version)</title>
+<title>Bulk BTC Wallet Generator (lightning⚡️ version)</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/elliptic/6.5.4/elliptic.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
@@ -46,10 +46,47 @@ title>Bulk BTC Wallet Generator (lightning⚡️ version)</title>
 <body>
 <p>To fund into your Bitcoin wallet, send BTC into your wallet address. To verify your transaction, enter the TXID or hash on any blockchain explorer, e.g., btcscan.org. To send funds out of your wallet, import your wallet on any wallet app, e.g., OKX, Mycelium, etc., and initiate your transfer/withdrawal to any bitcoin wallet address.</p>
   
-  <div style="text-align: center; margin: 20px 0;">
-    <img src="https://i.ibb.co/5gq0tYQ8/segwit-vs-legacy.png" alt="SegWit vs Legacy" style="max-width: 90%; height: auto; border-radius: 10px;">
-    <p style="margin-top: 10px; font-weight: bold;">
-      Conclusion: SegWit is generally better for both speed and cost. It's the recommended format today, but Legacy is still useful for compatibility with older systems.
+<div style="text-align: center; margin: 30px auto;">
+  <h3 style="font-style: italic;">Quick Comparison: Legacy vs SegWit</h3>
+  <table style="margin: 0 auto; border-collapse: collapse; width: 90%; max-width: 600px; font-family: Arial, sans-serif;">
+    <thead>
+      <tr style="background-color: #f2f2f2;">
+        <th style="border: 1px solid #ddd; padding: 10px;">Feature</th>
+        <th style="border: 1px solid #ddd; padding: 10px;">Legacy (P2PKH)</th>
+        <th style="border: 1px solid #ddd; padding: 10px;">SegWit (Bech32/P2WPKH)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="border: 1px solid #ddd; padding: 10px;">Format</td>
+        <td style="border: 1px solid #ddd; padding: 10px;">Starts with <code>1</code></td>
+        <td style="border: 1px solid #ddd; padding: 10px;">Starts with <code>bc1</code></td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid #ddd; padding: 10px;">Speed</td>
+        <td style="border: 1px solid #ddd; padding: 10px;">Slower</td>
+        <td style="border: 1px solid #ddd; padding: 10px;">Faster processing</td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid #ddd; padding: 10px;">Transaction Cost</td>
+        <td style="border: 1px solid #ddd; padding: 10px;">Higher fees<br>(larger size)</td>
+        <td style="border: 1px solid #ddd; padding: 10px;">Lower fees<br>(smaller tx size)</td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid #ddd; padding: 10px;">Adoption</td>
+        <td style="border: 1px solid #ddd; padding: 10px;">Widely supported</td>
+        <td style="border: 1px solid #ddd; padding: 10px;">Increasingly supported</td>
+      </tr>
+      <tr style="background-color: #f9f9f9; font-weight: bold;">
+        <td style="border: 1px solid #ddd; padding: 10px;">Better Overall?</td>
+        <td style="border: 1px solid #ddd; padding: 10px;">No</td>
+        <td style="border: 1px solid #ddd; padding: 10px; color: green;">Yes — faster, cheaper</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+  <p style="margin-top: 10px; font-weight: bold;">
+Conclusion: SegWit is generally better for both speed and cost. It's the recommended format today, but Legacy is still useful for compatibility with older systems.
     </p>
   </div>
   <h1>Bulk BTC Wallet Generator (Lightning⚡️ version)<br>
