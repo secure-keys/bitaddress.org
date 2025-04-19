@@ -142,6 +142,79 @@
     font-size: 16px;
     padding: 12px;
 }
+
+/* Style the Print button */
+#printButton {
+  display: block;
+  margin: 20px auto; /* Center the button with some spacing */
+  padding: 10px 20px;
+  background-color: #4CAF50; /* Green background */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#printButton:hover {
+  background-color: #45a049; /* Slightly darker green on hover */
+}
+
+/* Style the canvas (QR codes) */
+.wallet-box canvas {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+  margin: 10px 0;
+}
+
+  .wallet-box canvas {
+    max-width: 120px;
+  }
+
+  #printButton {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+  /* Ensure wallet output is visible and styled for print */
+  #walletOutput {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .wallet-box {
+    page-break-inside: avoid; /* Prevent splitting a wallet across pages */
+    margin: 0;
+    padding: 10mm; /* Add some padding for print */
+    border-bottom: 1px solid #ccc; /* Add a separator between wallets */
+  }
+
+  .wallet-box:last-child {
+    border-bottom: none; /* Remove border from the last wallet */
+  }
+
+  /* Ensure QR codes are sized appropriately for print */
+  .wallet-box canvas {
+    width: 40mm !important; /* Approximately 150px at 96dpi */
+    height: 40mm !important;
+    max-width: none;
+  }
+
+  /* Adjust font sizes for print */
+  .wallet-box b {
+    font-size: 12pt;
+  }
+
+  /* Set page margins for print */
+  @page {
+    margin: 10mm; /* Standard margin for A4/Letter paper */
+  }
+}
   </style>
 </head>
 
@@ -339,6 +412,9 @@
           <canvas id="segwitQR${i}"></canvas>
         </div>`;
       }
+
+  // Add the Print button after all wallets
+  output += `<button id="printButton" onclick="printWallets()">Print</button>`;
 
       document.getElementById("walletOutput").innerHTML = output;
       wallets.forEach((w, i) => {
