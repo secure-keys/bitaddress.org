@@ -40,8 +40,8 @@
 	
     <style>
         body {
-            text-align: center;
-	    margin: 30px; /* Set a margin of 60 pixels on all sides of the page */
+            text-align: left;
+	    margin: 30px; /* Set a margin of 30 pixels on all sides of the page */
         }
 
     .wallet-box { border: 4px solid #ccc; padding: 45px; margin-bottom: 60px; border-radius: 30px; }
@@ -103,6 +103,29 @@
             font-size: 14pt;
             margin-bottom: 20px;
         }
+
+  .guide-card {
+    background-color: #f8f9fa;
+    padding: 15px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, box-shadow 0.3s;
+    list-style: none;
+    text-align: center;
+  }
+
+  .guide-card:hover {
+    background-color: #e9ecef;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  details[open] .guide-content {
+    margin-top: 15px;
+    padding: 10px;
+  }
   </style>
 </head>
 
@@ -144,54 +167,59 @@
     <span style="font-size: smaller; font-weight: normal; color: blue;">
       (powered by <a href="https://www.bitaddress.systems" style="color: blue; text-decoration: none;">www.bitaddress.systems</a>)
     </span></h1>
-<p>• To fund into your Bitcoin wallet, send BTC into your wallet address (legacy or SegWit).</p>
-<p>• To verify your transaction, enter the TXID/hash or wallet address on any blockchain explorer, e.g., btcscan.org.</p>
-<p>• To send funds out of your wallet, import your wallet on any wallet app, e.g., OKX, Mycelium, etc., and initiate your transfer/withdrawal to your destination Bitcoin wallet address.</p>
-<p><em>You are advised to <strong>print out your generated wallet credentials and keep in a private & secure location such as a safe or a vault.</strong> You can save your wallet address on your device, <strong>but certainly not your private key.</strong></em></p>
-  
+
 <div style="text-align: center; margin: 30px auto;">
-  <h3 style="font-style: italic;">Quick Comparison: Legacy vs SegWit</h3>
-  <table style="margin: 0 auto; border-collapse: collapse; width: 90%; max-width: 600px; font-family: Arial, sans-serif;">
-    <thead>
-      <tr style="background-color: #f2f2f2;">
-        <th style="border: 1px solid #ddd; padding: 10px;">Feature</th>
-        <th style="border: 1px solid #ddd; padding: 10px;">Legacy (P2PKH)</th>
-        <th style="border: 1px solid #ddd; padding: 10px;">SegWit (Bech32/P2WPKH)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td style="border: 1px solid #ddd; padding: 10px;">Format</td>
-        <td style="border: 1px solid #ddd; padding: 10px;">Starts with <code>1</code></td>
-        <td style="border: 1px solid #ddd; padding: 10px;">Starts with <code>bc1</code></td>
-      </tr>
-      <tr>
-        <td style="border: 1px solid #ddd; padding: 10px;">Speed</td>
-        <td style="border: 1px solid #ddd; padding: 10px;">Slower</td>
-        <td style="border: 1px solid #ddd; padding: 10px;">Faster processing</td>
-      </tr>
-      <tr>
-        <td style="border: 1px solid #ddd; padding: 10px;">Transaction Cost</td>
-        <td style="border: 1px solid #ddd; padding: 10px;">Higher fees<br>(larger size)</td>
-        <td style="border: 1px solid #ddd; padding: 10px;">Lower fees<br>(smaller tx size)</td>
-      </tr>
-      <tr>
-        <td style="border: 1px solid #ddd; padding: 10px;">Adoption</td>
-        <td style="border: 1px solid #ddd; padding: 10px;">Widely supported</td>
-        <td style="border: 1px solid #ddd; padding: 10px;">Increasingly supported</td>
-      </tr>
-      <tr style="background-color: #f9f9f9; font-weight: bold;">
-        <td style="border: 1px solid #ddd; padding: 10px;">Better Overall?</td>
-        <td style="border: 1px solid #ddd; padding: 10px;">No</td>
-        <td style="border: 1px solid #ddd; padding: 10px; color: green;">Yes — faster, cheaper</td>
-      </tr>
-    </tbody>
-  </table>
+  <details style="display: inline-block; text-align: left; max-width: 700px; width: 100%;">
+    <summary class="guide-card">View short guide</summary>
+    <div class="guide-content">
+      <p>• To fund into your Bitcoin wallet, send BTC into your wallet address (legacy or SegWit).</p>
+      <p>• To verify your transaction, enter the TXID/hash or wallet address on any blockchain explorer, e.g., btcscan.org.</p>
+      <p>• To send funds out of your wallet, import your wallet on any wallet app, e.g., OKX, Mycelium, etc., and initiate your transfer/withdrawal to your destination Bitcoin wallet address.</p>
+      <p><em>You are advised to <strong>print out your generated wallet credentials and keep in a private & secure location such as a safe or a vault.</strong> You can save your wallet address on your device, <strong>but certainly not your private key.</strong></em></p>
+      
+      <h3 style="font-style: italic; text-align: center;">Quick Comparison: Legacy vs SegWit</h3>
+      <table style="margin: 0 auto; border-collapse: collapse; width: 90%; max-width: 600px; font-family: Arial, sans-serif;">
+        <thead>
+          <tr style="background-color: #f2f2f2;">
+            <th style="border: 1px solid #ddd; padding: 10px;">Feature</th>
+            <th style="border: 1px solid #ddd; padding: 10px;">Legacy (P2PKH)</th>
+            <th style="border: 1px solid #ddd; padding: 10px;">SegWit (Bech32/P2WPKH)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 10px;">Format</td>
+            <td style="border: 1px solid #ddd; padding: 10px;">Starts with <code>1</code></td>
+            <td style="border: 1px solid #ddd; padding: 10px;">Starts with <code>bc1</code></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 10px;">Speed</td>
+            <td style="border: 1px solid #ddd; padding: 10px;">Slower</td>
+            <td style="border: 1px solid #ddd; padding: 10px;">Faster processing</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 10px;">Transaction Cost</td>
+            <td style="border: 1px solid #ddd; padding: 10px;">Higher fees<br>(larger size)</td>
+            <td style="border: 1px solid #ddd; padding: 10px;">Lower fees<br>(smaller tx size)</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 10px;">Adoption</td>
+            <td style="border: 1px solid #ddd; padding: 10px;">Widely supported</td>
+            <td style="border: 1px solid #ddd; padding: 10px;">Increasingly supported</td>
+          </tr>
+          <tr style="background-color: #f9f9f9; font-weight: bold;">
+            <td style="border: 1px solid #ddd; padding: 10px;">Better Overall?</td>
+            <td style="border: 1px solid #ddd; padding: 10px;">No</td>
+            <td style="border: 1px solid #ddd; padding: 10px; color: green;">Yes — faster, cheaper</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="margin-top: 10px; font-weight: bold; text-align: center;">
+        Conclusion: SegWit is generally better for both speed and cost. It's the recommended format today, but Legacy is still useful for compatibility with older systems.
+      </p>
+    </div>
+  </details>
 </div>
-  <p style="margin-top: 10px; font-weight: bold;">
-Conclusion: SegWit is generally better for both speed and cost. It's the recommended format today, but Legacy is still useful for compatibility with older systems.
-    </p>
-  </div>
 <br><label for="walletType" style="font-size: medium;">Select Wallet Type:</label> <select id="walletType" style="font-size: medium; padding: 8px;"> <option value="single">Single Wallet</option> <option value="bulk">Bulk Wallets (5)</option> </select><br><br>
 
 <button onclick="generateWallets()" style="font-size: medium; padding: 10px 20px;">Generate Wallet</button>
