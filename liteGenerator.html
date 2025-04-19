@@ -39,10 +39,22 @@
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 	
     <style>
-        body {
-            text-align: left;
-	    margin: 30px; /* Set a margin of 30 pixels on all sides of the page */
-        }
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: left;
+	   margin: 30px; /* Set a margin of 30 pixels on all sides of the page */
+    padding-bottom: 60px; /* Push everything up from the bottom */
+    box-sizing: border-box;
+  }
 
     .wallet-box { border: 4px solid #ccc; padding: 45px; margin-bottom: 60px; border-radius: 30px; }
     canvas { margin: 5px 0; }
@@ -92,13 +104,6 @@
             align-items: center;
         }
 		
-        #culturemenu {
-            font-size: 12pt;
-            margin-bottom: 20px;
-        }
-        .culturemenurow span {
-            margin: 0 5px;
-        }
         #tagline {
             font-size: 14pt;
             margin-bottom: 20px;
@@ -130,24 +135,6 @@
 </head>
 
 <body>
-<div id="culturemenu">
-        <div class="culturemenurow;" style="margin-top: 10px;"></div> <!-- Empty div for spacing -->>
-            <span><a href="?culture=en" id="cultureen" class="selected" onclick="ninja.translator.translate('en'); return false;">English</a></span> |
-            <span><a href="?culture=es" id="culturees" onclick="ninja.translator.translate('es'); return false;" class="">Español</a></span> |
-            <span><a href="?culture=fr" id="culturefr" onclick="ninja.translator.translate('fr'); return false;" class="">Français</a></span> |
-            <span><a href="?culture=el" id="cultureel" onclick="ninja.translator.translate('el'); return false;" class="">ελληνικά</a></span> |
-            <span><a href="?culture=it" id="cultureit" onclick="ninja.translator.translate('it'); return false;" class="">italiano</a></span> |
-            <span><a href="?culture=de" id="culturede" onclick="ninja.translator.translate('de'); return false;" class="">Deutsch</a></span>
-        </div>
-        <div class="culturemenurow">
-            <span><a href="?culture=cs" id="culturecs" onclick="ninja.translator.translate('cs'); return false;" class="">Česky</a></span> |
-            <span><a href="?culture=hu" id="culturehu" onclick="ninja.translator.translate('hu'); return false;" class="">Magyar</a></span> |
-            <span><a href="?culture=jp" id="culturejp" onclick="ninja.translator.translate('jp'); return false;" class="">日本語</a></span> |
-            <span><a href="?culture=zh-cn" id="culturezh-cn" onclick="ninja.translator.translate('zh-cn'); return false;" class="">简体中文</a></span> |
-            <span><a href="?culture=ru" id="cultureru" onclick="ninja.translator.translate('ru'); return false;" class="">Русский</a></span> |
-            <span><a href="?culture=pt-br" id="culturept-br" onclick="ninja.translator.translate('pt-br'); return false;" class="">português</a></span>
-        </div>
-        
     <div class="logo-container">
         <a href="https://bitaddress.systems/index.html">
     <img src="https://i.ibb.co/y0jmDdG/bitaddress-sys-logo-white.png" alt="Bitaddress Logo" class="logo">
@@ -222,7 +209,7 @@
 </div>
 <br><label for="walletType" style="font-size: medium;">Select Wallet Type:</label> <select id="walletType" style="font-size: medium; padding: 8px;"> <option value="single">Single Wallet</option> <option value="bulk">Bulk Wallets (5)</option> </select><br><br>
 
-<button onclick="generateWallets()" style="font-size: medium; padding: 10px 20px;">Generate Wallet</button>
+<button onclick="generateWallets()" style="font-size: large; padding: 20px 40px;">Generate Wallet</button>
 
   <div id="walletOutput" style="margin-top: 20px;"></div>  <script>
     const ec = new elliptic.ec("secp256k1");
