@@ -317,12 +317,18 @@
         const legacy = await publicKeyToLegacyAddress(pubHex);
         const segwit = await publicKeyToSegWitAddress(pubHex);
 
+    // Split the WIF private key at 39 characters
+    let wifDisplay = wif;
+    if (wif.length > 39) {
+      wifDisplay = wif.substring(0, 39) + "<br>" + wif.substring(39);
+    }
+
         wallets.push({ wif, legacy, segwit });
         output += `<div class="wallet-box">
           <b>Wallet ${i + 1}</b><br>
-          <b>Private Key (WIF):</b> ${wif}<br>
+          <b>Private Key (WIF):</b> ${wifDisplay}<br>
           <b>Legacy Address:</b> ${legacy}<br>
-          <canvas id="legacyQR${i}"></canvas>
+          <canvas id="legacyQR${i}"></canvas><br>
           <b>SegWit Address:</b> ${segwit}<br>
           <canvas id="segwitQR${i}"></canvas>
         </div>`;
