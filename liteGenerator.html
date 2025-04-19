@@ -34,6 +34,9 @@
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/98645871" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/elliptic/6.5.4/elliptic.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 	
     <style>
         @media only screen and (max-width: 600px) {
@@ -136,12 +139,13 @@
     .wallet-box { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 10px; }
     canvas { margin: 5px 0; }
   </style>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/elliptic/6.5.4/elliptic.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 </head>
 
 <body>
+  <h1>Bulk BTC Wallet Generator (Lightning⚡️ version)<br>
+    <span style="font-size: smaller; font-weight: normal; color: blue;">
+      (powered by <a href="https://www.bitaddress.systems" style="color: blue; text-decoration: none;">www.bitaddress.systems</a>)
+    </span>
 <p>• To fund into your Bitcoin wallet, send BTC into your wallet address (legacy or SegWit).</p>
 <p>• To verify your transaction, enter the TXID/hash or wallet address on any blockchain explorer, e.g., btcscan.org.</p>
 <p>• To send funds out of your wallet, import your wallet on any wallet app, e.g., OKX, Mycelium, etc., and initiate your transfer/withdrawal to your destination Bitcoin wallet address.</p>
@@ -190,10 +194,6 @@
 Conclusion: SegWit is generally better for both speed and cost. It's the recommended format today, but Legacy is still useful for compatibility with older systems.
     </p>
   </div>
-  <h1>Bulk BTC Wallet Generator (Lightning⚡️ version)<br>
-    <span style="font-size: smaller; font-weight: normal; color: blue;">
-      (powered by <a href="https://www.bitaddress.systems" style="color: blue; text-decoration: none;">www.bitaddress.systems</a>)
-    </span>
   </h1><br><label for="walletType" style="font-size: medium;">Select Wallet Type:</label> <select id="walletType" style="font-size: medium; padding: 8px;"> <option value="single">Single Wallet</option> <option value="bulk">Bulk Wallets (5)</option> </select><br><br>
 
 <button onclick="generateWallets()" style="font-size: medium; padding: 10px 20px;">Generate Wallet</button>
