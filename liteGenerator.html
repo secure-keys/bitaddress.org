@@ -43,6 +43,10 @@
     height: 100%;
     margin: 0;
     padding: 0;
+    width: 100%;
+    overflow-x: hidden; /* Prevent horizontal scrollbar */
+    min-height: 100vh; /* Ensure body takes up full viewport height */
+    box-sizing: border-box;
   }
 
   body {
@@ -53,9 +57,6 @@
     text-align: left;
 	   margin: 30px; /* Set a margin of 30 pixels on all sides of the page */
     padding-bottom: 100px; /* Push everything up from the bottom */
-    overflow-x: hidden; /* Prevent horizontal scrollbar */
-    min-height: 100vh; /* Ensure body takes up full viewport height */
-    box-sizing: border-box;
   }
 
 	#zoomable-container {
@@ -83,10 +84,51 @@ canvas {
   height: auto;
 }
 
-  body {
-    max-width: 100vw;
-    overflow-x: hidden;
-  }
+  /* Ensure all elements use border-box */
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+/* Style the main content container */
+body > div {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Style the generated content container */
+#details {
+  width: 100%;
+  max-width: 100%; /* Prevent overflow */
+  padding: 10px;
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center;
+  text-align: center;
+}
+
+/* Style the text (private key, address, SegWit address) */
+#details p {
+  width: 100%;
+  max-width: 100%;
+  word-wrap: break-word; /* Break long text like private keys */
+  font-size: 14px; /* Adjust font size for readability */
+  margin: 10px 0;
+  line-height: 1.4; /* Improve readability */
+}
+
+/* Style the QR codes */
+#details img.qr {
+  width: 100%;
+  max-width: 150px; /* Limit QR code size on mobile */
+  height: auto;
+  margin: 10px 0;
+}
+
+/* Prevent zoom on input focus (if applicable) */
+input, select, textarea {
+  font-size: 16px; /* Prevent iOS zoom on focus */
+}
 
 .tab-menu {
     display: flex;
