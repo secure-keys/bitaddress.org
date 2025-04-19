@@ -56,8 +56,32 @@
     box-sizing: border-box;
   }
 
-    .wallet-box { border: 4px solid #ccc; padding: 45px; margin-bottom: 60px; border-radius: 30px; }
-    canvas { margin: 5px 0; }
+<style>
+  .wallet-box {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 15px auto;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-x: auto;
+    background: #f9f9f9;
+    box-sizing: border-box;
+  }
+
+.wallet-box b {
+  word-break: break-word;
+}
+
+canvas {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+}
+
+  body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
 
 .tab-menu {
     display: flex;
@@ -225,11 +249,13 @@
     </div>
   </details>
 </div>
-<label for="walletType" style="font-size: large;"><strong>Select Wallet Type:</strong></label> <select id="walletType" style="font-size: medium; padding: 8px;"> <option value="single">Single Wallet</option> <option value="bulk">Bulk Wallets (5)</option> </select><br><br>
+<label for="walletType" style="font-size: large;"><strong>Select Wallet Type:</strong></label> <select id="walletType" style="font-size: medium; padding: 12px;"> <option value="single">Single Wallet</option> <option value="bulk">Bulk Wallets (5)</option> </select><br><br>
 
 <button onclick="generateWallets()" style="font-size: large; padding: 20px 40px;">Generate Wallet</button>
 
-  <div id="walletOutput" style="margin-top: 20px;"></div>  <script>
+  
+<div id="walletOutput" style="margin-top: 20px; padding: 10px;"></div>
+  <script>
     const ec = new elliptic.ec("secp256k1");
 
     function generatePrivateKey() {
