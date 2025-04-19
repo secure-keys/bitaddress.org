@@ -1,10 +1,11 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <title>Bulk BTC Wallet Generator (lightning⚡️ version)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv='content-language' content='en-us'>
     <meta name="description" content="Bitaddress.systems offers the safest, most secure way to generate and encrypt Bitcoin wallet addresses and private keys or master seeds, whether online or offline. As a pioneering platform in Bitcoin wallet solutions, Bitaddress.systems is committed to empowering users with secure, self-custody wallets and privacy-focused, open-source technology designed to meet the highest standards of crypto security.">
-    <meta name="keywords" content="protect crypto from hacking, bitaddress, bitaddress.org, bitcoin paper wallets, how to create non-custodial bitcoin wallets, generate bitcoin wallet addresses, secure cryptocurrency asset, protect cryptocurrency asset from hacking, how to create bulk bitcoin wallets on telegram, secure cryptocurrency wallet, protect cryptcurrency wallet from hacking, secure metamask wallet, protect metamask wallet from hacking, secure blockchain, secure token, protect kraken wallet from hacking, secure binance wallet, protect binance wallet from hacking, secure coinbase wallet, protect coinbase wallet from hacking, secure ethereum wallet, protect ethereum wallet from hacking, secure kraken wallet, decentralized wallet security, secure web3 wallet, secure defi, protect forex account from hacker, protect usdt from hacker, protect seed phrase from hacker, protect master seed from hacker, protect word seed phrase from hacker, protect master seed phrase from hacker, protect private key from hacker, secure private key, protect secret phrase from hacker, protect crypto wallet secret password, protect encrypted wallet from hacker, encrypt wallet, protect mnemonic seed from hacker, protect backup phrase from hacker, protect backup key from hacker, protect recovery phrase from hacker, protect secret phrase from hacker, protect seed phrase from hacker">
+    <meta name="keywords" content="protect crypto from hacking, bitaddress, bitaddress.org, bitcoin paper wallets, generate bitcoin wallet addresses, secure cryptocurrency asset, protect cryptocurrency asset from hacking, secure cryptocurrency wallet, how to create non-custodial Bitcoin wallets, protect cryptcurrency wallet from hacking, secure metamask wallet, protect metamask wallet from hacking, secure blockchain, secure token, protect kraken wallet from hacking, secure binance wallet, protect binance wallet from hacking, secure coinbase wallet, protect coinbase wallet from hacking, secure ethereum wallet, protect ethereum wallet from hacking, secure kraken wallet, decentralized wallet security, secure web3 wallet, secure defi, protect forex account from hacker, protect usdt from hacker, protect seed phrase from hacker, protect master seed from hacker, protect word seed phrase from hacker, protect master seed phrase from hacker, protect private key from hacker, secure private key, protect secret phrase from hacker, protect crypto wallet secret password, protect encrypted wallet from hacker, encrypt wallet, protect mnemonic seed from hacker, protect backup phrase from hacker, protect backup key from hacker, protect recovery phrase from hacker, protect secret phrase from hacker, protect seed phrase from hacker">
     <meta name="robots" content="index, follow" sitemap="https://bitaddress.systems/sitemap.xml">
 	<link rel="icon" href="https://i.imgur.com/N7APLOi.png" type="image/png">
 
@@ -33,13 +34,8 @@
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/98645871" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
-
-<title>Bulk BTC Wallet Generator (lightning⚡️ version)</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/elliptic/6.5.4/elliptic.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
-
-  <style>
+	
+    <style>
         @media only screen and (max-width: 600px) {
         /* CSS rules for screens up to 600px wide */
         /* Adjust layout, font sizes, padding, etc. for smaller screens */
@@ -47,7 +43,10 @@
 
         /* CSS for green border effect with specified margin and thickness */
         body {
-	    margin: 30px; /* Set a margin of 10 pixels on all sides of the page */
+            border: 5px solid rgb(0, 124, 0); /* Border thickness of 5px with green color */
+            font-family: sans-serif;
+            text-align: center;
+	    margin: 30px; /* Set a margin of 30 pixels on all sides of the page */
             font-family: sans-serif;
         }
 
@@ -55,10 +54,93 @@
     	transition: transform 0.3s ease;
 	}
 
+.tab-menu {
+    display: flex;
+    justify-content: center; /* Center the menu horizontally */
+    background-color: green; /* Menu background color */
+    padding: 5px 0;
+}
+
+.tab-menu a {
+    padding: 10px 16px; /* Padding for tab size */
+    margin: 0 5px; /* Evenly space the tabs */
+    text-align: center;
+    text-decoration: none; /* Remove underline from links */
+    color: black; /* Tab label text color */
+    font-size: 14pt; /* Font size for tabs */
+    background-color: gold; /* Tab background color */
+    border-radius: 4px;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.tab-menu a:hover {
+    background-color: #d4af37; /* Slightly darker hover color for the tabs */
+}
+
+.tab-menu a.active {
+    background-color: #b8860b; /* Active tab color */
+}
+	    
+        .logo {
+            width: 100%;  /* Make the logo take up the full height of its container */
+            height: auto;  /* Make the logo take up the full height of its container */
+	    object-fit: contain;  /* Ensures the logo fits inside its container without being cropped */
+	    margin-top: 5px;
+        }
+
+        .logo-container {
+            width: 100%
+	    max-width: 450px;  /* Set the width of the logo container */
+            height: auto;  /* Allow the height to adjust proportionally based on the width */
+	    overflow: hidden;  /* Ensures no part of the image overflows */
+            margin: 0 auto;  /* Center the container horizontally */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+		
+        #culturemenu {
+            font-size: 12pt;
+            margin-bottom: 20px;
+        }
+        .culturemenurow span {
+            margin: 0 5px;
+        }
+        #tagline {
+            font-size: 14pt;
+            margin-bottom: 20px;
+        }
+        .option-button {
+            display: block;
+            margin: 15px 70px;
+            padding: 30px 10px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .option-button:hover {
+            background-color: #45a049;
+        }
+	    
+/* For mobile devices */
+@media (max-width: 600px) {
+    .your-class {
+        /* Adjust styles for smaller screens */
+        font-size: 14px; 
+        padding: 10px; 
+        /* Example adjustments */
+    }
+
     .wallet-box { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 10px; }
     canvas { margin: 5px 0; }
   </style>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/elliptic/6.5.4/elliptic.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 </head>
+
 <body>
 <p>• To fund into your Bitcoin wallet, send BTC into your wallet address (legacy or SegWit).</p>
 <p>• To verify your transaction, enter the TXID/hash or wallet address on any blockchain explorer, e.g., btcscan.org.</p>
