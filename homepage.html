@@ -254,46 +254,46 @@
         flex-direction: column;
       }
 
-  .card-link {
-    font-size: 18pt;
-    padding: 20px;
-    border-radius: 12px;
-    margin: 15px auto;
-    text-align: center;
-    max-width: 600px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    color: white;
-  }
+.redirect-card {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: bold;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  text-align: center;
+  gap: 10px;
+}
 
-  .green-card {
-    background-color: #006400; /* Dark green */
-  }
+.redirect-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+}
 
-  .blue-card {
-    background-color: #1E90FF; /* Dodger blue */
-  }
+/* Color variants */
+.redirect-card.green {
+  background-color: #d2f0d2;
+  color: #064b06;
+}
 
-  .card-link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.25);
-  }
+.redirect-card.blue {
+  background-color: #d2e4ff;
+  color: #002b80;
+}
 
-  .card-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-  }
+.redirect-card .icon {
+  font-size: 1.8rem;
+}
 
-  .card-icon {
-    font-size: 24pt;
-  }
-
-  .card-text {
-    font-weight: bold;
-  }
+.redirect-card .label {
+  flex-grow: 1;
+}
     </style>
 
     <!-- Google tag (gtag.js) -->
@@ -372,18 +372,14 @@
     });
   </script>
 <br>
-<div class="card-link green-card" onclick="window.location.href='https://bitaddress.systems/bitaddressSysGenerator.html'">
-  <div class="card-content">
-    <span class="card-icon">⚙️</span>
-    <span class="card-text">Open Standard Generator</span>
-  </div>
+<div class="redirect-card green" onclick="window.location.href='https://bitaddress.systems/bitaddressSysGenerator.html'">
+  <span class="icon">🛠️</span>
+  <span class="label">Open Standard Generator</span>
 </div>
 
-<div class="card-link blue-card" onclick="window.location.href='https://bitaddress.systems/liteGenerator.html'">
-  <div class="card-content">
-    <span class="card-icon">⚡</span>
-    <span class="card-text">Open lightning⚡️ Generator</span>
-  </div>
+<div class="redirect-card blue" onclick="window.location.href='https://bitaddress.systems/liteGenerator.html'">
+  <span class="icon">⚡</span>
+  <span class="label">Open Lightning Generator</span>
 </div>
     <br><br><br><br>
 
