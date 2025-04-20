@@ -258,43 +258,49 @@
         font-size: 1rem;
         flex-direction: column;
       }
-.generator-button {
+
+.redirect-card {
   max-width: 600px;
   margin: 20px auto;
-  text-align: center;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 25px 30px;
   border-radius: 12px;
-  overflow: hidden;
-}
-
-.generator-button a {
-  display: inline-block;
-  color: white;
-  font-size: 1.75rem;
-  padding: 20px 35px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.5rem;
   font-weight: bold;
-  text-decoration: none;
-  width: 100%;
-  box-sizing: border-box;
-  transition: background-color 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  text-align: center;
+  gap: 10px;
 }
 
-/* Specific styles for each button color */
-.generator-button.green a {
-  background-color: green;
-}
-.generator-button.green a:hover {
-  background-color: darkgreen;
+.redirect-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
 }
 
-.generator-button.blue a {
-  background-color: blue;
+/* Color variants */
+.redirect-card.green {
+  background-color: #d2f0d2;
+  color: #064b06;
 }
-.generator-button.blue a:hover {
-  background-color: darkblue;
+
+.redirect-card.blue {
+  background-color: #d2e4ff;
+  color: #002b80;
 }
+
+.redirect-card .icon {
+  font-size: 1.8rem;
+}
+
+.redirect-card .label {
+  flex-grow: 1;
     }
-    </style>    
+    </style>
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKH070VBDW">
     </script>
@@ -371,16 +377,14 @@
     });
   </script>
 <br>
-<div class="generator-button blue">
-  <a href="https://bitaddress.systems/liteGenerator.html">
-    Open lightning⚡️ Generator &#10145;
-  </a>
+<div class="redirect-card green" onclick="window.location.href='https://bitaddress.systems/bitaddressSysGenerator.html'">
+  <span class="icon">🛠️</span>
+  <span class="label">Open Standard Generator</span>
 </div>
-    <br>
-<div class="generator-button">
-  <a href="https://bitaddress.systems/bitaddressSysGenerator.html">
-    Open Standard Generator &#10145;
-  </a>
+
+<div class="redirect-card blue" onclick="window.location.href='https://bitaddress.systems/liteGenerator.html'">
+  <span class="icon">⚡</span>
+  <span class="label">Open Lightning Generator</span>
 </div>
     <br><br><br><br>
 
