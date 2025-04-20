@@ -4,7 +4,7 @@
     <title>Guide On How To Use Bitaddress Sys Bitcoin Wallet Generator Software App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv='content-language' content='en-us'>
-    <meta name="description" content="Bitaddress.systems offers the safest, most secure way to generate and encrypt Bitcoin wallet addresses and private keys or master seeds, whether online or offline. As a pioneering platform in Bitcoin wallet solutions, Bitaddress.systems is committed to empowering users with secure, self-custody wallets and privacy-focused, open-source technology designed to meet the highest standards of crypto security.">
+    <meta name="description" content="Bitaddress.systems offers the safest, most secure way to generate and encrypt Bitcoin wallet addresses and private keys or master seeds, whether online or offline. As a pioneering platform in Bitcoin wallet solutions, Bitaddress.systems is committed to empowering users with secure, non-custodial bitcoin wallets, self-custody wallets and privacy-focused, open-source technology designed to meet the highest standards of crypto security.">
     <meta name="keywords" content="protect crypto from hacking, encrypt your bitcoin wallet, BIP38 encryption, how to encrypt Bitcoin wallet, bitaddress, bitaddress.org, bitcoin paper wallets, how to create non-custodial Bitcoin wallets, generate bitcoin wallet addresses, secure cryptocurrency asset, protect cryptocurrency asset from hacking, secure cryptocurrency wallet, protect cryptcurrency wallet from hacking, secure metamask wallet, protect metamask wallet from hacking, secure blockchain, secure token, protect kraken wallet from hacking, secure binance wallet, protect binance wallet from hacking, secure coinbase wallet, protect coinbase wallet from hacking, secure ethereum wallet, protect ethereum wallet from hacking, secure kraken wallet, decentralized wallet security, secure web3 wallet, secure defi, protect forex account from hacker, protect usdt from hacker, protect seed phrase from hacker, protect master seed from hacker, protect word seed phrase from hacker, protect master seed phrase from hacker, protect private key from hacker, secure private key, protect secret phrase from hacker, protect crypto wallet secret password, protect encrypted wallet from hacker, encrypt wallet, protect mnemonic seed from hacker, protect backup phrase from hacker, protect backup key from hacker, protect recovery phrase from hacker, protect secret phrase from hacker, protect seed phrase from hacker">
     <meta name="robots" content="index, follow" sitemap="https://bitaddress.systems/sitemap.xml">
 	<link rel="icon" href="https://i.imgur.com/N7APLOi.png" type="image/png">
@@ -195,6 +195,70 @@
     .submit-button:hover {
     background-color: darkgreen;
 }    
+
+    details {
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin: 20px auto;
+      max-width: 600px;
+      overflow: hidden;
+      transition: all 0.3s ease-in-out;
+    }
+
+    summary {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: bold;
+      padding: 20px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    details[open] summary {
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .encrypt-card summary {
+      background-color: #a9a9a9; /* dark silver */
+      color: black;
+    }
+
+    .wallet-card summary {
+      background-color: #b8860b; /* dark goldenrod */
+      color: white;
+    }
+
+    .card-content {
+      padding: 20px;
+      background-color: white;
+      color: #333;
+      line-height: 1.6;
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media screen and (max-width: 600px) {
+      body {
+        margin: 10px;
+      }
+
+      summary {
+        font-size: 1rem;
+        flex-direction: column;
+      }
+    }
     </style>    
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKH070VBDW">
@@ -218,7 +282,6 @@
             <span><a href="?culture=it" id="cultureit" onclick="ninja.translator.translate('it'); return false;" class="">italiano</a></span> |
             <span><a href="?culture=de" id="culturede" onclick="ninja.translator.translate('de'); return false;" class="">Deutsch</a></span>
         </div>
-
         <div class="culturemenurow">
             <span><a href="?culture=cs" id="culturecs" onclick="ninja.translator.translate('cs'); return false;" class="">Česky</a></span> |
             <span><a href="?culture=hu" id="culturehu" onclick="ninja.translator.translate('hu'); return false;" class="">Magyar</a></span> |
@@ -241,15 +304,38 @@
 </div>
 	
     <br>
-    <div style="text-align: left; margin: 0 40px; font-size: 14pt;"> 
-    <h2>How To Use Bitaddress To Encrypt An Existing Bitcoin Wallet</h2>
-	<p>On the standard generator app, select <span style="color: green;"><strong>Wallet Details</strong></span> from the tab, and enter your private key or master seed directly in the input field, check the "BIP38 Encrypt" box and set a BIP38 decryption password, then click "Encrypt BIP38".</p>
-	    
-    <h2>For wallet generation usage, select the desired type from the menu tab in the standard generator app.</h2>
-    <p>Note that the wallet generation options—<a href=https://bitaddress.tawk.help/article/types-of-bitcoin-wallets-a-guide-to-wallet-creation-and-generation style="color: green;"><strong>'Single Wallet', 'Paper Wallet', 'Bulk Wallet', 'Vanity Wallet', and 'Split Wallet'</strong></a>—rely on a process called entropy generation, which increases the randomness of your generated keys. Once the seeder level reaches 100%, the tabs will become clickable, allowing you to proceed with your wallet generation safely. Move your mouse around or touch anywhere on your mobile phone screen to increase the seeder %.</p>
-	    <p style="color: blue;">
-If you do not have the patience to move your mouse or tap your mobile phone screen until the seeder pool reaches 100%, you can use our <strong>advanced lightning⚡️ version</strong> designed for maximum entropy generation with just a single touch. Click the button below.
-</p>
+  <details class="encrypt-card">
+    <summary><span>🔐</span>Want to encrypt/decrypt an existing BTC wallet?</summary>
+    <div class="card-content">
+      <p>On the standard generator app, select <span style="color: green;"><strong>Wallet Details</strong></span> from the tab, and enter your private key or master seed directly in the input field, check the "BIP38 Encrypt" box and set a BIP38 decryption password, then click "Encrypt BIP38".</p>
+    </div>
+  </details>
+
+  <details class="wallet-card">
+    <summary><span>📜</span>Want to generate a certain type of BTC wallet(s)?</summary>
+    <div class="card-content">
+      <p>Select the desired type from the menu tab in the standard generator app. Note that the wallet options—<a href="https://bitaddress.tawk.help/article/types-of-bitcoin-wallets-a-guide-to-wallet-creation-and-generation" style="color: green;"><strong>'Single Wallet', 'Paper Wallet', 'Bulk Wallet', 'Vanity Wallet', and 'Split Wallet'</strong></a>—rely on a process called entropy generation, which increases the randomness of your generated keys. Once the seeder level reaches 100%, the tabs will become clickable, allowing you to proceed with your wallet generation safely. Move your mouse around or touch anywhere on your mobile phone screen to increase the seeder %.</p>
+      <p style="color: blue;">
+        If you do not have the patience to move your mouse or tap your mobile phone screen until the seeder pool reaches 100%, you can use our <strong>advanced lightning⚡️ version</strong> designed for maximum entropy generation with just a single touch. Click the blue button below.
+      </p>
+    </div>
+  </details>
+
+  <script>
+    // Accordion behavior: only one <details> open at a time
+    document.querySelectorAll("details").forEach((targetDetail) => {
+      targetDetail.addEventListener("toggle", () => {
+        if (targetDetail.open) {
+          document.querySelectorAll("details").forEach((detail) => {
+            if (detail !== targetDetail && detail.open) {
+              detail.removeAttribute("open");
+            }
+          });
+        }
+      });
+    });
+  </script>
+<br>
   <p>
   <a href="https://bitaddress.systems/liteGenerator.html" 
      style="display: inline-block; background-color: blue; color: white; font-size: 28pt; 
