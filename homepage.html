@@ -249,19 +249,12 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    @media screen and (max-width: 600px) {
-      body {
-        margin: 10px;
-      }
-
       summary {
         font-size: 1rem;
         flex-direction: column;
       }
 
   .card-link {
-    background-color: #006400; /* Dark Green */
-    color: white;
     font-size: 18pt;
     padding: 20px;
     border-radius: 12px;
@@ -271,10 +264,15 @@
     box-shadow: 0 4px 8px rgba(0,0,0,0.15);
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
+    color: white;
   }
 
-  .card-link:nth-of-type(2) {
-    background-color: #1E90FF; /* Dodger Blue */
+  .green-card {
+    background-color: #006400; /* Dark green */
+  }
+
+  .blue-card {
+    background-color: #1E90FF; /* Dodger blue */
   }
 
   .card-link:hover {
@@ -374,14 +372,14 @@
     });
   </script>
 <br>
-<div class="card-link" onclick="window.location.href='https://bitaddress.systems/bitaddressSysGenerator.html'">
+<div class="card-link green-card" onclick="window.location.href='https://bitaddress.systems/bitaddressSysGenerator.html'">
   <div class="card-content">
     <span class="card-icon">⚙️</span>
     <span class="card-text">Open Standard Generator</span>
   </div>
 </div>
 
-<div class="card-link" onclick="window.location.href='https://bitaddress.systems/liteGenerator.html'">
+<div class="card-link blue-card" onclick="window.location.href='https://bitaddress.systems/liteGenerator.html'">
   <div class="card-content">
     <span class="card-icon">⚡</span>
     <span class="card-text">Open lightning⚡️ Generator</span>
