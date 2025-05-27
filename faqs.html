@@ -57,10 +57,18 @@
 
 .tab-menu a.active {
     background-color: #b8860b; /* Active tab color */
-}
-	    	    
-        #tagline, #culturemenu {
-            font-size: 9pt;
+}  	    
+
+        #culturemenu {
+            font-size: 12pt;
+            margin-bottom: 20px;
+        }
+        .culturemenurow span {
+            margin: 0 5px;
+        }
+        #tagline {
+            font-size: 14pt;
+            margin-bottom: 20px;
         }
 
         .logo {
@@ -154,7 +162,6 @@
             <span><a href="?culture=it" id="cultureit" onclick="ninja.translator.translate('it'); return false;" class="">italiano</a></span> |
             <span><a href="?culture=de" id="culturede" onclick="ninja.translator.translate('de'); return false;" class="">Deutsch</a></span>
         </div>
-
         <div class="culturemenurow">
             <span><a href="?culture=cs" id="culturecs" onclick="ninja.translator.translate('cs'); return false;" class="">Česky</a></span> |
             <span><a href="?culture=hu" id="culturehu" onclick="ninja.translator.translate('hu'); return false;" class="">Magyar</a></span> |
@@ -172,7 +179,7 @@
     </div>
     
     <div id="tagline"><em>Open Source JavaScript Client-Side Bitcoin Wallet Address Generator</em></div>
-   <br><br> 
+
 <div class="tab-menu">
     <a href="https://bitaddress.systems/index.html">Home</a>
     <a href="https://bitaddress.systems/homepage.html">Guide</a>
